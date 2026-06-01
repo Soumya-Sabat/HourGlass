@@ -1,30 +1,26 @@
 ```text
 
-hourglass/
+hourglass/                          # Root (Monorepo: Frontend + Backend)
 │
-├── **public/**                          # Static files
+├── public/                         # Static files
 │   ├── favicon.ico
-│   ├── logo.svg
-│   └── assets/                          # Images, fonts, etc.
-│       ├── icons/
-│       └── illustrations/
+│   └── assets/
+│       └── logo.svg
 │
-├── **src/**                             # Source code (frontend + backend)
+├── src/                            # Shared source (Frontend + Backend)
 │   │
-│   ├── **app/**                         # Next.js App Router (Frontend)
-│   │   ├── (auth)/                      # Auth group
+│   ├── app/                        # Next.js App Router (Frontend)
+│   │   ├── (auth)/
 │   │   │   ├── login/
-│   │   │   │   └── page.tsx             # Login page
+│   │   │   │   └── page.tsx
 │   │   │   └── signup/
-│   │   │       └── page.tsx             # Signup page
-│   │   │
-│   │   ├── (dashboard)/                 # Protected routes
-│   │   │   ├── layout.tsx               # Dashboard layout
-│   │   │   ├── page.tsx                 # Dashboard home
+│   │   │       └── page.tsx
+│   │   ├── (dashboard)/
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx
 │   │   │   ├── departments/
-│   │   │   │   ├── page.tsx             # List departments
-│   │   │   │   └── [id]/
-│   │   │   │       └── page.tsx         # Edit department
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [id]/page.tsx
 │   │   │   ├── classrooms/
 │   │   │   │   ├── page.tsx
 │   │   │   │   └── [id]/page.tsx
@@ -41,143 +37,164 @@ hourglass/
 │   │   │   │   ├── page.tsx
 │   │   │   │   └── [id]/page.tsx
 │   │   │   ├── timetables/
-│   │   │   │   ├── page.tsx             # List timetables
-│   │   │   │   ├── new/
-│   │   │   │   │   └── page.tsx         # Create timetable (AI trigger)
+│   │   │   │   ├── page.tsx
+│   │   │   │   ├── new/page.tsx
 │   │   │   │   └── [id]/
-│   │   │   │       ├── page.tsx         # View timetable
-│   │   │   │       ├── edit/
-│   │   │   │       │   └── page.tsx       # Edit timetable
-│   │   │   │       └── approve/
-│   │   │   │           └── page.tsx     # Approve/reject
+│   │   │   │       ├── page.tsx
+│   │   │   │       ├── edit/page.tsx
+│   │   │   │       └── approve/page.tsx
 │   │   │   ├── leaves/
-│   │   │   │   ├── page.tsx             # List leaves
-│   │   │   │   └── request/
-│   │   │   │       └── page.tsx         # Request leave
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── request/page.tsx
 │   │   │   ├── preferences/
-│   │   │   │   └── page.tsx             # Submit preferences
+│   │   │   │   └── page.tsx
 │   │   │   ├── rules/
-│   │   │   │   ├── page.tsx             # List rules
-│   │   │   │   └── new/
-│   │   │   │       └── page.tsx         # Add rule
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── new/page.tsx
 │   │   │   └── analytics/
-│   │   │       └── page.tsx             # Analytics dashboard
-│   │   │
-│   │   ├── api/                         # Next.js API Routes (Backend)
-│   │   │   ├── auth/
-│   │   │   │   ├── login/
-│   │   │   │   │   └── route.ts         # Login API
-│   │   │   │   ├── signup/
-│   │   │   │   │   └── route.ts         # Signup API
-│   │   │   │   └── [...nextauth]/
-│   │   │   │       └── route.ts         # NextAuth config
-│   │   │   ├── departments/
-│   │   │   │   ├── route.ts             # GET (list), POST (create)
-│   │   │   │   └── [id]/
-│   │   │   │       └── route.ts         # GET, PUT, DELETE
-│   │   │   ├── classrooms/
-│   │   │   │   ├── route.ts
-│   │   │   │   └── [id]/route.ts
-│   │   │   ├── faculty/
-│   │   │   │   ├── route.ts
-│   │   │   │   ├── [id]/route.ts
-│   │   │   │   └── leaves/
-│   │   │   │       ├── route.ts         # GET (list), POST (request)
-│   │   │   │       └── [id]/route.ts     # PUT (approve/reject)
-│   │   │   ├── subjects/
-│   │   │   │   ├── route.ts
-│   │   │   │   └── [id]/route.ts
-│   │   │   ├── batches/
-│   │   │   │   ├── route.ts
-│   │   │   │   └── [id]/route.ts
-│   │   │   ├── slots/
-│   │   │   │   ├── route.ts
-│   │   │   │   └── [id]/route.ts
-│   │   │   ├── timetables/
-│   │   │   │   ├── route.ts             # GET (list), POST (generate)
-│   │   │   │   └── [id]/
-│   │   │   │       ├── route.ts         # GET, PUT, DELETE
-│   │   │   │       ├── approve/
-│   │   │   │       │   └── route.ts     # Approve timetable
-│   │   │   │       └── export/
-│   │   │   │           └── route.ts     # Export PDF/Excel/ICS
-│   │   │   ├── conflicts/
-│   │   │   │   └── route.ts             # GET conflicts for a timetable
-│   │   │   ├── rules/
-│   │   │   │   ├── route.ts
-│   │   │   │   └── [id]/route.ts
-│   │   │   └── preferences/
-│   │   │       └── route.ts             # POST (submit preferences)
-│   │   │
-│   │   ├── lib/                         # Utility functions
-│   │   │   ├── db.ts                   # MongoDB connection
-│   │   │   ├── auth.ts                 # Auth helpers
-│   │   │   └── utils.ts                # General utilities
-│   │   │
-│   │   ├── components/                  # Reusable UI components
-│   │   │   ├── ui/                     # Base UI (buttons, inputs)
-│   │   │   │   ├── Button.tsx
-│   │   │   │   ├── Input.tsx
-│   │   │   │   ├── Modal.tsx
-│   │   │   │   └── ...
-│   │   │   ├── layout/
-│   │   │   │   ├── Navbar.tsx
-│   │   │   │   ├── Sidebar.tsx
-│   │   │   │   └── Footer.tsx
-│   │   │   ├── timetable/
-│   │   │   │   ├── TimetableGrid.tsx   # Drag-and-drop grid
-│   │   │   │   ├── ConflictDetector.tsx
-│   │   │   │   └── ...
-│   │   │   ├── forms/
-│   │   │   │   ├── ClassroomForm.tsx
-│   │   │   │   ├── FacultyForm.tsx
-│   │   │   │   └── ...
-│   │   │   └── charts/
-│   │   │       ├── RoomUtilizationChart.tsx
-│   │   │       └── FacultyWorkloadChart.tsx
-│   │   │
-│   │   ├── hooks/                       # Custom React hooks
-│   │   │   ├── useAuth.ts
-│   │   │   ├── useTimetable.ts
-│   │   │   └── ...
-│   │   │
-│   │   ├── styles/                      # Global styles
-│   │   │   └── globals.css
-│   │   │
-│   │   └── types/                       # TypeScript types
-│   │       ├── user.ts
-│   │       ├── timetable.ts
-│   │       └── ...
+│   │   │       └── page.tsx
+│   │   └── api/                     # Next.js API Routes (Backend)
+│   │       ├── auth/
+│   │       │   └── [...nextauth]/
+│   │       │       └── route.ts
+│   │       ├── departments/
+│   │       │   ├── route.ts
+│   │       │   └── [id]/route.ts
+│   │       ├── classrooms/
+│   │       │   ├── route.ts
+│   │       │   └── [id]/route.ts
+│   │       ├── faculty/
+│   │       │   ├── route.ts
+│   │       │   ├── [id]/route.ts
+│   │       │   └── leaves/
+│   │       │       ├── route.ts
+│   │       │       └── [id]/route.ts
+│   │       ├── subjects/
+│   │       │   ├── route.ts
+│   │       │   └── [id]/route.ts
+│   │       ├── batches/
+│   │       │   ├── route.ts
+│   │       │   └── [id]/route.ts
+│   │       ├── slots/
+│   │       │   ├── route.ts
+│   │       │   └── [id]/route.ts
+│   │       ├── timetables/
+│   │       │   ├── route.ts
+│   │       │   └── [id]/
+│   │       │       ├── route.ts
+│   │       │       ├── approve/route.ts
+│   │       │       └── export/route.ts
+│   │       ├── conflicts/
+│   │       │   └── route.ts
+│   │       ├── rules/
+│   │       │   ├── route.ts
+│   │       │   └── [id]/route.ts
+│   │       ├── preferences/
+│   │       │   └── route.ts
+│   │       └── analytics/
+│   │           └── route.ts
 │   │
-│   ├── **ai/**                          # AI Optimization Engine (Python)
-│   │   ├── requirements.txt             # Python dependencies
-│   │   ├── timetable_optimizer.py        # OR-Tools + Genetic Algorithm
-│   │   ├── models/                      # Data models for AI
-│   │   │   ├── constraints.py
-│   │   │   └── ...
-│   │   └── utils/                       # Helper functions
-│   │       ├── preprocessing.py
-│   │       └── scoring.py
+│   ├── components/                   # Reusable UI components
+│   │   ├── ui/ (Button, Input, Modal, etc.)
+│   │   ├── layout/ (Navbar, Sidebar, Footer)
+│   │   ├── timetable/ (TimetableGrid, ConflictDetector)
+│   │   ├── forms/ (ClassroomForm, FacultyForm)
+│   │   └── charts/ (RoomUtilizationChart, FacultyWorkloadChart)
 │   │
-│   └── **scripts/**                     # Utility scripts
-│       ├── seed_db.js                   # Seed MongoDB with test data
-│       └── ...
+│   ├── lib/                          # Utilities
+│   │   ├── db.ts                     # MongoDB connection
+│   │   ├── redis.ts                  # Redis connection
+│   │   ├── auth.ts                   # NextAuth config
+│   │   └── utils.ts
+│   │
+│   ├── hooks/                        # Custom React hooks
+│   │   ├── useAuth.ts
+│   │   ├── useTimetable.ts
+│   │   └── ...
+│   │
+│   ├── styles/                       # Global styles
+│   │   └── globals.css
+│   │
+│   ├── types/                        # TypeScript types
+│   │   ├── user.ts
+│   │   ├── timetable.ts
+│   │   └── ...
+│   │
+│   └── backend/                      # Golang Backend (inside src/)
+│       ├── main.go                  # Entry point
+│       ├── config/
+│       │   └── config.go
+│       ├── handlers/
+│       │   ├── auth.go
+│       │   ├── timetables.go
+│       │   ├── classrooms.go
+│       │   ├── faculty.go
+│       │   ├── subjects.go
+│       │   ├── batches.go
+│       │   ├── slots.go
+│       │   ├── leaves.go
+│       │   ├── preferences.go
+│       │   ├── rules.go
+│       │   └── analytics.go
+│       ├── models/
+│       │   ├── user.go
+│       │   ├── timetable.go
+│       │   ├── classroom.go
+│       │   ├── faculty.go
+│       │   ├── subject.go
+│       │   ├── batch.go
+│       │   ├── slot.go
+│       │   ├── leave.go
+│       │   ├── preference.go
+│       │   ├── rule.go
+│       │   └── conflict.go
+│       ├── routes/
+│       │   └── routes.go
+│       ├── middleware/
+│       │   ├── auth.go
+│       │   └── rate_limiter.go
+│       ├── services/
+│       │   ├── ai_service.go          # Calls Python AI service
+│       │   ├── timetable_service.go
+│       │   ├── classroom_service.go
+│       │   ├── faculty_service.go
+│       │   ├── subject_service.go
+│       │   ├── batch_service.go
+│       │   ├── slot_service.go
+│       │   ├── leave_service.go
+│       │   ├── preference_service.go
+│       │   ├── rule_service.go
+│       │   └── analytics_service.go
+│       └── utils/
+│           ├── db.go
+│           ├── redis.go
+│           └── helpers.go
 │
-├── **config/**                          # Configuration files
-│   ├── next.config.js                   # Next.js config
-│   ├── tailwind.config.js               # Tailwind config
-│   └── .env.local.example               # Environment variables template
+├── ai/                              # Separate AI Service (Python)
+│   ├── main.py
+│   ├── models/
+│   │   ├── constraints.py
+│   │   └── timetable.py
+│   ├── solvers/
+│   │   ├── greedy.py
+│   │   ├── or_tools.py
+│   │   └── genetic.py
+│   ├── utils/
+│   │   ├── preprocessing.py
+│   │   └── scoring.py
+│   └── requirements.txt
 │
-├── **tests/**                           # Test files
-│   ├── unit/
-│   │   ├── frontend/
-│   │   └── backend/
-│   └── integration/
+├── scripts/                         # Utility scripts
+│   ├── seed_db.go                    # Seed MongoDB with test data
+│   └── test_ai.py                    # Test AI with sample data
 │
-├── **.gitignore**
-├── **package.json**                      # Frontend dependencies
-├── **requirements.txt**                 # Backend (Python) dependencies
-└── **README.md**                         # Project documentation
-
-    
+├── config/                          # Shared configs
+│   └── shared_config.json
+│
+├── .gitignore
+├── package.json                     # Frontend dependencies
+├── go.mod                           # Golang dependencies
+├── next.config.js
+├── tailwind.config.js
+└── README.md
 ```
