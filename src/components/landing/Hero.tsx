@@ -7,10 +7,6 @@ export default function Hero() {
         
         {/* Left Content Column */}
         <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-emerald-500 text-white rounded-full px-4 py-1 text-xs sm:text-sm font-bold tracking-wide shadow-sm">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>AI-powered • NEP 2020 compliant</span>
-          </div>
           
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-none">
             Generate conflict-free <br className="hidden sm:inline" />
@@ -21,7 +17,7 @@ export default function Hero() {
           </h1>
           
           <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed">
-            SchedulAI helps colleges and schools create optimized, NEP-compliant timetables using AI — handling faculty constraints, room allocation, batch splits, and multi-shift scheduling automatically.
+            HourGlass helps colleges and schools create optimized, NEP-compliant timetables using AI — handling faculty constraints, room allocation, batch splits, and multi-shift scheduling automatically.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
@@ -34,7 +30,7 @@ export default function Hero() {
           </div>
 
           {/* Quick Metrics Bar directly matching image */}
-          <div className="grid grid-cols-4 gap-4 pt-8 border-t border-slate-200 text-center lg:text-left">
+          <div className="grid grid-cols-4 gap-4 pt-3 border-t border-slate-200 text-center lg:text-left">
             <div>
               <div className="text-xl sm:text-2xl font-black text-slate-900">500+</div>
               <div className="text-[11px] font-bold text-slate-500 uppercase tracking-tight">Institutions</div>
@@ -65,7 +61,7 @@ export default function Hero() {
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                  <span className="text-[11px] text-slate-400 font-medium ml-2">SchedulAI Dashboard</span>
+                  <span className="text-[11px] text-slate-400 font-medium ml-2">HourGlass Dashboard</span>
                 </div>
                 <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-bold">● AI Online</span>
               </div>

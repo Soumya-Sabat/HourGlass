@@ -1,22 +1,21 @@
 export default function CTA() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Container frame upgraded to vivid gradient border background */}
-      <div className="bg-gradient-to-r from-blue-700 via-cyan-600 to-emerald-600 rounded-3xl p-8 md:p-12 text-white flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl">
-        <div className="text-center lg:text-left space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-black tracking-tight">
+    <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-slate-950 rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden text-center md:text-left md:flex md:items-center md:justify-between gap-6 border border-slate-800">
+        <div className="space-y-2 max-w-2xl">
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
             Ready to stop building timetables manually?
           </h2>
-          <p className="text-sm text-blue-50 font-medium opacity-90">
-            Join 500+ institutions already using SchedulAI.
+          <p className="text-slate-400 text-sm sm:text-base font-medium">
+            Join 500+ institutions already using HourGlass to optimize multi-department conflict resolution tracks.
           </p>
         </div>
-        
-        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0">
-          <button className="bg-white text-slate-900 font-bold px-5 py-3 rounded-xl text-sm hover:bg-slate-50 transition shadow-md">
+
+        <div className="flex flex-col sm:flex-row justify-center gap-3 mt-6 md:mt-0 shrink-0">
+          <button className="bg-white text-slate-950 font-extrabold px-6 py-3 rounded-xl hover:bg-slate-100 transition shadow-md text-sm whitespace-nowrap">
             Request a Demo
           </button>
-          <button className="bg-slate-950 text-white font-bold px-5 py-3 rounded-xl text-sm hover:bg-slate-900 transition shadow-md border border-slate-800">
+          <button className="bg-indigo-600 text-white font-extrabold px-6 py-3 rounded-xl hover:bg-indigo-700 transition shadow-md text-sm whitespace-nowrap">
             Get Started Free
           </button>
         </div>
