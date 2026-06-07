@@ -393,10 +393,7 @@ function SocialLinksSection() {
   return (
     <div className="grid min-w-0 gap-4 sm:grid-cols-2">
       <TextInput name="socialLinks.linkedin" label="LinkedIn" type="url" placeholder="https://..." required/>
-      <TextInput name="socialLinks.github" label="GitHub" type="url" placeholder="https://..." />
-      <TextInput name="socialLinks.portfolio" label="Portfolio" type="url" placeholder="https://..." />
-      <TextInput name="socialLinks.twitter" label="Twitter / X" type="url" placeholder="https://..." />
-      <TextInput name="socialLinks.reddit" label="Reddit" type="url" placeholder="https://..." />
+      <TextInput name="socialLinks.website" label="Institution Website" type="url" placeholder="https://..." required/>
     </div>
   );
 }

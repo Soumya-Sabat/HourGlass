@@ -624,7 +624,7 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-brand-orange px-5 text-sm font-black text-white shadow-lg shadow-orange-700/10 transition hover:bg-brand-orange/90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+              className="inline-flex h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-brand-orange px-5 text-sm font-black text-slate-600 shadow-lg shadow-orange-700/10 transition hover:bg-brand-orange/90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
               Create Your Account
