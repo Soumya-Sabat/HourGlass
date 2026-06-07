@@ -10,7 +10,7 @@ export default function Hero() {
           
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-none">
             Generate conflict-free <br className="hidden sm:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-500 to-emerald-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-blue-500 to-emerald-500">
               timetables in seconds
             </span>{" "}
             not weeks.
@@ -63,7 +63,7 @@ export default function Hero() {
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                   <span className="text-[11px] text-slate-400 font-medium ml-2">HourGlass Dashboard</span>
                 </div>
-                <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-bold">● AI Online</span>
+                <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-bold">● Online</span>
               </div>
 
               {/* Upper Analytics Panel Inside Mockup */}

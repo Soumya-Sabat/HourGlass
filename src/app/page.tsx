@@ -4,7 +4,9 @@ import Steps from "@/components/landing/Steps";
 import Features from "@/components/landing/Features";
 import Stakeholders from "@/components/landing/Stakeholders";
 import CTA from "@/components/landing/CTA";
+import ContactSection from "@/components/landing/ContactUs";
 import Footer from "@/components/landing/Footer";
+import Testimonials from "@/components/landing/Testimonials";
 
 export default function LandingPage() {
   return (  
@@ -16,6 +18,8 @@ export default function LandingPage() {
         <Features />
         <Stakeholders />
         <CTA />
+        <ContactSection/>
+        <Testimonials/>
       </main>
       <Footer />
     </div>
