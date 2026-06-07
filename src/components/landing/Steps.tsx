@@ -1,4 +1,4 @@
-import { ArrowRight, Settings, Cpu, ShieldCheck, Globe } from "lucide-react";
+import { Settings, Cpu, ShieldCheck, Globe } from "lucide-react";
 
 export default function Steps() {
   const processFlow = [

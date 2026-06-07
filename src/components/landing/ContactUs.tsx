@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Mail, Phone, MapPin, Send, Rocket } from "lucide-react";
+import { Mail, Phone, MapPin, Rocket } from "lucide-react";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -39,7 +39,7 @@ export default function ContactSection() {
       form.reset();
       setState("success");
       setMessage(payload.message ?? "Message received. We will reply soon.");
-    } catch (err) {
+    } catch {
       setState("error");
       setMessage("Failed to submit form. Please check your network connectivity.");
     }
