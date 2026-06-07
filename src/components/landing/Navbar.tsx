@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, ChevronDown, GraduationCap, School } from "lucide-react";
+import { Menu, X, ChevronDown, Webhook, Rss } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const router=useRouter()
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -22,8 +24,8 @@ export default function Navbar() {
   }, []);
 
   const documentation = [
-    { name: "Blogs", href: "/docs/schools", desc: "Timetables optimized for K-12 periods.", icon: <School className="h-4 w-4 text-indigo-600" /> },
-    { name: "API docs", href: "/docs/colleges", desc: "NEP-compliant credit grids & room allocations.", icon: <GraduationCap className="h-4 w-4 text-indigo-600" /> },
+    { name: "Blogs", href: "/docs/blogs", desc: "What we do and friction topics.", icon: <Rss className="h-4 w-4 text-indigo-600" /> },
+    { name: "API docs", href: "/docs/api", desc: "Integrate HourGlass with your applications.", icon: <Webhook className="h-4 w-4 text-indigo-600" /> },
   ];
 
   const standardLinks = [
@@ -35,7 +37,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-4 left-0 right-0 z-50 px-3 sm:px-4">
-      <div className="max-w-7xl mx-auto bg-gradient-to-r from-[#F1F7FC]/60 via-[#EAF3FA]/60 to-[#FCECE5]/60 backdrop-blur-xl border border-slate-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-full px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto bg-gradient-to-r from-[#F1F7FC]/60 via-[#EAF3FA]/60 to-[#FCECE5]/60 backdrop-blur-xl border border-slate-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-full px-4 bg-slate-500 sm:px-6">
         <div className="flex items-center w-full h-16">
           
           {/* Logo */}
@@ -118,10 +120,14 @@ export default function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3 ml-auto">
-            <button className="text-sm font-semibold text-slate-700 hover:text-indigo-600 transition-colors px-3 py-2">
+            <button 
+            onClick={() => router.push("/login")}
+            className="text-sm font-semibold text-slate-700 hover:text-indigo-600 transition-colors px-3 py-2">
               Log in
             </button>
-            <button className="bg-indigo-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-indigo-700 transition-all duration-200 shadow-lg shadow-indigo-500/20">
+            <button 
+            onClick={(() => router.push("/register"))}
+            className="bg-indigo-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-indigo-700 transition-all duration-200 shadow-lg shadow-indigo-500/20">
               Get Started Free
             </button>
           </div>
@@ -187,10 +193,14 @@ export default function Navbar() {
 
               {/* Mobile Interaction Drawer Blocks */}
               <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-3">
-                <button className="w-full py-3 rounded-xl border border-slate-200 text-slate-700 font-semibold hover:bg-slate-50 transition-colors">
+                <button
+                onClick={() => router.push("/login")}
+                className="w-full py-3 rounded-xl border border-slate-200 text-slate-700 font-semibold hover:bg-slate-50 transition-colors">
                   Log in
                 </button>
-                <button className="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/20">
+                <button 
+                onClick={() => router.push("/register")}
+                className="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/20">
                   Get Started Free
                 </button>
               </div>
