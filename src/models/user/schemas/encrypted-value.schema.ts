@@ -2,7 +2,6 @@ import { Schema } from "mongoose";
 
 export const EncryptedValueSchema = new Schema(
   {
-    // algorithm: { type: String, required: true },
     cipherText: { type: String, required: true },
     iv: { type: String, required: true },
     salt: { type: String, required: true },

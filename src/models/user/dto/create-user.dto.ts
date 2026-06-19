@@ -8,6 +8,7 @@ export type CreateUserDto = {
   institution?: {
     name?: string;
     type?: string;
+    academicMode?: string;
     affiliation?: string;
     establishedYear?: number;
     website?: string;
@@ -21,6 +22,16 @@ export type CreateUserDto = {
       postalCode?: string;
       line?: string;
     };
+    academicYear?: string;
+    timetableCycle?: string;
+    workingDays?: string[];
+    periodDurationMinutes?: number;
+    dailyPeriods?: number;
+    breakSlots?: string[];
+    departmentsOrSections?: string[];
+    classroomResources?: string[];
+    approvalWorkflow?: string[];
+    schedulingRules?: string[];
   };
   fullName: string;
   email: string;

@@ -2,86 +2,55 @@ import { z } from "zod";
 import { UserRole } from "@/models/user/types/user-role.enum";
 
 const requiredString = z.string().trim().min(1);
-const optionalString = z.string().trim().optional();
 const requiredNumber = z.number().min(0);
 const requiredTags = z.array(z.string().trim().min(1)).min(1);
-const optionalTags = z.array(z.string().trim().min(1)).optional();
-const optionalUrl = z.url().optional();
 const otpSchema = z.string().regex(/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{}|;:,.<>?]{6}$/);
 
 const roleProfileSchemas: Partial<Record<UserRole, z.ZodType>> = {
-  [UserRole.Professor]: z.object({
-    facultyId: requiredString,
-    researchDomains: requiredTags,
-    publications: requiredNumber,
-    patents: optionalString,
-    universityName: requiredString,
-    coursesTeaching: requiredTags,
-    availableForMentorship: requiredString,
-    fundedProjects: optionalString,
-    portfolioWebsite: optionalUrl,
-    orcidId: optionalString,
-    researchGate: optionalUrl,
-    googleScholar: optionalUrl,
+  [UserRole.InstitutionAdmin]: z.object({
+    adminScope: requiredString,
+    academicMode: requiredString,
+    managedDepartments: requiredTags,
+    timetableCycle: requiredString,
   }),
-  [UserRole.Researcher]: z.object({
-    researchArea: requiredString,
-    publishedPaperCount: requiredNumber,
-    currentResearchTopic: requiredString,
-    openToCollaboration: requiredString,
-    domains: requiredTags,
-    labOrCenter: requiredString,
-    universityName: requiredString,
+  [UserRole.DepartmentAdmin]: z.object({
+    departmentName: requiredString,
+    managedBatches: requiredTags,
+    roomPlanningAccess: requiredString,
+    approvalLevel: requiredString,
   }),
-  [UserRole.Industry]: z.object({
-    companyName: requiredString,
-    industrySector: requiredString,
-    domains: requiredTags,
-    jobRole: requiredString,
-    problemsInterestedIn: requiredTags,
-    hiringInterns: requiredString,
-    companyWebsite: optionalUrl,
-    idCardProof: optionalString,
+  [UserRole.DepartmentHead]: z.object({
+    departmentName: requiredString,
+    facultyCount: requiredNumber,
+    approvalResponsibility: requiredString,
+    priorityRules: requiredTags,
   }),
-  [UserRole.Founder]: z.object({
-    startupName: requiredString,
-    startupDomain: requiredString,
-    stage: requiredString,
-    teamSize: requiredNumber,
-    fundingStatus: requiredString,
-    startupDescription: requiredString,
-    startupWebsite: optionalUrl,
-    incubationStatus: optionalString,
-    url: optionalUrl,
+  [UserRole.Faculty]: z.object({
+    employeeId: requiredString,
+    departmentName: requiredString,
+    subjects: requiredTags,
+    maxClassesPerDay: requiredNumber,
+    preferredSlots: requiredTags,
   }),
-  [UserRole.Incubator]: z.object({
-    incubationName: requiredString,
-    supportedDomains: requiredTags,
-    startupsSupportedCount: requiredNumber,
-    fundingAvailable: requiredString,
-    website: optionalUrl,
-    applicationLink: optionalUrl,
-    acceptanceCriteria: optionalString,
-    preferencePlans: optionalString,
-  }),
-  [UserRole.Investor]: z.object({
-    investmentFirmName: requiredString,
-    investmentDomains: requiredTags,
-    investmentRange: requiredString,
-    portfolioCompaniesCount: requiredNumber,
-    openToMentor: requiredString,
-    funding: optionalString,
-    interestedStartupStages: optionalTags,
+  [UserRole.Reviewer]: z.object({
+    reviewScope: requiredString,
+    reviewDepartments: requiredTags,
+    checksPerformed: requiredTags,
   }),
   [UserRole.Student]: z.object({
-    collegeName: requiredString,
-    degree: requiredString,
-    branch: requiredString,
-    yearOfStudy: requiredString,
-    areasOfInterest: requiredTags,
-    interestedInInternship: requiredString,
-    hackathons: optionalString,
-    industryExperience: optionalString,
+    studentId: requiredString,
+    programOrClass: requiredString,
+    batchOrSection: requiredString,
+    subjects: requiredTags,
+    preferredSlots: requiredTags,
+  }),
+  [UserRole.Admin]: z.object({
+    adminArea: requiredString,
+    permissions: requiredTags,
+  }),
+  [UserRole.SuperAdmin]: z.object({
+    adminArea: requiredString,
+    permissions: requiredTags,
   }),
 };
 
@@ -92,6 +61,7 @@ export const createUserSchema = z.object({
     .object({
       name: z.string().trim().min(2).optional(),
       type: z.string().trim().min(2).optional(),
+      academicMode: z.enum(["school", "college", "hybrid"]).optional(),
       affiliation: z.string().trim().optional(),
       establishedYear: z.number().int().min(1800).optional(),
       website: z.url().optional(),
@@ -107,6 +77,16 @@ export const createUserSchema = z.object({
           line: z.string().trim().optional(),
         })
         .optional(),
+      academicYear: z.string().trim().optional(),
+      timetableCycle: z.string().trim().optional(),
+      workingDays: z.array(z.string().trim().min(1)).optional(),
+      periodDurationMinutes: z.number().int().min(20).max(120).optional(),
+      dailyPeriods: z.number().int().min(1).max(16).optional(),
+      breakSlots: z.array(z.string().trim().min(1)).optional(),
+      departmentsOrSections: z.array(z.string().trim().min(1)).optional(),
+      classroomResources: z.array(z.string().trim().min(1)).optional(),
+      approvalWorkflow: z.array(z.string().trim().min(1)).optional(),
+      schedulingRules: z.array(z.string().trim().min(1)).optional(),
     })
     .optional(),
   fullName: z.string().trim().min(2),
@@ -162,6 +142,7 @@ export const createUserSchema = z.object({
     const requiredInstitutionFields = [
       ["name", institution?.name],
       ["type", institution?.type],
+      ["academicMode", institution?.academicMode],
       ["contactPerson", institution?.contactPerson],
       ["contactEmail", institution?.contactEmail],
     ] as const;

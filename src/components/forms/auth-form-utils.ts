@@ -8,13 +8,35 @@ export async function postJson<T>(url: string, data: Record<string, unknown>): P
     },
     body: JSON.stringify(data),
   });
-  const result = await response.json();
+  const result = (await readJsonResponse(response)) as {
+    success?: boolean;
+    data?: T;
+    error?: string;
+  };
 
   if (!response.ok || !result.success) {
     throw new Error(result.error ?? "Something went wrong.");
   }
 
   return result.data as T;
+}
+
+async function readJsonResponse(response: Response) {
+  const text = await response.text();
+
+  if (!text) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(text) as unknown;
+  } catch {
+    throw new Error(
+      response.ok
+        ? "The server returned an invalid response."
+        : "The server returned an error page instead of JSON.",
+    );
+  }
 }
 
 export function readString(form: FormData, key: string) {
@@ -40,7 +62,7 @@ function readTags(form: FormData, key: string) {
 
 export function buildRegisterPayload(form: FormData) {
   const accountType = (String(form.get("accountType") ?? "user") || "user") as RegisterAccountType;
-  const role = accountType === "institution" ? "admin" : String(form.get("role") ?? "");
+  const role = accountType === "institution" ? "institution_admin" : String(form.get("role") ?? "");
   const email =
     accountType === "institution"
       ? String(form.get("institution.contactEmail") ?? "")
@@ -49,6 +71,7 @@ export function buildRegisterPayload(form: FormData) {
   const institutionDetails = {
     name: readString(form, "institution.name"),
     type: readString(form, "institution.type"),
+    academicMode: readString(form, "institution.academicMode"),
     affiliation: readString(form, "institution.affiliation"),
     establishedYear: readNumber(form, "institution.establishedYear"),
     website: readString(form, "institution.website"),
@@ -62,6 +85,16 @@ export function buildRegisterPayload(form: FormData) {
       postalCode: readString(form, "institution.address.postalCode"),
       line: readString(form, "institution.address.line"),
     },
+    academicYear: readString(form, "institution.academicYear"),
+    timetableCycle: readString(form, "institution.timetableCycle"),
+    workingDays: readTags(form, "institution.workingDays"),
+    periodDurationMinutes: readNumber(form, "institution.periodDurationMinutes"),
+    dailyPeriods: readNumber(form, "institution.dailyPeriods"),
+    breakSlots: readTags(form, "institution.breakSlots"),
+    departmentsOrSections: readTags(form, "institution.departmentsOrSections"),
+    classroomResources: readTags(form, "institution.classroomResources"),
+    approvalWorkflow: readTags(form, "institution.approvalWorkflow"),
+    schedulingRules: readTags(form, "institution.schedulingRules"),
   };
   const address = {
     country: readString(form, "address.country"),

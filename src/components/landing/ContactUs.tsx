@@ -28,7 +28,7 @@ export default function ContactSection() {
         }),
       });
 
-      const payload = (await response.json()) as { message?: string };
+      const payload = await readContactResponse(response);
 
       if (!response.ok) {
         setState("error");
@@ -139,4 +139,22 @@ export default function ContactSection() {
       </div>
     </section>
   );
+}
+
+async function readContactResponse(response: Response) {
+  const text = await response.text();
+
+  if (!text) {
+    return {} as { message?: string };
+  }
+
+  try {
+    return JSON.parse(text) as { message?: string };
+  } catch {
+    return {
+      message: response.ok
+        ? "The server returned an invalid response."
+        : "The server returned an error page instead of JSON.",
+    };
+  }
 }

@@ -12,7 +12,14 @@ export function fail(error: unknown, status = 400) {
 }
 
 export async function readValidatedJson<T>(request: Request, schema: ZodType<T>) {
-  const payload = await request.json();
+  let payload: unknown;
+
+  try {
+    payload = await request.json();
+  } catch {
+    throw new Error("Request body must be valid JSON.");
+  }
+
   const parsed = schema.safeParse(payload);
 
   if (!parsed.success) {

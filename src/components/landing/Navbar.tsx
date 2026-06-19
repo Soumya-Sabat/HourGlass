@@ -47,7 +47,7 @@ export default function Navbar() {
               alt="HourGlass Logo"
               width={160}
               height={56}
-              className="h-10 w-auto sm:h-12"
+              className="h-10 w-auto max-w-full object-contain sm:h-12 brightness-0 invert"
               priority
             />
           </Link>

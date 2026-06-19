@@ -209,7 +209,7 @@ export function LoginForm() {
     setState({});
 
     try {
-      await postJson<{ message: string }>("/api/auth/verify-login", {
+      const result = await postJson<{ message: string; redirectTo?: string }>("/api/auth/verify-login", {
         email,
         otp: normalizedOtp,
       });
@@ -225,7 +225,7 @@ export function LoginForm() {
       //   return;
       // }
 
-      router.push("/dashboard");
+      router.push(result.redirectTo ?? "/dashboard");
       router.refresh();
     } catch {
       setState({ error: "Invalid or expired OTP. Request a fresh code and try again." });
@@ -261,7 +261,7 @@ export function LoginForm() {
         <button
           type="submit"
           disabled={loading || !email || (otpSent && cooldownSeconds > 0)}
-          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-brand-blue px-5 text-sm font-black text-white shadow-lg shadow-blue-900/10 transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-60 sm:h-12"
+          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-orange-400 px-5 text-sm font-black text-black shadow-lg shadow-blue-900/10 transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-60 sm:h-12"
         >
           {loading ? (
             <Loader2 className="h-4 w-4 animate-spin" />

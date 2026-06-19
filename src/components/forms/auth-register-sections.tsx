@@ -157,8 +157,36 @@ function InstitutionSection() {
     <div className="grid min-w-0 gap-4 sm:grid-cols-2">
       <TextInput name="institution.name" label="Institution Name" placeholder="HourGlass Institute of Technology" required minLength={2} maxLength={140} />
       <TextInput name="institution.type" label="Institution Type" placeholder="School / College / University" required minLength={2} maxLength={80} />
+      <div className="min-w-0 space-y-2">
+        <FieldLabel>Academic Mode</FieldLabel>
+        <select
+          name="institution.academicMode"
+          required
+          defaultValue=""
+          className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+        >
+          <option value="" disabled>
+            Select mode
+          </option>
+          <option value="school">School</option>
+          <option value="college">College</option>
+          <option value="hybrid">School + College</option>
+        </select>
+      </div>
       <TextInput name="institution.affiliation" label="Affiliation" placeholder="Board, university, or council" required minLength={2} maxLength={120} />
       <TextInput name="institution.establishedYear" label="Established Year" type="number" placeholder="2004" required min={1800} max={currentYear} />
+      <TextInput name="institution.academicYear" label="Academic Year" placeholder="2026-27" required minLength={4} maxLength={20} />
+      <TextInput name="institution.timetableCycle" label="Timetable Cycle" placeholder="Semester 1 / Term 1" required minLength={2} maxLength={80} />
+      <TextInput name="institution.workingDays" label="Working Days" placeholder="Monday, Tuesday, Wednesday, Thursday, Friday" required minLength={2} maxLength={200} />
+      <TextInput name="institution.periodDurationMinutes" label="Period Duration (minutes)" type="number" placeholder="45" required min={20} max={120} />
+      <TextInput name="institution.dailyPeriods" label="Daily Periods" type="number" placeholder="8" required min={1} max={16} />
+      <TextInput name="institution.breakSlots" label="Break Slots" placeholder="Lunch 12:30, Short break 10:30" minLength={2} maxLength={200} />
+      <TextInput name="institution.departmentsOrSections" label="Departments / Sections" placeholder="CSE, ECE, Grade 10, Primary" required minLength={2} maxLength={240} />
+      <TextInput name="institution.classroomResources" label="Classroom Resources" placeholder="Projector, Smart board, Physics lab, Computer lab" required minLength={2} maxLength={240} />
+      <TextInput name="institution.approvalWorkflow" label="Approval Workflow" placeholder="Department Admin, Department Head, Institution Admin" required minLength={2} maxLength={240} />
+      <div className="sm:col-span-2">
+        <TextInput name="institution.schedulingRules" label="Scheduling Rules" placeholder="No lab after 4 PM, No teacher over 4 periods/day" minLength={2} maxLength={280} />
+      </div>
       <TextInput name="institution.website" label="Website" type="url" placeholder="https://..." />
       <TextInput name="institution.contactPerson" label="Contact Person" placeholder="Dr. Ananya Rao" required minLength={2} maxLength={80} />
       <TextInput name="institution.contactEmail" label="Contact Email" type="email" placeholder="admin@institution.ac.in" required />

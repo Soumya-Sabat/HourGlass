@@ -8,17 +8,11 @@ import {
 } from "@/helpers/crypto/encryption";
 import { generateOtp, hashOtp, verifyOtp } from "@/helpers/security/otp";
 import { sendOtpEmail } from "@/helpers/email/send-otp";
+import { AcademicProfileModel } from "@/models/academic/schemas/academic-profile.schema";
 import { InstitutionModel, type InstitutionDocument } from "@/models/institution/schemas/institution.schema";
 import type { CreateUserDto } from "@/models/user/dto/create-user.dto";
 import type { LoginDto } from "@/models/user/dto/login.dto";
 import type { VerifyEmailDto } from "@/models/user/dto/verify-email.dto";
-import { FounderProfileModel } from "@/models/founder/schemas/founder-profile.schema";
-import { IncubatorProfileModel } from "@/models/incubator/schemas/incubator-profile.schema";
-import { IndustryProfileModel } from "@/models/industry/schemas/industry-profile.schema";
-import { InvestorProfileModel } from "@/models/investor/schemas/investor-profile.schema";
-import { ProfessorProfileModel } from "@/models/professor/schemas/professor-profile.schema";
-import { ResearcherProfileModel } from "@/models/researcher/schemas/researcher-profile.schema";
-import { StudentProfileModel } from "@/models/student/schemas/student-profile.schema";
 import { UserRepository } from "@/models/user/repositories/user.repository";
 import { UserRole } from "@/models/user/types/user-role.enum";
 import mongoose from "mongoose"; // Moved global import to the top
@@ -32,13 +26,14 @@ type ProfileModel = {
   create(data: Record<string, unknown>): Promise<unknown>;
 };
 const roleProfileModels: Partial<Record<UserRole, ProfileModel>> = {
-  [UserRole.Professor]: ProfessorProfileModel,
-  [UserRole.Researcher]: ResearcherProfileModel,
-  [UserRole.Industry]: IndustryProfileModel,
-  [UserRole.Founder]: FounderProfileModel,
-  [UserRole.Incubator]: IncubatorProfileModel,
-  [UserRole.Investor]: InvestorProfileModel,
-  [UserRole.Student]: StudentProfileModel,
+  [UserRole.InstitutionAdmin]: AcademicProfileModel,
+  [UserRole.DepartmentAdmin]: AcademicProfileModel,
+  [UserRole.DepartmentHead]: AcademicProfileModel,
+  [UserRole.Faculty]: AcademicProfileModel,
+  [UserRole.Reviewer]: AcademicProfileModel,
+  [UserRole.Student]: AcademicProfileModel,
+  [UserRole.Admin]: AcademicProfileModel,
+  [UserRole.SuperAdmin]: AcademicProfileModel,
 };
 
 // Inline helper to compile/retrieve the Admin model cleanly
@@ -146,7 +141,7 @@ async function generateInstitutionId(institution: InstitutionDocument) {
 }
 
 async function createInstitutionProfile(userId: unknown, input: CreateUserDto["institution"]) {
-  if (!input?.name || !input.type || !input.contactPerson || !input.contactEmail) {
+  if (!input?.name || !input.type || !input.academicMode || !input.contactPerson || !input.contactEmail) {
     throw new Error("Institution registration requires complete academic and contact details.");
   }
 
@@ -155,6 +150,7 @@ async function createInstitutionProfile(userId: unknown, input: CreateUserDto["i
     nameHash: createLookupHash(input.name, "institution-name"),
     name: encryptValue(input.name),
     type: encryptValue(input.type),
+    academicMode: encryptValue(input.academicMode ?? "hybrid"),
     affiliation: input.affiliation ? encryptValue(input.affiliation) : undefined,
     establishedYear: input.establishedYear !== undefined ? encryptValue(input.establishedYear) : undefined,
     website: input.website ? encryptValue(input.website) : undefined,
@@ -162,6 +158,16 @@ async function createInstitutionProfile(userId: unknown, input: CreateUserDto["i
     contactEmail: encryptValue(normalizeEmail(input.contactEmail)),
     contactPhone: input.contactPhone ? encryptValue(input.contactPhone) : undefined,
     address: input.address ? encryptValue(input.address) : undefined,
+    academicYear: input.academicYear ? encryptValue(input.academicYear) : undefined,
+    timetableCycle: input.timetableCycle ? encryptValue(input.timetableCycle) : undefined,
+    workingDays: input.workingDays ? encryptValue(input.workingDays) : undefined,
+    periodDurationMinutes: input.periodDurationMinutes !== undefined ? encryptValue(input.periodDurationMinutes) : undefined,
+    dailyPeriods: input.dailyPeriods !== undefined ? encryptValue(input.dailyPeriods) : undefined,
+    breakSlots: input.breakSlots ? encryptValue(input.breakSlots) : undefined,
+    departmentsOrSections: input.departmentsOrSections ? encryptValue(input.departmentsOrSections) : undefined,
+    classroomResources: input.classroomResources ? encryptValue(input.classroomResources) : undefined,
+    approvalWorkflow: input.approvalWorkflow ? encryptValue(input.approvalWorkflow) : undefined,
+    schedulingRules: input.schedulingRules ? encryptValue(input.schedulingRules) : undefined,
   });
 }
 

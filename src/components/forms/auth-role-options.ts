@@ -1,20 +1,20 @@
 import {
-  BadgeCheck,
   BookOpen,
-  BriefcaseBusiness,
   Building2,
+  ClipboardCheck,
   GraduationCap,
-  Microscope,
+  Landmark,
   ShieldCheck,
+  UsersRound,
 } from "lucide-react";
 import type { RoleOption } from "@/components/forms/auth-form.types";
 
 export const roleOptions: RoleOption[] = [
-  { value: "professor", label: "Professor", icon: BookOpen },
-  { value: "researcher", label: "Researcher", icon: Microscope },
-  { value: "industry", label: "Industrialist", icon: BriefcaseBusiness },
-  { value: "founder", label: "Founder", icon: Building2 },
-  { value: "incubator", label: "Incubation Head", icon: ShieldCheck },
-  { value: "investor", label: "Investor", icon: BadgeCheck },
+  { value: "institution_admin", label: "Institution Admin", icon: Landmark },
+  { value: "department_admin", label: "Department Admin", icon: Building2 },
+  { value: "department_head", label: "Department Head", icon: ShieldCheck },
+  { value: "faculty", label: "Faculty / Teacher", icon: BookOpen },
+  { value: "reviewer", label: "Reviewer", icon: ClipboardCheck },
   { value: "student", label: "Student", icon: GraduationCap },
+  { value: "admin", label: "System Admin", icon: UsersRound },
 ];

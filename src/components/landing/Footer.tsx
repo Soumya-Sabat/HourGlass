@@ -17,7 +17,7 @@ export default function Footer() {
               height={96}
               className="h-12 w-auto max-w-full object-contain sm:h-14 brightness-0 invert" // Kept inverted for high-contrast visibility on dark background
               priority
-            />
+            /> HourGlass
           </Link>
           <p className="text-slate-400 font-medium leading-relaxed max-w-sm text-pretty break-words">
             Next-generation constraint satisfaction AI engine engineered to resolve administrative overlaps, room conflicts, and workload restrictions automatically.
