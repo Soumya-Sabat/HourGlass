@@ -10,17 +10,21 @@ import Testimonials from "@/components/landing/Testimonials";
 
 export default function LandingPage() {
   return (  
-    <div className="min-h-screen bg-[linear-gradient(135deg,#e0ebff_0%,#e8e7ff_45%,#fae8ff_100%)] text-slate-800 selection:bg-indigo-600 selection:text-white overflow-x-hidden antialiased">
+    <div className="min-h-screen bg-[#f4ebd0] text-[#1a1a14] selection:bg-[#e28774] selection:text-[#1a1a14] overflow-x-hidden antialiased font-mono">
+      {/* Flat top navigation bar wrapper */}
       <Navbar />
-      <main>
+      
+      <main className="relative z-10 flex flex-col">
         <Hero />
         <Steps />
         <Features />
         <Stakeholders />
         <CTA />
-        <ContactSection/>
-        <Testimonials/>
+        <ContactSection />
+        <Testimonials />
       </main>
+      
+      {/* Heavy-bordered flat baseline layout footer block */}
       <Footer />
     </div>
   );
