@@ -12,11 +12,12 @@ export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
     "/dashboard/student",                  // Main Student Home Console
     "/dashboard/student/timetable",        // Student's specific class timetable
     "/dashboard/student/subjects",         // Student registered subjects view
-    "/dashboard/student/faculty-roster",   // Student view of assigned faculties
+    "/dashboard/student/faculties",        // Student view of assigned faculties
     "/dashboard/student/messages",         // Student chat/queries desk
-    "/dashboard/student/notices",          // Student relevant notice boards
+    "/dashboard/student/alerts",           // Student relevant notice boards
     "/dashboard/student/attendance",       // Student personal attendance logs
-    "/dashboard/student/downloads"         // Student academic resource downloads
+    "/dashboard/student/marksheet",        // Student marksheet
+    "/dashboard/student/settings"          // Student settings
   ],
   
   faculty: [
