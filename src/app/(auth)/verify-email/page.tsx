@@ -20,11 +20,11 @@ export default function VerifyEmailPage() {
           <p className="text-sm font-black uppercase tracking-[0.3em] text-cyan-100">Email Verification</p>
           <h1 className="text-4xl xl:text-5xl font-black leading-tight">Confirm the email for your account.</h1>
           <p className="text-base font-medium leading-7 text-cyan-50/85">
-            Enter the OTP sent to your inbox. After verification, your email can be used for passwordless login.
+            Enter the OTP sent to your inbox. After verification, your email can be used for login.
           </p>
         </div>
         <p className="text-xs font-bold uppercase tracking-wider text-cyan-100/70">
-          OTPs expire in 10 minutes and are stored as salted hashes.
+          OTPs expire in 10 minutes.
         </p>
       </aside>
 
