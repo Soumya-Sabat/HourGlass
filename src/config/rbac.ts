@@ -31,11 +31,11 @@ export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
   ],
   
   department_head: [
-    "/dashboard/approvals",                // HOD Approvals terminal
-    "/dashboard/approvals/subjects",       // Dept syllabus review maps
-    "/dashboard/approvals/faculty-roster", // HOD overview of instructors
-    "/dashboard/approvals/messages",
-    "/dashboard/approvals/notices"
+    "/dashboard/head",                    // Head Approvals terminal
+    "/dashboard/head/subjects",           // Dept syllabus review maps
+    "/dashboard/head/faculty-roster",     // HOD overview of instructors
+    "/dashboard/head/messages",
+    "/dashboard/head/notices"
   ],
   
   department_admin: [
@@ -63,7 +63,7 @@ export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
     // Super admins retain full passthrough to explicitly audit any sub-role layout
     "/dashboard/student",
     "/dashboard/faculty",
-    "/dashboard/approvals",
+    "/dashboard/head",
     "/dashboard/department",
     "/dashboard/institution"
   ]

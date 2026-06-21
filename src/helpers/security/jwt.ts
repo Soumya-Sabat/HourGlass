@@ -30,7 +30,7 @@ export function getDashboardPathForRole(role: string) {
   const paths: Record<string, string> = {
     [UserRole.InstitutionAdmin]: "/dashboard/institution",
     [UserRole.DepartmentAdmin]: "/dashboard/department",
-    [UserRole.DepartmentHead]: "/dashboard/approvals",
+    [UserRole.DepartmentHead]: "/dashboard/head",
     [UserRole.Faculty]: "/dashboard/faculty",
     [UserRole.Reviewer]: "/dashboard/review",
     [UserRole.Student]: "/dashboard/student",

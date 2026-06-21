@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { canRoleAccessRoute, UserRole } from "@/config/rbac";
 import { 
-  LayoutDashboard, GraduationCap, BookOpen, UserSquare2, 
-  MessageSquare, BellRing, CheckSquare, Download, Hourglass, X,
+  LayoutDashboard, GraduationCap, UserSquare2, 
+  BellRing, CheckSquare, Download, Hourglass, X,
   Building2, Layers, ShieldAlert, Users, Package2
 } from "lucide-react";
 
@@ -32,7 +32,7 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
     { name: "ALERTS", href: "/dashboard/faculty/alerts", icon: BellRing },    
     { name: "EXCHANGE DESK", href: "/dashboard/faculty/exchange-desk", icon: ShieldAlert },
     
-    { name: "APPROVALS DESK", href: "/dashboard/approvals", icon: CheckSquare },
+    { name: "APPROVALS DESK", href: "/dashboard/head", icon: CheckSquare },
     
     { name: "DEPT SCHEDULER", href: "/dashboard/department", icon: Layers },
     { name: "DEPT LOGISTICS", href: "/dashboard/department/physical", icon: Package2 },

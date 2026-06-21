@@ -81,7 +81,7 @@ export default function StudentDashboard() {
         {/* Column 1: Schedule Panel Canvas */}
         <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] flex flex-col">
           <div className="p-3 border-b-2 border-black bg-[#1a1a14] text-[#f4ebd0] font-black text-xs uppercase tracking-wide">
-            TODAY'S SCHEDULE MATRIX
+            TODAY&apos;S SCHEDULE MATRIX
           </div>
           <div className="p-4 space-y-3 flex-1 bg-white">
             {SCHEDULE_DATA.map((slot, idx) => (

@@ -17,7 +17,7 @@ function getDashboardPathForRole(role: string) {
   const paths: Record<string, string> = {
     institution_admin: "/dashboard/institution",
     department_admin: "/dashboard/department",
-    department_head: "/dashboard/approvals",
+    department_head: "/dashboard/head",
     faculty: "/dashboard/faculty",
     reviewer: "/dashboard/review",
     student: "/dashboard/student",
