@@ -46,86 +46,92 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-xs uppercase font-extrabold tracking-widest text-indigo-600 mb-2">Connect With Us</h2>
-        <p className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+    <section id="contact" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-mono text-[#1a1a14]">
+      {/* Section Header */}
+      <div className="text-center max-w-3xl mx-auto mb-16 p-4 border-2 border-[#1a1a14] bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14]">
+        <h2 className="text-xs uppercase font-black tracking-widest bg-[#1a1a14] text-[#f4ebd0] inline-block px-2 py-0.5 mb-3">
+          Connect With Us
+        </h2>
+        <p className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#1a1a14]">
           Request an enterprise deployment briefing
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         
-        {/* Left Column: Direct Info Cards */}
+        {/* Left Column: Info Cards with Heavy Borders and Shadows */}
         <div className="lg:col-span-5 flex flex-col gap-4 justify-between">
           {[
             { icon: <Mail />, title: "Email Support", text: "deployment@hourglass.edu" },
             { icon: <Phone />, title: "Contact Phone", text: "+91 (800) 555-0199" },
             { icon: <MapPin />, title: "Institutional HQ", text: "Sector 62, Noida, UP, India" },
           ].map((item, idx) => (
-            <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm flex items-center gap-4">
-              <div className="bg-indigo-50 p-3 rounded-xl border border-indigo-100 [&_svg]:h-5 [&_svg]:w-5 [&_svg]:text-indigo-600">
+            <div 
+              key={idx} 
+              className="bg-[#f4ebd0]/30 p-6 border-2 border-[#1a1a14] shadow-[4px_4px_0px_0px_#1a1a14] flex items-center gap-4 transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_0px_#1a1a14]"
+            >
+              <div className="bg-[#eae3cb] p-3 border-2 border-[#1a1a14] shadow-[2px_2px_0px_0px_#1a1a14] [&_svg]:h-5 [&_svg]:w-5 [&_svg]:text-[#1a1a14] [&_svg]:stroke-[2.5]">
                 {item.icon}
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-wide">{item.title}</div>
-                <div className="text-base font-bold text-slate-800 mt-0.5">{item.text}</div>
+                <div className="text-[10px] font-black text-[#1a1a14]/60 uppercase tracking-wider">{item.title}</div>
+                <div className="text-base font-black uppercase text-[#1a1a14] mt-0.5">{item.text}</div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Right Column: Functional Input Form Deck */}
-        <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/60 shadow-sm">
+        {/* Right Column: Input Form Box */}
+        <div className="lg:col-span-7 bg-white p-6 sm:p-8 border-2 border-[#1a1a14] shadow-[6px_6px_0px_0px_#1a1a14]">
           <form onSubmit={handleSubmit} className="grid gap-5 sm:grid-cols-2">
             
-            <label className="grid gap-2 text-left text-xs font-bold text-slate-500 uppercase">
+            <label className="grid gap-2 text-left text-xs font-black text-[#1a1a14] uppercase">
               Name
               <input
                 required
                 name="name"
                 type="text"
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 normal-case font-medium"
+                className="w-full px-4 py-3 bg-[#f4ebd0]/20 border-2 border-[#1a1a14] text-sm font-bold text-[#1a1a14] outline-none transition placeholder:text-[#1a1a14]/40 focus:bg-white focus:shadow-[2px_2px_0px_0px_#1a1a14] normal-case"
                 placeholder="Your Name"
               />
             </label>
 
-            <label className="grid gap-2 text-left text-xs font-bold text-slate-500 uppercase">
+            <label className="grid gap-2 text-left text-xs font-black text-[#1a1a14] uppercase">
               Institutional Email
               <input
                 required
                 name="email"
                 type="email"
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 normal-case font-medium"
+                className="w-full px-4 py-3 bg-[#f4ebd0]/20 border-2 border-[#1a1a14] text-sm font-bold text-[#1a1a14] outline-none transition placeholder:text-[#1a1a14]/40 focus:bg-white focus:shadow-[2px_2px_0px_0px_#1a1a14] normal-case"
                 placeholder="Your Email"
               />
             </label>
 
-            <label className="grid gap-2 text-left text-xs font-bold text-slate-500 uppercase sm:col-span-2">
+            <label className="grid gap-2 text-left text-xs font-black text-[#1a1a14] uppercase sm:col-span-2">
               Message
               <textarea
                 required
                 name="message"
                 rows={4}
                 minLength={10}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 resize-none normal-case font-medium"
+                className="w-full px-4 py-3 bg-[#f4ebd0]/20 border-2 border-[#1a1a14] text-sm font-bold text-[#1a1a14] outline-none transition placeholder:text-[#1a1a14]/40 focus:bg-white focus:shadow-[2px_2px_0px_0px_#1a1a14] resize-none normal-case"
                 placeholder="Tell us about your system requirements, timeline, and multi-department constraints."
               />
             </label>
 
-            <div className="flex flex-wrap items-center gap-4 sm:col-span-2 pt-2">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:col-span-2 pt-2">
               <button
                 disabled={state === "loading"}
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white font-extrabold px-5 py-3.5 rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/10 text-sm tracking-wide disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#e28774] text-[#1a1a14] border-2 border-[#1a1a14] font-black uppercase px-6 py-3.5 shadow-[4px_4px_0px_0px_#1a1a14] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#1a1a14] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0px_0px_#1a1a14] transition-all text-xs tracking-wider"
               >
-                <Rocket className="h-4 w-4"/> {state === "loading" ? "Sending..." : "Dispatch"}
+                <Rocket className="h-4 w-4 stroke-[2.5]"/> {state === "loading" ? "Sending..." : "Dispatch"}
               </button>
 
               {message ? (
                 <p
-                  className={`text-sm font-semibold ${
-                    state === "error" ? "text-rose-600" : "text-emerald-600"
+                  className={`text-xs font-black uppercase px-3 py-2 border border-black inline-block ${
+                    state === "error" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
                   }`}
                 >
                   {message}

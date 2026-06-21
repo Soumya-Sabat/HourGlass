@@ -30,13 +30,13 @@ export default function Testimonials() {
   ];
 
   return (
-    <section id="testimonials" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Header Block */}
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-xs uppercase font-extrabold tracking-widest text-indigo-600 mb-2">
+    <section id="testimonials" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-mono text-[#1a1a14]">
+      {/* Neo-brutalist Header Banner */}
+      <div className="text-center max-w-3xl mx-auto mb-16 p-6 border-2 border-[#1a1a14] bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14]">
+        <h2 className="text-xs uppercase font-black tracking-widest bg-[#1a1a14] text-[#f4ebd0] inline-block px-2 py-0.5 mb-3">
           Trusted by Educators
         </h2>
-        <p className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+        <p className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#1a1a14]">
           Validated by leading institutions
         </p>
       </div>
@@ -46,29 +46,31 @@ export default function Testimonials() {
         {reviews.map((review, idx) => (
           <div
             key={idx}
-            className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/60 shadow-sm flex flex-col justify-between relative hover:shadow-md transition-all duration-300 group"
+            className="bg-white p-6 sm:p-8 border-2 border-[#1a1a14] shadow-[4px_4px_0px_0px_#1a1a14] flex flex-col justify-between relative transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#1a1a14] group"
           >
-            {/* Top Design Element: Absolute layout quotation marker */}
-            <Quote className="absolute right-6 top-6 h-8 w-8 text-indigo-50 opacity-40 group-hover:text-indigo-100 transition-colors pointer-events-none" />
+            {/* Rigidly Boxed Absolute Quote Indicator */}
+            <div className="absolute right-6 top-6 bg-[#eae3cb] border border-[#1a1a14] p-1 shadow-[1px_1px_0px_0px_#1a1a14] pointer-events-none">
+              <Quote className="h-4 w-4 text-[#1a1a14] fill-[#1a1a14]" />
+            </div>
 
             <div className="space-y-4">
-              {/* Star Rating Matrix */}
-              <div className="flex items-center gap-1">
+              {/* Brutalist Star Matrix Container */}
+              <div className="flex items-center gap-1 bg-[#1a1a14] inline-flex p-1 border border-[#1a1a14]">
                 {[...Array(review.rating)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                  <Star key={i} className="h-3.5 w-3.5 fill-[#e28774] text-[#e28774]" />
                 ))}
               </div>
 
               {/* Quote text block */}
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium italic">
+              <p className="text-xs sm:text-sm text-[#1a1a14]/90 leading-relaxed font-bold">
                 &ldquo;{review.quote}&rdquo;
               </p>
             </div>
 
-            {/* Separator Line */}
-            <div className="border-t border-slate-100 my-6 pt-4 flex items-center gap-4">
-              {/* User Avatar Silhouette */}
-              <div className="relative h-12 w-12 rounded-full overflow-hidden bg-indigo-50 border border-indigo-100 shrink-0">
+            {/* Sharp Section Splitter */}
+            <div className="border-t-2 border-[#1a1a14] mt-6 pt-4 flex items-center gap-4">
+              {/* Hard-bordered Avatar Silhouette */}
+              <div className="relative h-12 w-12 border-2 border-[#1a1a14] bg-[#f4ebd0] shadow-[2px_2px_0px_0px_#1a1a14] shrink-0">
                 <Image
                   src={review.image}
                   alt={review.name}
@@ -78,17 +80,17 @@ export default function Testimonials() {
                 />
               </div>
 
-              {/* Identity Stack */}
+              {/* Identity Details Stack */}
               <div className="min-w-0">
-                <h4 className="text-sm font-black text-slate-900 tracking-tight truncate">
+                <h4 className="text-xs font-black uppercase text-[#1a1a14] tracking-tight truncate">
                   {review.name}
                 </h4>
-                <p className="text-xs font-bold text-slate-400 truncate">
+                <p className="text-[11px] font-bold text-[#1a1a14]/70 truncate">
                   {review.role}
                 </p>
-                <p className="text-[11px] font-extrabold text-indigo-600 tracking-wide uppercase mt-0.5 truncate">
+                <span className="inline-block text-[10px] font-black text-[#1a1a14] bg-[#eae3cb] border border-[#1a1a14] px-1.5 mt-1 tracking-wide uppercase truncate">
                   {review.institution}
-                </p>
+                </span>
               </div>
             </div>
           </div>
