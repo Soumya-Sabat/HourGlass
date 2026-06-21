@@ -9,7 +9,7 @@ import {
   Building2, Layers, ShieldAlert, Users, Package2,UsersRound,BookOpenText,ScrollText,Mails
 } from "lucide-react";
 
-interface SidebarProps {
+export interface SidebarProps {
   role: UserRole;
   user: { name?: string };
   isOpen: boolean;
@@ -26,10 +26,10 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
     { name: "MY TIMETABLE", href: "/dashboard/student/timetable", icon: GraduationCap },    
     { name: "SUBJECTS ", href: "/dashboard/student/subjects", icon: BookOpenText },    
     { name: "FACULTIES ", href: "/dashboard/student/faculties", icon: UsersRound },    
-    { name: " MESSAGES ", href: "/dashboard/student/messages", icon: ScrollText },    
-    { name: " NOTICES / ALERTS ", href: "/dashboard/student/alerts", icon: BellRing },    
+    { name: "MESSAGES ", href: "/dashboard/student/messages", icon: ScrollText },    
+    { name: "NOTICES / ALERTS ", href: "/dashboard/student/alerts", icon: BellRing },    
     { name: "ATTENDANCE ", href: "/dashboard/student/attendance", icon: ScrollText },    
-    { name: "DOWNLOADS", href: "/dashboard/student/download", icon: Download },    
+    { name: "MY MARKSHEET", href: "/dashboard/student/marksheet", icon: Download },    
     { name: "STUDENT SETTINGS", href: "/dashboard/student/settings", icon: Settings },    
     
     { name: "FACULTY CORE", href: "/dashboard/faculty", icon: UserSquare2 },

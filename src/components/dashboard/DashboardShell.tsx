@@ -5,6 +5,8 @@ import Sidebar from "@/components/dashboard/Sidebar";
 import Header from "@/components/dashboard/Header";
 import { UserRole } from "@/config/rbac";
 
+// this is the main controller for the session data
+// the flow -> login api -> jwt -> proxy headers -> layout.tsx -> dashboard shell -> header and sidebar
 interface DashboardShellProps {
   children: React.ReactNode;
   userSession: {

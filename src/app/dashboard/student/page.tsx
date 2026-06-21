@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Calendar, CheckCircle2, BookOpen, AlertCircle, Check, BellRing, MessageSquare } from "lucide-react";
+import { getDashboardSessionSummary, type DashboardSessionSummary } from "@/actions/dashboard-session-actions";
 
 const SCHEDULE_DATA = [
   { time: "09-10", code: "CS301", type: "LECTURE", room: "Room 204", prof: "Prof. Sharma", live: true },
@@ -19,8 +20,23 @@ const ATTENDANCE_DATA = [
   { subj: "HU101", pct: 68 },
 ];
 
+function greeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "GOOD MORNING";
+  if (hour < 17) return "GOOD AFTERNOON";
+  if (hour < 21) return "GOOD EVENING";
+  return "GOOD NIGHT";
+}
+
 export default function StudentDashboard() {
+  const [session, setSession] = useState<DashboardSessionSummary | null>(null);
   const [currentTime, setCurrentTime] = useState<string>("");
+
+  useEffect(() => {
+    getDashboardSessionSummary()
+      .then(setSession)
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const updateTime = () => {
@@ -51,7 +67,7 @@ export default function StudentDashboard() {
       
       {/* Top Banner Context Card */}
       <div className="p-4 border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14]">
-        <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight">GOOD MORNING, PRIYA ⚡</h1>
+        <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight">{greeting()}, {session?.name || "STUDENT"} ⚡</h1>
         <p className="text-[11px] text-[#1a1a14]/80 mt-1 font-bold tracking-tight">
           B.Tech CSE • Sem 5 • Batch A — {currentTime || "LOADING SYSTEM CHRONOMETER..."}
         </p>
