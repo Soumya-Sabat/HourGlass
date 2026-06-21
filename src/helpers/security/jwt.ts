@@ -7,6 +7,7 @@ export type AuthTokenPayload = {
   sub: string;
   role: UserRole;
   name: string;
+  email: string;
   isEmailVerified: boolean;
   iat: number;
   exp: number;
@@ -45,6 +46,7 @@ export function issueAuthToken(input: {
   id: string;
   role: string;
   name: string;
+  email: string;
   isEmailVerified: boolean;
 }) {
   const now = Math.floor(Date.now() / 1_000);
@@ -52,6 +54,7 @@ export function issueAuthToken(input: {
     sub: input.id,
     role: input.role as UserRole,
     name: input.name,
+    email: input.email,
     isEmailVerified: input.isEmailVerified,
     iat: now,
     exp: now + TOKEN_TTL_SECONDS,

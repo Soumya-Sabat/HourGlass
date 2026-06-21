@@ -8,6 +8,7 @@ type AuthTokenPayload = {
   sub: string;
   role: string;
   name: string;
+  email:string;
   isEmailVerified: boolean;
   iat: number;
   exp: number;
@@ -118,6 +119,11 @@ export async function proxy(request: NextRequest) {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set("x-user-role", payload.role);
     requestHeaders.set("x-user-name", encodeURIComponent(payload.name));
+    requestHeaders.set("x-user-email", encodeURIComponent(payload.email));
+    requestHeaders.set("x-user-id", payload.sub);
+    requestHeaders.set("x-user-email-verified", String(payload.isEmailVerified));
+    requestHeaders.set("x-user-iat", String(payload.iat));
+    requestHeaders.set("x-user-exp", String(payload.exp));
 
     return NextResponse.next({
       request: {

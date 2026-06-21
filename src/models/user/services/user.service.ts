@@ -64,13 +64,15 @@ function createOtpPayload(otp: string, purpose: OtpPurpose) {
   };
 }
 
-function toAuthUser(user: { _id: { toString(): string }; role: string; isEmailVerified: boolean; fullName?: unknown }) {
+function toAuthUser(user: { _id: { toString(): string }; role: string; isEmailVerified: boolean; fullName?: unknown; email?: unknown }) {
   const fullName = user.fullName ? decryptValue<string>(user.fullName as EncryptedValue) : null;
+  const email = user.email ? decryptValue<string>(user.email as EncryptedValue) : "";
 
   return {
     id: user._id.toString(),
     role: user.role,
     name: fullName || "User",
+    email,
     isEmailVerified: user.isEmailVerified,
   };
 }
