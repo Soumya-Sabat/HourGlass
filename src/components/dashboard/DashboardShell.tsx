@@ -9,7 +9,12 @@ interface DashboardShellProps {
   children: React.ReactNode;
   userSession: {
     name: string;
+    email:string;
     role: UserRole;
+    id?: string;
+    isEmailVerified?: boolean;
+    issuedAt?: number;
+    expiresAt?: number;
   };
 }
 
@@ -31,7 +36,7 @@ export default function DashboardShell({ children, userSession }: DashboardShell
       <div className="flex-1 flex flex-col min-w-0 min-h-screen lg:pl-64 transition-all duration-200">
         
         {/* Global Toolbar Control Unit */}
-        <Header onMenuClick={() => setSidebarOpen(true)} />
+        <Header onMenuClick={() => setSidebarOpen(true)} userSession={userSession} />
 
         {/* Content View Routing Section */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full mx-auto max-w-[1600px] transition-transform duration-150">

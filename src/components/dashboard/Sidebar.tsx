@@ -5,7 +5,7 @@ import Link from "next/link";
 import { canRoleAccessRoute, UserRole } from "@/config/rbac";
 import { 
   LayoutDashboard, GraduationCap, UserSquare2, 
-  BellRing, CheckSquare, Download, Hourglass, X,
+  BellRing, CheckSquare, Download, Hourglass, X, Settings,
   Building2, Layers, ShieldAlert, Users, Package2
 } from "lucide-react";
 
@@ -26,6 +26,7 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
     { name: "STUDENT TIMETABLE", href: "/dashboard/student/timetable", icon: GraduationCap },    
     { name: "ALERTS", href: "/dashboard/student/alerts", icon: BellRing },    
     { name: "DOWNLOADS", href: "/dashboard/student/download", icon: Download },    
+    { name: "STUDENT SETTINGS", href: "/dashboard/student/settings", icon: Settings },    
     
     { name: "FACULTY CORE", href: "/dashboard/faculty", icon: UserSquare2 },
     { name: "TEACHING SCHEDULES", href: "/dashboard/faculty/timetable", icon: GraduationCap },
