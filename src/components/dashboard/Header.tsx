@@ -1,54 +1,43 @@
 "use client";
 
-import { Bell, Search, LogOut } from "lucide-react";
-import { handleSignOut } from "@/app/auth-actions"; // Import the Server Action here
+import { Bell, LogOut, Search, Menu } from "lucide-react";
 
 interface HeaderProps {
-  user: {
-    name?: string;
-  };
+  onMenuClick: () => void;
 }
 
-export default function Header({ user }: HeaderProps) {
+export default function Header({ onMenuClick }: HeaderProps) {
   return (
-    <header className="h-16 bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-30 shrink-0">
+    <header className="h-16 bg-[#eae3cb] border-b-2 border-[#1a1a14] px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-30 shrink-0 font-mono">
       
-      {/* Context Omnibox / Search Tracker */}
-      <div className="w-full max-w-xs relative hidden sm:block">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-        <input
-          type="text"
-          placeholder="Search timetables, rooms, faculties..."
-          className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 outline-none placeholder:text-slate-400 focus:bg-white focus:border-indigo-500 transition-all"
-        />
-      </div>
-
-      {/* Action Tray */}
-      <div className="flex items-center gap-2 sm:gap-4 ml-auto">
-        
-        {/* System Alert Notification Trigger */}
-        <button className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-slate-50 rounded-xl transition-colors relative">
-          <Bell className="h-5 w-5" />
-          <span className="absolute top-2 right-2 h-2 w-2 bg-rose-500 rounded-full ring-2 ring-white" />
+      {/* Mobile Menu Action trigger button + Search Field info box */}
+      <div className="flex items-center gap-3">
+        <button 
+          onClick={onMenuClick} 
+          className="lg:hidden p-1.5 border-2 border-black bg-[#f4ebd0] active:bg-[#e28774] flex items-center justify-center"
+        >
+          <Menu className="h-5 w-5 stroke-[2.5]" />
         </button>
 
-        {/* Simple structural vertical pipe divider */}
-        <div className="h-5 w-px bg-slate-200 my-auto mx-1" />
+        <div className="w-full max-w-xs relative hidden sm:block">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#1a1a14] stroke-[2.5]" />
+          <input
+            type="text"
+            placeholder="SEARCH DIRECTIVES..."
+            className="w-full pl-9 pr-4 py-1.5 bg-[#f4ebd0] border border-[#1a1a14] text-xs font-black text-[#1a1a14] uppercase outline-none placeholder:text-[#1a1a14]/40 focus:bg-white transition-all"
+          />
+        </div>
+      </div>
 
-        {/* Server Action Execution via Form Submission */}
-        <form action={async () => {
-          await handleSignOut();
-          window.location.href = "/login"; // Safely redirects on the client-side post-wipe
-        }}>
-          <button 
-            type="submit"
-            className="flex items-center gap-2 p-2 sm:px-3 sm:py-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50/50 rounded-xl text-xs font-bold transition-all border border-transparent hover:border-rose-100"
-          >
-            <LogOut className="h-4 w-4 shrink-0" />
-            <span className="hidden sm:inline">Sign Out</span>
-          </button>
-        </form>
-
+      <div className="flex items-center gap-3 ml-auto">
+        <button className="p-2 border border-[#1a1a14] bg-[#f4ebd0] hover:bg-[#e28774] transition-colors relative">
+          <Bell className="h-4 w-4 text-[#1a1a14] stroke-[2.5]" />
+          <span className="absolute top-1 right-1 h-1.5 w-1.5 bg-[#1a1a14] rounded-full" />
+        </button>
+        <button className="flex items-center gap-2 px-3 py-1.5 bg-[#e28774] text-[#1a1a14] border border-[#1a1a14] text-xs font-black uppercase tracking-tight shadow-[2px_2px_0px_0px_#1a1a14]">
+          <LogOut className="h-3.5 w-3.5 shrink-0 stroke-[2.5]" />
+          <span className="hidden xs:inline">SIGN OUT</span>
+        </button>
       </div>
     </header>
   );

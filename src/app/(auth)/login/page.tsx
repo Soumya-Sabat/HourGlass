@@ -9,19 +9,6 @@ import { AuthTimetableVisual } from "@/components/forms/auth-timetable-visual";
 export default function LoginPage() {
   return (
     <section className="relative z-10 grid min-h-dvh w-full grid-cols-1 overflow-x-hidden bg-[#eef7ff] font-sans lg:grid-cols-[40%_60%]">
-      <div className="absolute left-5 top-5 z-50 sm:left-8 sm:top-7">
-        <Link href="/" className="inline-flex transition-transform duration-300 hover:scale-[1.02]" aria-label="Go to HourGlass home">
-          <Image
-            src="/images/logo.png"
-            alt="HourGlass Logo"
-            width={176}
-            height={64}
-            className="h-12 w-36 object-contain mix-blend-multiply sm:h-14 sm:w-40"
-            priority
-          />
-        </Link>
-      </div>
-
       <div className="relative z-20 px-4 pb-4 pt-24 sm:px-6 sm:pt-28 lg:flex lg:min-h-dvh lg:items-center lg:px-8 lg:py-20">
         <AuthTimetableVisual mode="login" />
       </div>

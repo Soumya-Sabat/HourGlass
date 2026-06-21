@@ -38,7 +38,7 @@ export function AuthTimetableVisual({ mode }: { mode: "login" | "register" }) {
       <div className="relative z-10 flex h-full min-h-[20rem] flex-col justify-between gap-5">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-black uppercase text-orange-600">HourGlass AI</p>
+            <p className="text-xs font-black uppercase text-orange-600">HourGlass </p>
             <h2 className="mt-2 text-2xl font-black text-slate-950 sm:text-4xl">
               {mode === "login" ? "Resume the schedule." : "Build the timetable."}
             </h2>
@@ -84,7 +84,7 @@ export function AuthTimetableVisual({ mode }: { mode: "login" | "register" }) {
         <div className="grid gap-3 sm:grid-cols-3">
           {[
             { icon: CalendarClock, label: "Conflicts", value: "0" },
-            { icon: ChartNoAxesColumnIncreasing, label: "Utilization", value: "87%" },
+            { icon: ChartNoAxesColumnIncreasing, label: "Utilization", value: "92%" },
             { icon: CheckCheck, label: "Approvals", value: "3-step" },
           ].map((metric, index) => {
             const Icon = metric.icon;
