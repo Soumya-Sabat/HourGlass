@@ -53,7 +53,7 @@ const roleProfileSchemas: Partial<Record<UserRole, z.ZodType>> = {
     permissions: requiredTags,
   }),
 };
-
+ 
 export const createUserSchema = z.object({
   accountType: z.enum(["institution", "user"]).default("user"),
   institutionId: z.string().trim().regex(/^[A-Za-z0-9]{7}$/).transform((value) => value.toUpperCase()).optional(),
