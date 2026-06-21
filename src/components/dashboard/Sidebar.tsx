@@ -6,7 +6,7 @@ import { canRoleAccessRoute, UserRole } from "@/config/rbac";
 import { 
   LayoutDashboard, GraduationCap, UserSquare2, 
   BellRing, CheckSquare, Download, Hourglass, X, Settings,
-  Building2, Layers, ShieldAlert, Users, Package2
+  Building2, Layers, ShieldAlert, Users, Package2,UsersRound,BookOpenText,ScrollText,Mails
 } from "lucide-react";
 
 interface SidebarProps {
@@ -23,8 +23,12 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
   // Master definitions using the precise namespaced segments
   const masterMenuItems = [
     { name: "STUDENT CONSOLE", href: "/dashboard/student", icon: LayoutDashboard },
-    { name: "STUDENT TIMETABLE", href: "/dashboard/student/timetable", icon: GraduationCap },    
-    { name: "ALERTS", href: "/dashboard/student/alerts", icon: BellRing },    
+    { name: "MY TIMETABLE", href: "/dashboard/student/timetable", icon: GraduationCap },    
+    { name: "SUBJECTS ", href: "/dashboard/student/subjects", icon: BookOpenText },    
+    { name: "FACULTIES ", href: "/dashboard/student/faculties", icon: UsersRound },    
+    { name: " MESSAGES ", href: "/dashboard/student/messages", icon: ScrollText },    
+    { name: " NOTICES / ALERTS ", href: "/dashboard/student/alerts", icon: BellRing },    
+    { name: "ATTENDANCE ", href: "/dashboard/student/attendance", icon: ScrollText },    
     { name: "DOWNLOADS", href: "/dashboard/student/download", icon: Download },    
     { name: "STUDENT SETTINGS", href: "/dashboard/student/settings", icon: Settings },    
     
