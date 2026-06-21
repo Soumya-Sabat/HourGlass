@@ -46,8 +46,8 @@ export async function getCurrentUser(): Promise<AuthTokenPayload | null> {
   return verifyAuthToken(token);
 }
 
-export async function signOut() {
-  const cookieStore = await cookies();
-
-  cookieStore.delete(AUTH_COOKIE_NAME);
-}
+// export async function signOut() {
+//   const cookieStore = await cookies();
+  
+//   cookieStore.delete(AUTH_COOKIE_NAME);
+// }
