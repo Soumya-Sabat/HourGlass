@@ -374,13 +374,7 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
   const [accountType, setAccountType] = useState<"institution" | "user">("user");
   const [institutionFound, setInstitutionFound] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
-  const activeSections = registerSections.filter((section) => {
-    if (accountType === "institution") {
-      return section.id === "account-type" || section.id === "institution";
-    }
-
-    return true;
-  });
+  const activeSections = registerSections;
   const currentSection = activeSections[Math.min(currentStep, activeSections.length - 1)];
   const isLastStep = currentStep === activeSections.length - 1;
   // const isSessionRegistration = session?.user && !session.user.role;
