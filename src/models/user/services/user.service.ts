@@ -32,7 +32,6 @@ const roleProfileModels: Partial<Record<UserRole, ProfileModel>> = {
   [UserRole.Faculty]: AcademicProfileModel,
   [UserRole.Reviewer]: AcademicProfileModel,
   [UserRole.Student]: AcademicProfileModel,
-  [UserRole.Admin]: AcademicProfileModel,
   [UserRole.SuperAdmin]: AcademicProfileModel,
 };
 
@@ -166,7 +165,30 @@ export class UserService {
       throw new Error("Institution ID was not found or is not verified yet.");
     }
 
-    return { institutionId: normalizedInstitutionId };
+    const name = institution.name ? decryptValue<string>(institution.name as EncryptedValue) : "Unknown Institution";
+    const raw = (institution as any).registrationConfig as Record<string, string[]> | null | undefined;
+
+    const registrationConfig = raw && typeof raw === "object"
+      ? {
+          departmentHeadRoles: Array.isArray(raw.departmentHeadRoles) ? raw.departmentHeadRoles : ["Head of Department"],
+          facultyPositions: Array.isArray(raw.facultyPositions) ? raw.facultyPositions : ["Professor", "Associate Professor", "Assistant Professor"],
+          studentClasses: Array.isArray(raw.studentClasses) ? raw.studentClasses : [],
+          studentSections: Array.isArray(raw.studentSections) ? raw.studentSections : [],
+          studentBatches: Array.isArray(raw.studentBatches) ? raw.studentBatches : [],
+        }
+      : {
+          departmentHeadRoles: ["Head of Department"],
+          facultyPositions: ["Professor", "Associate Professor", "Assistant Professor"],
+          studentClasses: [],
+          studentSections: [],
+          studentBatches: [],
+        };
+
+    return {
+      institutionId: normalizedInstitutionId,
+      institutionName: name,
+      registrationConfig,
+    };
   }
 
   static async createUser(input: CreateUserDto) {

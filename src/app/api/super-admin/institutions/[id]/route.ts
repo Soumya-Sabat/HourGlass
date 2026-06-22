@@ -47,6 +47,24 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
   }
 }
 
+export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params;
+    await connectToDatabase();
+
+    const doc = await InstitutionModel.findById(id);
+    if (!doc) {
+      return NextResponse.json({ error: "Institution not found" }, { status: 404 });
+    }
+
+    await InstitutionModel.deleteOne({ _id: id });
+
+    return NextResponse.json({ message: "Institution deleted successfully" });
+  } catch (error) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : "Failed" }, { status: 500 });
+  }
+}
+
 function safeJsonParse(val: string): unknown {
   try { return JSON.parse(val); } catch { return val; }
 }

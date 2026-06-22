@@ -42,6 +42,22 @@ const InstitutionSchema = new Schema(
     verifiedAt: { type: Date },
     institutionIdGeneratedAt: { type: Date },
     rejectedAt: { type: Date },
+    registrationConfig: {
+      type: new Schema({
+        departmentHeadRoles: [String],
+        facultyPositions: [String],
+        studentClasses: [String],
+        studentSections: [String],
+        studentBatches: [String],
+      }, { _id: false }),
+      default: () => ({
+        departmentHeadRoles: ["Head of Department"],
+        facultyPositions: ["Professor", "Associate Professor", "Assistant Professor"],
+        studentClasses: [],
+        studentSections: [],
+        studentBatches: [],
+      }),
+    },
   },
   { timestamps: true },
 );

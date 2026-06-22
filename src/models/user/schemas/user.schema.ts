@@ -40,7 +40,6 @@ const UserSchema = new Schema(
     },
     institutionId: {
       type: String,
-      match: /^[A-Z0-9]{7}$/,
       index: true,
     },
     email: { type: EncryptedValueSchema, required: true },
@@ -60,6 +59,10 @@ const UserSchema = new Schema(
     otp: { type: OtpSchema },
     isEmailVerified: { type: Boolean, default: false, index: true },
     emailVerifiedAt: { type: Date },
+    department: { type: String, default: "", index: true },
+    classGroup: { type: String, default: "" },
+    section: { type: String, default: "" },
+    batch: { type: String, default: "" },
   },
   { timestamps: true },
 );

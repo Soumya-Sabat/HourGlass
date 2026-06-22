@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/db/mongoose";
 import { InstitutionModel } from "@/models/institution/schemas/institution.schema";
+import { UserModel } from "@/models/user/schemas/user.schema";
 import { decryptValue, type EncryptedValue } from "@/helpers/crypto/encryption";
 import nodemailer from "nodemailer";
 export const runtime = "nodejs";
@@ -49,6 +50,15 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
       { $set: { institutionId: code, isVerified: true, verifiedAt: new Date() } },
     );
 
+    // Update the institution admin user's institutionId so they can access their dashboard
+    const ownerUserId = d.ownerUserId;
+    if (ownerUserId) {
+      await UserModel.updateOne(
+        { _id: ownerUserId },
+        { $set: { institutionId: code } },
+      );
+    }
+
     const smtpHost = process.env.SMTP_HOST?.trim();
     const smtpUser = process.env.SMTP_USER?.trim();
     const smtpPass = process.env.SMTP_PASS?.trim();
@@ -64,6 +74,9 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
           secure: smtpPort === 465,
           auth: { user: smtpUser, pass: smtpPass },
         });
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+        const loginUrl = `${baseUrl}/login?email=${encodeURIComponent(contactEmail)}`;
+
         await transporter.sendMail({
           from: fromEmail,
           to: contactEmail,
@@ -89,7 +102,16 @@ Your Institution Code
 <p style="font-size:32px;font-weight:900;color:#1a1a14;margin:0;letter-spacing:2px;">${code}</p>
 </div>
 <p style="font-size:14px;color:#334155;line-height:1.6;">
-Use this code to register users under your institution. You can now log in and start managing your timetable.
+Use this code to register users under your institution.
+</p>
+<div style="margin:24px 0;text-align:center;">
+<a href="${loginUrl}" style="display:inline-block;background:#1a1a14;color:#f4ebd0;padding:14px 32px;font-size:14px;font-weight:900;text-decoration:none;border-radius:6px;">
+Login to Your Dashboard
+</a>
+</div>
+<p style="font-size:13px;color:#64748b;line-height:1.5;">
+Or copy this link into your browser:<br>
+<a href="${loginUrl}" style="color:#1a1a14;">${loginUrl}</a>
 </p>
 <p style="font-size:14px;color:#334155;line-height:1.6;margin-top:16px;">
 Regards,<br><strong>HourGlass Team</strong>
