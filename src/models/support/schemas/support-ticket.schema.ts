@@ -3,7 +3,7 @@ import { model, models, Schema, type HydratedDocument, type InferSchemaType } fr
 const SupportTicketSchema = new Schema(
   {
     ticketId: { type: String, unique: true, index: true },
-    institutionId: { type: Schema.Types.ObjectId, ref: "Institution" },
+    institutionId: { type: String, index: true },
     institutionName: { type: String },
     userId: { type: Schema.Types.ObjectId, ref: "User" },
     userName: { type: String },

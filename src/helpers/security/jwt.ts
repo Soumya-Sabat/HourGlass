@@ -13,7 +13,7 @@ export type AuthTokenPayload = {
   exp: number;
 };
 
-const TOKEN_TTL_SECONDS = 60 * 60 * 24 * 7;
+const TOKEN_TTL_SECONDS = 60 * 60 * 24 ; //1 day
 
 function getJwtSecret() {
   return process.env.JWT_SECRET || process.env.NEXTAUTH_SECRET || "hourglass-local-development-secret";
@@ -35,7 +35,6 @@ export function getDashboardPathForRole(role: string) {
     [UserRole.Faculty]: "/dashboard/faculty",
     [UserRole.Reviewer]: "/dashboard/review",
     [UserRole.Student]: "/dashboard/student",
-    [UserRole.Admin]: "/dashboard/admin",
     [UserRole.SuperAdmin]: "/dashboard/super-admin",
   };
 

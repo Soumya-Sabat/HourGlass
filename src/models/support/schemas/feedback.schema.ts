@@ -2,7 +2,7 @@ import { model, models, Schema, type HydratedDocument, type InferSchemaType } fr
 
 const FeedbackSchema = new Schema(
   {
-    institutionId: { type: Schema.Types.ObjectId, ref: "Institution" },
+    institutionId: { type: String, index: true },
     institutionName: { type: String },
     userId: { type: Schema.Types.ObjectId, ref: "User" },
     userName: { type: String },

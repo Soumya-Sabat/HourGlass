@@ -4,7 +4,6 @@ export type UserRole =
   | "department_head" 
   | "department_admin" 
   | "institution_admin" 
-  | "admin"
   | "super_admin";
 
 export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
@@ -48,15 +47,23 @@ export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
   
   institution_admin: [
     "/dashboard/institution",              // Override controls & verification
+    "/dashboard/institution/profile",
+    "/dashboard/institution/activity",
+    "/dashboard/institution/users",
+    "/dashboard/institution/departments",
+    "/dashboard/institution/marks",
+    "/dashboard/institution/marks/exams",
+    "/dashboard/institution/marks/entry",
+    "/dashboard/institution/marks/grades",
+    "/dashboard/institution/settings",
+    "/dashboard/institution/analytics",
+    "/dashboard/institution/complaints",
+    "/dashboard/institution/announcements",
     "/dashboard/institution/messages",
-    "/dashboard/institution/notices"
+    "/dashboard/institution/notices",
+    "/dashboard/institution/physical"
   ],
 
-  admin: [
-    "/dashboard/admin",                    // Main admin board panel
-    "/dashboard/admin/messages",
-    "/dashboard/admin/notices"
-  ],
   
   super_admin: [
     "/dashboard/super-admin",              // Root system configuration logs
@@ -114,7 +121,6 @@ export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
     "/dashboard/super-admin/announcements/email-campaigns",
     "/dashboard/super-admin/announcements/in-app-notifications",
     "/dashboard/super-admin/announcements/surveys",
-    "/dashboard/admin",
     "/dashboard/student",
     "/dashboard/faculty",
     "/dashboard/head",

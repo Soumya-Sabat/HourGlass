@@ -22,7 +22,6 @@ function getDashboardPathForRole(role: string) {
     faculty: "/dashboard/faculty",
     reviewer: "/dashboard/review",
     student: "/dashboard/student",
-    admin: "/dashboard/admin",
     super_admin: "/dashboard/super-admin",
   };
 
