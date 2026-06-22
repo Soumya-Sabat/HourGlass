@@ -7,7 +7,7 @@ const InstitutionSchema = new Schema(
       type: String,
       unique: true,
       sparse: true,
-      match: /^[A-Z0-9]{7}$/,
+      match: /^[A-Z0-9-]{7,20}$/,
       index: true,
     },
     ownerUserId: {
@@ -41,6 +41,7 @@ const InstitutionSchema = new Schema(
     isVerified: { type: Boolean, default: false, index: true },
     verifiedAt: { type: Date },
     institutionIdGeneratedAt: { type: Date },
+    rejectedAt: { type: Date },
   },
   { timestamps: true },
 );
