@@ -2,7 +2,7 @@ import { Play } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-mono text-[#1a1a14]">
+    <section className="relative pt-20 pb-16 md:pt-36 md:pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-mono text-[#1a1a14]">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         {/* Left Content Column */}
@@ -40,7 +40,7 @@ export default function Hero() {
               <div className="text-[9px] font-black uppercase tracking-tight text-[#1a1a14]/70">Timetables</div>
             </div>
             <div>
-              <div className="text-xl sm:text-2xl font-black text-[#1a1a14]">98%</div>
+              <div className="text-xl sm:text-2xl font-black text-[#1a1a14]">92%</div>
               <div className="text-[9px] font-black uppercase tracking-tight text-[#1a1a14]/70">Conflict-Free</div>
             </div>
             <div>
