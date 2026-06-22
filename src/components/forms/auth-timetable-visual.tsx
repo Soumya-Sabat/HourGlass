@@ -1,6 +1,7 @@
 "use client";
 
 import { CalendarClock, ChartNoAxesColumnIncreasing, CheckCheck, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 const periods = ["08:30", "09:20", "10:10", "11:20", "12:10", "02:00"];
@@ -14,6 +15,7 @@ const classes = [
 export function AuthTimetableVisual({ mode }: { mode: "login" | "register" }) {
   return (
     <div className="relative min-h-[24rem] w-full border-4 border-[#1a1a14] bg-[#eae3cb] p-4 shadow-[6px_6px_0px_0px_#1a1a14] sm:min-h-[28rem] lg:min-h-[calc(100dvh-9rem)] font-mono text-[#1a1a14]">
+      <Link href="/" >
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -124,8 +126,8 @@ export function AuthTimetableVisual({ mode }: { mode: "login" | "register" }) {
             );
           })}
         </div>
-        
       </div>
+    </Link>
     </div>
   );
 }
