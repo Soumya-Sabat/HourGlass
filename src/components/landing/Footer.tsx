@@ -36,11 +36,11 @@ export default function Footer() {
               Platform
             </h4>
             <ul className="space-y-2 font-bold uppercase text-[11px]">
-              <li><Link href="#features" className="inline-block max-w-full hover:underline break-words">Features Core</Link></li>
-              <li><Link href="#how-it-works" className="inline-block max-w-full hover:underline break-words">AI Engine Tracker</Link></li>
-              <li><Link href="/nep-compliance" className="inline-block max-w-full hover:underline break-words">NEP 2020 Compliance</Link></li>
+              {/* <li><Link href="#features" className="inline-block max-w-full hover:underline break-words">Features Core</Link></li> */}
+              {/* <li><Link href="#how-it-works" className="inline-block max-w-full hover:underline break-words">AI Engine Tracker</Link></li> */}
+              <li><Link href="/footer/nep-compliance" className="inline-block max-w-full hover:underline break-words">NEP 2020 Compliance</Link></li>
               <li><Link href="/pricing" className="inline-block max-w-full hover:underline break-words">Pricing Models</Link></li>
-              <li><Link href="/deployment" className="inline-block max-w-full hover:underline break-words">Enterprise Setup</Link></li>
+              {/* <li><Link href="/deployment" className="inline-block max-w-full hover:underline break-words">Enterprise Setup</Link></li> */}
             </ul>
           </div>
 
@@ -50,12 +50,12 @@ export default function Footer() {
               Company
             </h4>
             <ul className="space-y-2 font-bold uppercase text-[11px]">
-              <li><Link href="/about" className="inline-block max-w-full hover:underline break-words">Our Mission</Link></li>
-              <li><Link href="/careers" className="inline-block max-w-full hover:underline break-words">Careers</Link></li>
-              <li><Link href="/press" className="inline-block max-w-full hover:underline break-words">Press Wire</Link></li>
-              <li><Link href="/security" className="inline-block max-w-full hover:underline break-words">Security & Audits</Link></li>
-              <li><Link href="#contact" className="inline-block max-w-full hover:underline break-words">Contact Sales</Link></li>
-              <li><Link href="/bug-report" className="inline-block max-w-full hover:underline break-words">Report a Bug</Link></li>
+              <li><Link href="/footer/about" className="inline-block max-w-full hover:underline break-words">Our Mission</Link></li>
+              <li><Link href="/footer/careers" className="inline-block max-w-full hover:underline break-words">Careers</Link></li>
+              <li><Link href="/footer/press" className="inline-block max-w-full hover:underline break-words">Press Wire</Link></li>
+              {/* <li><Link href="/security" className="inline-block max-w-full hover:underline break-words">Security & Audits</Link></li> */}
+              {/* <li><Link href="#contact" className="inline-block max-w-full hover:underline break-words">Contact Sales</Link></li> */}
+              <li><Link href="/footer/bug-report" className="inline-block max-w-full hover:underline break-words">Report a Bug</Link></li>
             </ul>
           </div>
 
@@ -65,10 +65,10 @@ export default function Footer() {
               Legal
             </h4>
             <ul className="space-y-2 font-bold uppercase text-[11px]">
-              <li><Link href="/terms" className="inline-block max-w-full hover:underline break-words">Terms of Service</Link></li>
-              <li><Link href="/privacy" className="inline-block max-w-full hover:underline break-words">Privacy Statement</Link></li>
-              <li><Link href="/cookies" className="inline-block max-w-full hover:underline break-words">Cookie Protocol</Link></li>
-              <li><Link href="/sla" className="inline-block max-w-full hover:underline break-words">SLA Agreement</Link></li>
+              <li><Link href="/footer/terms" className="inline-block max-w-full hover:underline break-words">Terms of Service</Link></li>
+              <li><Link href="/footer/privacy" className="inline-block max-w-full hover:underline break-words">Privacy Statement</Link></li>
+              <li><Link href="/footer/cookies" className="inline-block max-w-full hover:underline break-words">Cookie Protocol</Link></li>
+              {/* <li><Link href="/sla" className="inline-block max-w-full hover:underline break-words">SLA Agreement</Link></li> */}
             </ul>
           </div>
 

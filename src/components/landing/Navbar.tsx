@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Menu, X, ChevronDown, Webhook, Rss } from "lucide-react";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -9,28 +9,14 @@ import { useRouter } from "next/navigation";
 export default function Navbar() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const documentation = [
-    { name: "Blogs", href: "/docs/blogs", desc: "What we do and friction topics.", icon: <Rss className="h-4 w-4 text-[#1a1a14]" /> },
-    { name: "API docs", href: "/docs/api", desc: "Integrate HourGlass with your applications.", icon: <Webhook className="h-4 w-4 text-[#1a1a14]" /> },
-  ];
+  // const documentation = [
+  //   { name: "API docs", href: "/docs/api", desc: "Integrate HourGlass with your applications.", icon: <Webhook className="h-4 w-4 text-[#1a1a14]" /> },
+  // ];
 
   const standardLinks = [
     { name: "Features", href: "#features" },
     { name: "How it Works", href: "#how-it-works" },
+    { name: "Blogs", href: "/docs/blogs" },
     { name: "Testimonials", href: "#testimonials" },
     { name: "Pricing", href: "/pricing" },
   ];
@@ -66,47 +52,6 @@ export default function Navbar() {
                 {link.name}
               </a>
             ))}
-
-            {/* Solutions Dropdown Trigger */}
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                onMouseEnter={() => setIsDropdownOpen(true)}
-                className="flex items-center gap-1 text-xs font-black uppercase tracking-tight px-3 py-1.5 border border-transparent hover:border-[#1a1a14] hover:bg-[#f4ebd0] transition-all focus:outline-none"
-              >
-                Documents
-                <ChevronDown className={`h-4 w-4 stroke-[2.5] transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} />
-              </button>
-
-              {/* Crisp Solid Dropdown Box */}
-              {isDropdownOpen && (
-                <div 
-                  onMouseLeave={() => setIsDropdownOpen(false)}
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white border-2 border-[#1a1a14] p-2 shadow-[4px_4px_0px_0px_#1a1a14]"
-                >
-                  {documentation.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setIsDropdownOpen(false)}
-                      className="flex items-start gap-3 p-3 border border-transparent hover:border-[#1a1a14] hover:bg-[#f4ebd0] group transition-colors"
-                    >
-                      <div className="bg-[#eae3cb] p-2 border border-[#1a1a14] mt-0.5 [&_svg]:stroke-[2.5]">
-                        {item.icon}
-                      </div>
-                      <div>
-                        <div className="text-xs font-black uppercase tracking-tight text-[#1a1a14]">
-                          {item.name}
-                        </div>
-                        <div className="text-[10px] text-[#1a1a14]/70 font-bold mt-0.5 leading-normal">
-                          {item.desc}
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
 
             {/* Remaining Standard Links */}
             {standardLinks.slice(2).map((link) => (
@@ -164,22 +109,6 @@ export default function Navbar() {
                   >
                     {link.name}
                   </a>
-                ))}
-
-                {/* Mobile Dropdown Header */}
-                <div className="px-4 pt-4 pb-1 text-[10px] font-black uppercase tracking-widest text-[#1a1a14]/50">
-                  Solutions Directory
-                </div>
-                {documentation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-6 py-2 border border-transparent hover:border-[#1a1a14] hover:bg-white text-xs font-bold uppercase transition-colors"
-                  >
-                    <div className="[&_svg]:stroke-[2.5]">{item.icon}</div>
-                    <span>{item.name}</span>
-                  </Link>
                 ))}
 
                 {/* Remaining Mobile Links */}

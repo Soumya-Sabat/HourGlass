@@ -62,9 +62,9 @@ export default function ContactSection() {
         {/* Left Column: Info Cards with Heavy Borders and Shadows */}
         <div className="lg:col-span-5 flex flex-col gap-4 justify-between">
           {[
-            { icon: <Mail />, title: "Email Support", text: "deployment@hourglass.edu" },
-            { icon: <Phone />, title: "Contact Phone", text: "+91 (800) 555-0199" },
-            { icon: <MapPin />, title: "Institutional HQ", text: "Sector 62, Noida, UP, India" },
+            { icon: <Mail />, title: "Email Support", text: "N/A" },
+            { icon: <Phone />, title: "Contact Phone", text: "N/A" },
+            { icon: <MapPin />, title: "Institutional HQ", text: "N/A" },
           ].map((item, idx) => (
             <div 
               key={idx} 
