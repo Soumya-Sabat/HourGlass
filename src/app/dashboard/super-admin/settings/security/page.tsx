@@ -84,9 +84,9 @@ export default function SecuritySettingsPage() {
             <SelectField
               label="2FA Enforcement Scope"
               name="twoFAScope"
-              defaultValue="admin"
+              defaultValue="super-admin"
               options={[
-                { value: "admin", label: "Admin Only" },
+                { value: "institution-admin", label: "Institution Admins Only" },
                 { value: "super-admin", label: "Super Admin Only" },
                 { value: "all", label: "All Users" },
               ]}

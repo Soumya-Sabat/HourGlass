@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { PageHeader, Table, StatusBadge, ActionButton, Modal } from "@/components/super-admin/ui";
 import Link from "next/link";
-import { ArrowLeft, Eye } from "lucide-react";
+import { ArrowLeft, Eye, Trash2 } from "lucide-react";
 
 export default function ApprovedInstitutionsPage() {
   const [data, setData] = useState<any[]>([]);
@@ -11,6 +11,8 @@ export default function ApprovedInstitutionsPage() {
   const [viewingId, setViewingId] = useState<string | null>(null);
   const [viewData, setViewData] = useState<any | null>(null);
   const [viewLoading, setViewLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   useEffect(() => { fetchData(); }, []);
 
@@ -29,6 +31,20 @@ export default function ApprovedInstitutionsPage() {
       const res = await fetch(`/api/super-admin/institutions/${id}`);
       if (res.ok) setViewData((await res.json()).institution);
     } catch {} finally { setViewLoading(false); }
+  }
+
+  async function handleDelete() {
+    if (!deletingId) return;
+    setDeleteLoading(true);
+    try {
+      const res = await fetch(`/api/super-admin/institutions/${deletingId}`, { method: "DELETE" });
+      if (res.ok) {
+        setData((prev) => prev.filter((i: any) => i._id !== deletingId));
+      }
+    } catch {} finally {
+      setDeleteLoading(false);
+      setDeletingId(null);
+    }
   }
 
   function closeView() {
@@ -53,6 +69,7 @@ export default function ApprovedInstitutionsPage() {
     <span key="d">{inst.createdAt ? new Date(inst.createdAt).toISOString().split("T")[0] : "—"}</span>,
     <div key="a" className="flex gap-1">
       <ActionButton label="View" variant="ghost" icon={Eye} onClick={() => openView(inst._id)} />
+      <ActionButton label="Delete" variant="ghost" icon={Trash2} onClick={() => setDeletingId(inst._id)} />
     </div>,
   ]);
 
@@ -115,6 +132,18 @@ export default function ApprovedInstitutionsPage() {
         ) : (
           <p className="text-sm font-bold text-red-600">Failed to load details.</p>
         )}
+      </Modal>
+
+      <Modal isOpen={!!deletingId} onClose={() => !deleteLoading && setDeletingId(null)} title="Delete Institution">
+        <div className="space-y-4">
+          <p className="text-sm font-bold text-red-600">
+            Are you sure you want to delete this institution? This action cannot be undone. All associated data will be permanently removed.
+          </p>
+          <div className="flex gap-2 justify-end">
+            <ActionButton label="Cancel" variant="ghost" onClick={() => setDeletingId(null)} disabled={deleteLoading} />
+            <ActionButton label="Delete" variant="danger" onClick={handleDelete} disabled={deleteLoading} />
+          </div>
+        </div>
       </Modal>
     </div>
   );

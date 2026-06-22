@@ -6,7 +6,8 @@ import { canRoleAccessRoute, UserRole } from "@/config/rbac";
 import { 
   LayoutDashboard, GraduationCap, UserSquare2, 
   BellRing, CheckSquare, Download, Hourglass, X, Settings,
-  Building2, Layers, ShieldAlert, Users, Package2,UsersRound,BookOpenText,ScrollText, Mails
+  Building2, Layers, ShieldAlert, Users, Package2,UsersRound,BookOpenText,ScrollText, Mails,
+  Activity, ClipboardList, BookMarked, Megaphone, AlertTriangle, BarChart3, PenLine
 } from "lucide-react";
 
 export interface SidebarProps {
@@ -48,7 +49,20 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
     
     //institutuon head
     { name: "INSTITUTION CORE", href: "/dashboard/institution", icon: Building2 },
-    { name: "CAMPUS ESTATE", href: "/dashboard/institution/physical", icon: Building2 },
+    { name: "PROFILE", href: "/dashboard/institution/profile", icon: Building2 },
+    { name: "ACTIVITY LOG", href: "/dashboard/institution/activity", icon: Activity },
+    { name: "ALL USERS", href: "/dashboard/institution/users", icon: Users },
+    { name: "DEPARTMENTS", href: "/dashboard/institution/departments", icon: Layers },
+    { name: "MARKS & EXAMS", href: "/dashboard/institution/marks", icon: ClipboardList },
+    { name: "EXAMS SETUP", href: "/dashboard/institution/marks/exams", icon: BookMarked },
+    { name: "GRADE ENTRY", href: "/dashboard/institution/marks/entry", icon: PenLine },
+    { name: "GRADEBOOK", href: "/dashboard/institution/marks/grades", icon: BookMarked },
+    { name: "REGISTRATION OPTS", href: "/dashboard/institution/registration-settings", icon: Settings },
+    { name: "SETTINGS", href: "/dashboard/institution/settings", icon: Settings },
+    { name: "ANALYTICS", href: "/dashboard/institution/analytics", icon: BarChart3 },
+    { name: "COMPLAINTS", href: "/dashboard/institution/complaints", icon: AlertTriangle },
+    { name: "ANNOUNCEMENTS", href: "/dashboard/institution/announcements", icon: Megaphone },
+    { name: "CAMPUS ESTATE", href: "/dashboard/institution/physical", icon: Package2 },
     
     // for main controller
     // { name: "SUPER CONTROL", href: "/dashboard/super-admin", icon: Users },

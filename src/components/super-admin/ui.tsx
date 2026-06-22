@@ -67,8 +67,8 @@ export function StatusBadge({ status }: { status: string }) {
   );
 }
 
-export function ActionButton({ label, href, onClick, variant = "default", icon: Icon }: {
-  label: string; href?: string; onClick?: () => void; variant?: "default" | "primary" | "danger" | "ghost"; icon?: React.ComponentType<{ className?: string }>;
+export function ActionButton({ label, href, onClick, variant = "default", icon: Icon, disabled }: {
+  label: string; href?: string; onClick?: () => void; variant?: "default" | "primary" | "danger" | "ghost"; icon?: React.ComponentType<{ className?: string }>; disabled?: boolean;
 }) {
   const baseClass = "inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-black uppercase border-2 border-black transition-all";
   const variants: Record<string, string> = {
@@ -78,12 +78,12 @@ export function ActionButton({ label, href, onClick, variant = "default", icon: 
     ghost: "bg-transparent hover:bg-[#eae3cb] border-transparent hover:border-black",
   };
 
-  const className = `${baseClass} ${variants[variant]}`;
+  const className = `${baseClass} ${variants[variant]}${disabled ? " opacity-40 pointer-events-none" : ""}`;
 
   if (href) {
     return <Link href={href} className={className}>{Icon && <Icon className="h-3.5 w-3.5" />}{label}</Link>;
   }
-  return <button onClick={onClick} className={className}>{Icon && <Icon className="h-3.5 w-3.5" />}{label}</button>;
+  return <button onClick={onClick} className={className} disabled={disabled}>{Icon && <Icon className="h-3.5 w-3.5" />}{label}</button>;
 }
 
 export function Table({ headers, rows }: { headers: string[]; rows: React.ReactNode[][] }) {

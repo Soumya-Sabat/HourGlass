@@ -21,8 +21,8 @@ const FIELD_LABELS: Record<string, string> = {
   studentId: "Student ID",
   programOrClass: "Program Or Class",
   batchOrSection: "Batch Or Section",
-  subjects: "Subjects",
-  preferredSlots: "Preferred Slots",
+  // subjects: "Subjects",
+  // preferredSlots: "Preferred Slots",
   type: "Institution Type",
   academicMode: "Academic Mode",
   affiliation: "Affiliation",
@@ -59,8 +59,8 @@ const EDITABLE_FIELDS: Array<[SettingsSection, string]> = [
   ["account", "phoneNumber"],
   ["studentProfile", "programOrClass"],
   ["studentProfile", "batchOrSection"],
-  ["studentProfile", "subjects"],
-  ["studentProfile", "preferredSlots"],
+  // ["studentProfile", "subjects"],
+  // ["studentProfile", "preferredSlots"],
   ["personalDetails", "bio"],
   ["personalDetails", "skills"],
   ["personalDetails", "address"],
@@ -253,7 +253,7 @@ export default function StudentSettingsPage() {
         <div>
           <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight">STUDENT SETTINGS</h1>
           <p className="text-[11px] mt-1 font-bold tracking-tight text-[#1a1a14]/80">
-            Decrypted DB records are loaded into editable and locked settings boxes.
+            Records are loaded into editable and locked settings boxes.
           </p>
         </div>
         <button
