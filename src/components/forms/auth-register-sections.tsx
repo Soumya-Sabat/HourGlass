@@ -4,7 +4,7 @@ import { roleProfileFields } from "@/components/forms/auth-profile-fields";
 import { roleOptions } from "@/components/forms/auth-role-options";
 import { Gender } from "@/models/user/types/gender.enum";
 
-export type RegisterSectionId = "account-type" | "institution" | "personal" | "location" | "education" | "social" | "role";
+export type RegisterSectionId = "account-type" | "institution" | "personal" | "role";
 
 export const registerSections: Array<{
   id: RegisterSectionId;
@@ -24,22 +24,7 @@ export const registerSections: Array<{
   {
     id: "personal",
     title: "Personal Data",
-    description: "Add professional basics that help people understand your background.",
-  },
-  {
-    id: "location",
-    title: "Location",
-    description: "Capture your region and institution address details.",
-  },
-  {
-    id: "education",
-    title: "Educational Data",
-    description: "Add academic qualification and specialization details.",
-  },
-  {
-    id: "social",
-    title: "Social Links",
-    description: "Connect external profiles that can verify or enrich your identity.",
+    description: "Your personal, professional, and location details.",
   },
   {
     id: "role",
@@ -70,7 +55,6 @@ const countryCodeOptions = [
   { label: "SG +65", value: "+65" },
 ];
 
-const bloodGroupOptions = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const personNamePattern = "^[A-Za-z][A-Za-z .'-]{1,79}$";
 const placeNamePattern = "^[A-Za-z][A-Za-z .'-]{1,79}$";
 const tagListPattern = "^[A-Za-z0-9][A-Za-z0-9 .,+#&/-]{1,199}$";
@@ -156,7 +140,20 @@ function InstitutionSection() {
   return (
     <div className="grid min-w-0 gap-4 sm:grid-cols-2">
       <TextInput name="institution.name" label="Institution Name" placeholder="HourGlass Institute of Technology" required minLength={2} maxLength={140} />
-      <TextInput name="institution.type" label="Institution Type" placeholder="School / College / University" required minLength={2} maxLength={80} />
+      <div className="min-w-0 space-y-2">
+        <FieldLabel>Institution Type</FieldLabel>
+        <select
+          name="institution.type"
+          required
+          defaultValue=""
+          className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+        >
+          <option value="" disabled>Select type</option>
+          <option value="school">School</option>
+          <option value="college">College</option>
+          <option value="university">University</option>
+        </select>
+      </div>
       <div className="min-w-0 space-y-2">
         <FieldLabel>Academic Mode</FieldLabel>
         <select
@@ -165,29 +162,15 @@ function InstitutionSection() {
           defaultValue=""
           className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
         >
-          <option value="" disabled>
-            Select mode
-          </option>
+          <option value="" disabled>Select mode</option>
           <option value="school">School</option>
           <option value="college">College</option>
           <option value="hybrid">School + College</option>
+          <option value="university">University</option>
         </select>
       </div>
       <TextInput name="institution.affiliation" label="Affiliation" placeholder="Board, university, or council" required minLength={2} maxLength={120} />
       <TextInput name="institution.establishedYear" label="Established Year" type="number" placeholder="2004" required min={1800} max={currentYear} />
-      <TextInput name="institution.academicYear" label="Academic Year" placeholder="2026-27" required minLength={4} maxLength={20} />
-      <TextInput name="institution.timetableCycle" label="Timetable Cycle" placeholder="Semester 1 / Term 1" required minLength={2} maxLength={80} />
-      <TextInput name="institution.workingDays" label="Working Days" placeholder="Monday, Tuesday, Wednesday, Thursday, Friday" required minLength={2} maxLength={200} />
-      <TextInput name="institution.periodDurationMinutes" label="Period Duration (minutes)" type="number" placeholder="45" required min={20} max={120} />
-      <TextInput name="institution.dailyPeriods" label="Daily Periods" type="number" placeholder="8" required min={1} max={16} />
-      <TextInput name="institution.breakSlots" label="Break Slots" placeholder="Lunch 12:30, Short break 10:30" minLength={2} maxLength={200} />
-      <TextInput name="institution.departmentsOrSections" label="Departments / Sections" placeholder="CSE, ECE, Grade 10, Primary" required minLength={2} maxLength={240} />
-      <TextInput name="institution.classroomResources" label="Classroom Resources" placeholder="Projector, Smart board, Physics lab, Computer lab" required minLength={2} maxLength={240} />
-      <TextInput name="institution.approvalWorkflow" label="Approval Workflow" placeholder="Department Admin, Department Head, Institution Admin" required minLength={2} maxLength={240} />
-      <div className="sm:col-span-2">
-        <TextInput name="institution.schedulingRules" label="Scheduling Rules" placeholder="No lab after 4 PM, No teacher over 4 periods/day" minLength={2} maxLength={280} />
-      </div>
-      <TextInput name="institution.website" label="Website" type="url" placeholder="https://..." />
       <TextInput name="institution.contactPerson" label="Contact Person" placeholder="Dr. Ananya Rao" required minLength={2} maxLength={80} />
       <TextInput name="institution.contactEmail" label="Contact Email" type="email" placeholder="admin@institution.ac.in" required />
       <TextInput name="institution.contactPhone" label="Contact Phone" type="tel" placeholder="9876543210" required minLength={10} maxLength={15} />
@@ -213,7 +196,7 @@ function InstitutionLookupSection({
         <TextInput
           name="institutionId"
           label="Institution ID"
-          placeholder="ABC1234"
+          placeholder="Your assigned Institution ID"
           required
           minLength={7}
           maxLength={7}
@@ -309,30 +292,10 @@ function PersonalDataSection() {
           defaultValue=""
           className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
         >
-          <option value="" disabled>
-            Select gender
-          </option>
+          <option value="" disabled>Select gender</option>
           {genderOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="min-w-0 space-y-2">
-        <FieldLabel>Blood Group</FieldLabel>
-        <select
-          name="bloodGroup"
-          required
-          defaultValue=""
-          className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
-        >
-          <option value="" disabled>
-            Select blood group
-          </option>
-          {bloodGroupOptions.map((bloodGroup) => (
-            <option key={bloodGroup} value={bloodGroup}>
-              {bloodGroup}
             </option>
           ))}
         </select>
@@ -348,7 +311,7 @@ function PersonalDataSection() {
         title="Use letters, spaces, apostrophes, hyphens, and periods only."
         autoComplete="country-name"
       />
-      <TextInput name="dateOfBirth" label="Date of Birth" type="date" required max={todayDate}/>
+      <TextInput name="dateOfBirth" label="Date of Birth" type="date" required max={todayDate} />
       <TextInput
         name="yearsOfExperience"
         label="Years of Experience"
@@ -388,40 +351,13 @@ function PersonalDataSection() {
           className="w-full min-w-0 resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
         />
       </div>
-    </div>
-  );
-}
-
-function LocationSection() {
-  return (
-    <div className="grid min-w-0 gap-4 sm:grid-cols-2">
-      <TextInput name="address.country" label="Country" placeholder="India" required minLength={2} maxLength={80} pattern={placeNamePattern} title="Use letters, spaces, apostrophes, hyphens, and periods only." autoComplete="country-name"/>
-      <TextInput name="address.state" label="State" placeholder="Karnataka" required minLength={2} maxLength={80} pattern={placeNamePattern} title="Use letters, spaces, apostrophes, hyphens, and periods only." autoComplete="address-level1"/>
-      <TextInput name="address.city" label="City" placeholder="Bengaluru" required minLength={2} maxLength={80} pattern={placeNamePattern} title="Use letters, spaces, apostrophes, hyphens, and periods only." autoComplete="address-level2"/>
-      <TextInput name="address.postalCode" label="Postal Code" placeholder="560001" required inputMode="numeric" minLength={4} maxLength={10} pattern="^[0-9]{4,10}$" title="Use 4 to 10 numeric digits." autoComplete="postal-code"/>
+      <TextInput name="address.country" label="Country" placeholder="India" required minLength={2} maxLength={80} pattern={placeNamePattern} title="Use letters, spaces, apostrophes, hyphens, and periods only." autoComplete="country-name" />
+      <TextInput name="address.state" label="State" placeholder="Karnataka" required minLength={2} maxLength={80} pattern={placeNamePattern} title="Use letters, spaces, apostrophes, hyphens, and periods only." autoComplete="address-level1" />
+      <TextInput name="address.city" label="City" placeholder="Bengaluru" required minLength={2} maxLength={80} pattern={placeNamePattern} title="Use letters, spaces, apostrophes, hyphens, and periods only." autoComplete="address-level2" />
+      <TextInput name="address.postalCode" label="Postal Code" placeholder="560001" required inputMode="numeric" minLength={4} maxLength={10} pattern="^[0-9]{4,10}$" title="Use 4 to 10 numeric digits." autoComplete="postal-code" />
       <div className="sm:col-span-2">
         <TextInput name="address.line" label="Address Line" placeholder="Institution, department, or street" maxLength={160} autoComplete="street-address" />
       </div>
-    </div>
-  );
-}
-
-function EducationSection() {
-  return (
-    <div className="grid min-w-0 gap-4 sm:grid-cols-2">
-      <TextInput name="education.highestStudy" label="Highest Study" placeholder="Ph.D." required minLength={2} maxLength={80} pattern="^[A-Za-z0-9][A-Za-z0-9 .,+#&'/-]{1,79}$" title="Use letters, numbers, spaces, and common academic symbols."/>
-      <TextInput name="education.specialization" label="Specialization" placeholder="Machine Learning" required minLength={2} maxLength={100} pattern="^[A-Za-z0-9][A-Za-z0-9 .,+#&'/-]{1,99}$" title="Use letters, numbers, spaces, and common academic symbols."/>
-      <TextInput name="education.collegeOrUniversity" label="College / University" placeholder="XXX University" required minLength={2} maxLength={120} pattern="^[A-Za-z0-9][A-Za-z0-9 .,&'/-]{1,119}$" title="Use letters, numbers, spaces, and common institution symbols."/>
-      <TextInput name="education.graduationYear" label="Graduation Year" type="number" placeholder="20XX" required min={1950} max={currentYear + 10} />
-    </div>
-  );
-}
-
-function SocialLinksSection() {
-  return (
-    <div className="grid min-w-0 gap-4 sm:grid-cols-2">
-      <TextInput name="socialLinks.linkedin" label="LinkedIn" type="url" placeholder="https://..." required/>
-      <TextInput name="socialLinks.website" label="Institution Website" type="url" placeholder="https://..." required/>
     </div>
   );
 }
@@ -473,18 +409,6 @@ export function RegisterSectionContent({
 
   if (sectionId === "personal") {
     return <PersonalDataSection />;
-  }
-
-  if (sectionId === "location") {
-    return <LocationSection />;
-  }
-
-  if (sectionId === "education") {
-    return <EducationSection />;
-  }
-
-  if (sectionId === "social") {
-    return <SocialLinksSection />;
   }
 
   return <RoleDetailsSection selectedRole={selectedRole} />;
