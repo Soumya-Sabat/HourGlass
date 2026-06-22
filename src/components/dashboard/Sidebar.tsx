@@ -6,7 +6,7 @@ import { canRoleAccessRoute, UserRole } from "@/config/rbac";
 import { 
   LayoutDashboard, GraduationCap, UserSquare2, 
   BellRing, CheckSquare, Download, Hourglass, X, Settings,
-  Building2, Layers, ShieldAlert, Users, Package2,UsersRound,BookOpenText,ScrollText,Mails
+  Building2, Layers, ShieldAlert, Users, Package2,UsersRound,BookOpenText,ScrollText, Mails
 } from "lucide-react";
 
 export interface SidebarProps {
@@ -22,33 +22,41 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
 
   // Master definitions using the precise namespaced segments
   const masterMenuItems = [
+    // Student section 
     { name: "STUDENT CONSOLE", href: "/dashboard/student", icon: LayoutDashboard },
     { name: "MY TIMETABLE", href: "/dashboard/student/timetable", icon: GraduationCap },    
     { name: "SUBJECTS ", href: "/dashboard/student/subjects", icon: BookOpenText },    
     { name: "FACULTIES ", href: "/dashboard/student/faculties", icon: UsersRound },    
-    { name: "MESSAGES ", href: "/dashboard/student/messages", icon: ScrollText },    
+    { name: "MESSAGES ", href: "/dashboard/student/messages", icon: Mails },    
     { name: "NOTICES / ALERTS ", href: "/dashboard/student/alerts", icon: BellRing },    
     { name: "ATTENDANCE ", href: "/dashboard/student/attendance", icon: ScrollText },    
     { name: "MY MARKSHEET", href: "/dashboard/student/marksheet", icon: Download },    
     { name: "STUDENT SETTINGS", href: "/dashboard/student/settings", icon: Settings },    
     
+    // faculty section 
     { name: "FACULTY CORE", href: "/dashboard/faculty", icon: UserSquare2 },
     { name: "TEACHING SCHEDULES", href: "/dashboard/faculty/timetable", icon: GraduationCap },
     { name: "ALERTS", href: "/dashboard/faculty/alerts", icon: BellRing },    
     { name: "EXCHANGE DESK", href: "/dashboard/faculty/exchange-desk", icon: ShieldAlert },
     
+    // Head of dept
     { name: "APPROVALS DESK", href: "/dashboard/head", icon: CheckSquare },
     
+    //dept admin - dean , supervisor
     { name: "DEPT SCHEDULER", href: "/dashboard/department", icon: Layers },
     { name: "DEPT LOGISTICS", href: "/dashboard/department/physical", icon: Package2 },
     
+    //institutuon head
     { name: "INSTITUTION CORE", href: "/dashboard/institution", icon: Building2 },
     { name: "CAMPUS ESTATE", href: "/dashboard/institution/physical", icon: Building2 },
     
+    // for main controller
     { name: "SUPER CONTROL", href: "/dashboard/super-admin", icon: Users },
+    { name: "MANAGE USERS", href: "/dashboard/super-admin/users", icon: Users },
+    { name: "SYSTEM ANALYTICS", href: "/dashboard/super-admin/analytics", icon: Users },
   ];
 
-  // Filters elements in real time against the exact RBAC prefix logic rules
+    // Filters elements in real time against the exact RBAC prefix logic rules
   const authorizedMenuItems = masterMenuItems.filter(item => canRoleAccessRoute(role, item.href));
 
   return (
