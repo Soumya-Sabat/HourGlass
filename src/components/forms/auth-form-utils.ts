@@ -68,13 +68,13 @@ export function buildRegisterPayload(form: FormData) {
       ? String(form.get("institution.contactEmail") ?? "")
       : String(form.get("email") ?? "");
   const institutionId = readString(form, "institutionId")?.toUpperCase();
+
   const institutionDetails = {
     name: readString(form, "institution.name"),
     type: readString(form, "institution.type"),
     academicMode: readString(form, "institution.academicMode"),
     affiliation: readString(form, "institution.affiliation"),
     establishedYear: readNumber(form, "institution.establishedYear"),
-    website: readString(form, "institution.website"),
     contactPerson: readString(form, "institution.contactPerson"),
     contactEmail: readString(form, "institution.contactEmail"),
     contactPhone: readString(form, "institution.contactPhone"),
@@ -85,17 +85,8 @@ export function buildRegisterPayload(form: FormData) {
       postalCode: readString(form, "institution.address.postalCode"),
       line: readString(form, "institution.address.line"),
     },
-    academicYear: readString(form, "institution.academicYear"),
-    timetableCycle: readString(form, "institution.timetableCycle"),
-    workingDays: readTags(form, "institution.workingDays"),
-    periodDurationMinutes: readNumber(form, "institution.periodDurationMinutes"),
-    dailyPeriods: readNumber(form, "institution.dailyPeriods"),
-    breakSlots: readTags(form, "institution.breakSlots"),
-    departmentsOrSections: readTags(form, "institution.departmentsOrSections"),
-    classroomResources: readTags(form, "institution.classroomResources"),
-    approvalWorkflow: readTags(form, "institution.approvalWorkflow"),
-    schedulingRules: readTags(form, "institution.schedulingRules"),
   };
+
   const address = {
     country: readString(form, "address.country"),
     state: readString(form, "address.state"),
@@ -103,19 +94,11 @@ export function buildRegisterPayload(form: FormData) {
     postalCode: readString(form, "address.postalCode"),
     line: readString(form, "address.line"),
   };
-  const education = {
-    highestStudy: readString(form, "education.highestStudy"),
-    specialization: readString(form, "education.specialization"),
-    collegeOrUniversity: readString(form, "education.collegeOrUniversity"),
-    graduationYear: readNumber(form, "education.graduationYear"),
-  };
-  const socialLinks = {
-    linkedin: readString(form, "socialLinks.linkedin"),
-    github: readString(form, "socialLinks.github"),
-    portfolio: readString(form, "socialLinks.portfolio"),
-    twitter: readString(form, "socialLinks.twitter"),
-    reddit: readString(form, "socialLinks.reddit"),
-  };
+
+  const phoneCountryCode = readString(form, "phoneCountryCode") ?? "";
+  const phoneNumber = readString(form, "phoneNumber") ?? "";
+  const combinedPhone = phoneCountryCode + phoneNumber || undefined;
+
   const profile = (roleProfileFields[role] ?? []).reduce<Record<string, unknown>>((values, field) => {
     const formKey = `profile.${field.name}`;
     const value =
@@ -131,9 +114,8 @@ export function buildRegisterPayload(form: FormData) {
 
     return values;
   }, {});
+
   const hasAddress = Object.values(address).some(Boolean);
-  const hasEducation = Object.values(education).some(Boolean);
-  const hasSocialLinks = Object.values(socialLinks).some(Boolean);
 
   return {
     email,
@@ -141,14 +123,10 @@ export function buildRegisterPayload(form: FormData) {
       accountType,
       institutionId: accountType === "user" ? institutionId : undefined,
       institution: accountType === "institution" ? institutionDetails : undefined,
-      fullName:
-        accountType === "institution"
-          ? readString(form, "institution.contactPerson")
-          : readString(form, "fullName"),
+      fullName: readString(form, "fullName"),
       email,
       role,
-      phoneNumber: readString(form, "phoneNumber"),
-      designation: readString(form, "designation"),
+      phoneNumber: combinedPhone,
       bio: readString(form, "bio"),
       skills: readTags(form, "skills"),
       gender: readString(form, "gender"),
@@ -157,8 +135,6 @@ export function buildRegisterPayload(form: FormData) {
       address: hasAddress ? address : undefined,
       yearsOfExperience: readNumber(form, "yearsOfExperience"),
       areasOfInterest: readTags(form, "areasOfInterest"),
-      education: hasEducation ? education : undefined,
-      socialLinks: hasSocialLinks ? socialLinks : undefined,
       profile,
     },
   };
