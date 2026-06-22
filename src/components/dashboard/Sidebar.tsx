@@ -51,9 +51,9 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
     { name: "CAMPUS ESTATE", href: "/dashboard/institution/physical", icon: Building2 },
     
     // for main controller
-    { name: "SUPER CONTROL", href: "/dashboard/super-admin", icon: Users },
-    { name: "MANAGE USERS", href: "/dashboard/super-admin/users", icon: Users },
-    { name: "SYSTEM ANALYTICS", href: "/dashboard/super-admin/analytics", icon: Users },
+    // { name: "SUPER CONTROL", href: "/dashboard/super-admin", icon: Users },
+    // { name: "MANAGE USERS", href: "/dashboard/super-admin/users", icon: Users },
+    // { name: "SYSTEM ANALYTICS", href: "/dashboard/super-admin/analytics", icon: Users },
   ];
 
     // Filters elements in real time against the exact RBAC prefix logic rules
