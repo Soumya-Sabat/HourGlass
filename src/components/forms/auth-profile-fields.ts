@@ -47,11 +47,6 @@ export const roleProfileFields: Record<string, ProfileField[]> = {
     { name: "enrollmentYear", label: "Enrollment Year", type: "number", required: true, placeholder: "2026" },
     { name: "preferredSlots", label: "Preferred Slots", type: "tags", required: true, placeholder: "Morning, No late labs" },
   ],
-  admin: [
-    { name: "adminArea", label: "Admin Area", type: "select", required: true, options: ["Platform", "Support", "Institution operations"] },
-    { name: "permissions", label: "Permissions", type: "tags", required: true, placeholder: "Users, Institutions, Audit logs" },
-    { name: "accessLevel", label: "Access Level", type: "select", required: true, options: ["Read-only", "Standard", "Full"] },
-  ],
   super_admin: [
     { name: "adminArea", label: "Admin Area", type: "select", required: true, options: ["Platform owner", "Security", "Operations"] },
     { name: "permissions", label: "Permissions", type: "tags", required: true, placeholder: "All institutions, Billing, Audit logs" },

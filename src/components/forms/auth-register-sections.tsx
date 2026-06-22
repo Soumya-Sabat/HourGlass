@@ -33,12 +33,25 @@ export const registerSections: Array<{
   },
 ];
 
+export type RegistrationConfig = {
+  departmentHeadRoles?: string[];
+  facultyPositions?: string[];
+  studentClasses?: string[];
+  studentSections?: string[];
+  studentBatches?: string[];
+};
+
 type RegisterSectionProps = {
   accountType: "institution" | "user";
   institutionFound: boolean;
+  institutionName?: string;
+  institutionConfirmed?: boolean;
+  registrationConfig?: RegistrationConfig;
   selectedRole: string;
   onAccountTypeChange: (accountType: "institution" | "user") => void;
   onRoleChange: (role: string) => void;
+  onConfirmInstitution?: () => void;
+  onRejectInstitution?: () => void;
 };
 
 const genderOptions: Array<{ label: string; value: Gender }> = [
@@ -138,8 +151,13 @@ function AccountTypeSection({
 
 function InstitutionSection() {
   return (
-    <div className="grid min-w-0 gap-4 sm:grid-cols-2">
-      <TextInput name="institution.name" label="Institution Name" placeholder="HourGlass Institute of Technology" required minLength={2} maxLength={140} />
+    <div className="min-w-0 space-y-4">
+      <div className="rounded-lg border-2 border-amber-300 bg-amber-50 p-3">
+        <p className="text-xs font-bold text-amber-800">
+          The contact person must be the Head of the Institution (Principal, Director, or equivalent). This person will receive the login credentials after approval.
+        </p>
+      </div>
+      <div className="grid min-w-0 gap-4 sm:grid-cols-2">
       <div className="min-w-0 space-y-2">
         <FieldLabel>Institution Type</FieldLabel>
         <select
@@ -182,14 +200,37 @@ function InstitutionSection() {
         <TextInput name="institution.address.line" label="Address Line" placeholder="Campus, department, or street" maxLength={160} />
       </div>
     </div>
+    </div>
   );
 }
 
 function InstitutionLookupSection({
   institutionFound,
+  institutionName,
+  institutionConfirmed,
+  registrationConfig,
   selectedRole,
   onRoleChange,
-}: Pick<RegisterSectionProps, "institutionFound" | "selectedRole" | "onRoleChange">) {
+  onConfirmInstitution,
+  onRejectInstitution,
+}: Pick<RegisterSectionProps, "institutionFound" | "institutionName" | "institutionConfirmed" | "registrationConfig" | "selectedRole" | "onRoleChange" | "onConfirmInstitution" | "onRejectInstitution">) {
+  const cfg = registrationConfig;
+  const dynamicFields: { label: string; name: string; options: string[] }[] = [];
+
+  if (cfg && selectedRole) {
+    if (selectedRole === "faculty" && cfg.facultyPositions?.length) {
+      dynamicFields.push({ label: "Faculty Position", name: "facultyPosition", options: cfg.facultyPositions });
+    }
+    if (selectedRole === "student") {
+      if (cfg.studentClasses?.length) dynamicFields.push({ label: "Class", name: "studentClass", options: cfg.studentClasses });
+      if (cfg.studentSections?.length) dynamicFields.push({ label: "Section", name: "studentSection", options: cfg.studentSections });
+      if (cfg.studentBatches?.length) dynamicFields.push({ label: "Batch", name: "studentBatch", options: cfg.studentBatches });
+    }
+    if (selectedRole === "department_head" && cfg.departmentHeadRoles?.length) {
+      dynamicFields.push({ label: "Department Head Role", name: "departmentHeadRole", options: cfg.departmentHeadRoles });
+    }
+  }
+
   return (
     <div className="min-w-0 space-y-6">
       <div className="min-w-0 space-y-3">
@@ -199,17 +240,58 @@ function InstitutionLookupSection({
           placeholder="Your assigned Institution ID"
           required
           minLength={7}
-          maxLength={7}
-          pattern="^[A-Za-z0-9]{7}$"
-          title="Enter the 7 character institution ID shared by your institution."
+          maxLength={20}
+          pattern="^[A-Z0-9-]{7,20}$"
+          title="Enter the institution ID shared by your institution."
         />
-        <p className={`text-xs font-bold ${institutionFound ? "text-emerald-600" : "text-slate-500"}`}>
-          {institutionFound
-            ? "Institution found. Continue with your personal details."
-            : "Enter the ID first. The form checks this before your user details are collected."}
-        </p>
+        {institutionFound && institutionName && (
+          <div className="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-4 space-y-3">
+            <div className="text-sm font-bold text-emerald-800">
+              Institution: <span className="font-black">{institutionName}</span>
+            </div>
+            {!institutionConfirmed ? (
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={onConfirmInstitution}
+                  className="inline-flex h-9 items-center justify-center rounded-lg bg-emerald-600 px-4 text-xs font-black text-white hover:bg-emerald-700"
+                >
+                  Yes, this is correct
+                </button>
+                <button
+                  type="button"
+                  onClick={onRejectInstitution}
+                  className="inline-flex h-9 items-center justify-center rounded-lg border border-red-200 bg-white px-4 text-xs font-black text-red-700 hover:bg-red-50"
+                >
+                  No, try again
+                </button>
+              </div>
+            ) : (
+              <div className="text-xs font-black text-emerald-700">✓ Confirmed. Proceed with your details.</div>
+            )}
+          </div>
+        )}
+        {!institutionFound && (
+          <p className="text-xs font-bold text-slate-500">
+            Enter the ID first. The form checks this before your user details are collected.
+          </p>
+        )}
       </div>
-      <RolePicker selectedRole={selectedRole} onRoleChange={onRoleChange} />
+      {institutionConfirmed && <RolePicker selectedRole={selectedRole} onRoleChange={onRoleChange} />}
+      {institutionConfirmed && selectedRole && dynamicFields.length > 0 && (
+        <div className="border-t border-slate-200 pt-4 space-y-3">
+          <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">Institution-Specific Details</p>
+          {dynamicFields.map((f) => (
+            <div key={f.name} className="min-w-0 space-y-1.5">
+              <label className="text-xs font-bold text-slate-700">{f.label} <span className="text-red-500">*</span></label>
+              <select name={f.name} required className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10">
+                <option value="">Select {f.label}...</option>
+                {f.options.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+              </select>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -386,10 +468,15 @@ function RoleDetailsSection({ selectedRole }: Pick<RegisterSectionProps, "select
 export function RegisterSectionContent({
   accountType,
   institutionFound,
+  institutionName,
+  institutionConfirmed,
+  registrationConfig,
   sectionId,
   selectedRole,
   onAccountTypeChange,
   onRoleChange,
+  onConfirmInstitution,
+  onRejectInstitution,
 }: RegisterSectionProps & { sectionId: RegisterSectionId }) {
   if (sectionId === "account-type") {
     return <AccountTypeSection accountType={accountType} onAccountTypeChange={onAccountTypeChange} />;
@@ -401,8 +488,13 @@ export function RegisterSectionContent({
     ) : (
       <InstitutionLookupSection
         institutionFound={institutionFound}
+        institutionName={institutionName}
+        institutionConfirmed={institutionConfirmed}
+        registrationConfig={registrationConfig}
         selectedRole={selectedRole}
         onRoleChange={onRoleChange}
+        onConfirmInstitution={onConfirmInstitution}
+        onRejectInstitution={onRejectInstitution}
       />
     );
   }

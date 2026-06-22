@@ -44,10 +44,6 @@ const roleProfileSchemas: Partial<Record<UserRole, z.ZodType>> = {
     subjects: requiredTags,
     preferredSlots: requiredTags,
   }),
-  [UserRole.Admin]: z.object({
-    adminArea: requiredString,
-    permissions: requiredTags,
-  }),
   [UserRole.SuperAdmin]: z.object({
     adminArea: requiredString,
     permissions: requiredTags,
@@ -56,7 +52,7 @@ const roleProfileSchemas: Partial<Record<UserRole, z.ZodType>> = {
  
 export const createUserSchema = z.object({
   accountType: z.enum(["institution", "user"]).default("user"),
-  institutionId: z.string().trim().regex(/^[A-Za-z0-9]{7}$/).transform((value) => value.toUpperCase()).optional(),
+  institutionId: z.string().trim().regex(/^[A-Z0-9-]{7,20}$/).transform((value) => value.toUpperCase()).optional(),
   institution: z
     .object({
       name: z.string().trim().min(2).optional(),

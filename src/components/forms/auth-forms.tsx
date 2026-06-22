@@ -373,6 +373,9 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
   const [loading, setLoading] = useState(false);
   const [accountType, setAccountType] = useState<"institution" | "user">("user");
   const [institutionFound, setInstitutionFound] = useState(false);
+  const [institutionName, setInstitutionName] = useState("");
+  const [institutionConfirmed, setInstitutionConfirmed] = useState(false);
+  const [registrationConfig, setRegistrationConfig] = useState<Record<string, string[]>>({});
   const [selectedRole, setSelectedRole] = useState("");
   const activeSections = registerSections;
   const currentSection = activeSections[Math.min(currentStep, activeSections.length - 1)];
@@ -416,6 +419,8 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
     onStepChange(0);
     setState({});
     setInstitutionFound(false);
+    setInstitutionName("");
+    setInstitutionConfirmed(false);
     setSelectedRole("");
   }
 
@@ -483,12 +488,15 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
     setState({});
 
     try {
-      await postJson<{ institutionId: string }>("/api/auth/institutions/lookup", {
+      const result = await postJson<{ institutionId: string; institutionName?: string; registrationConfig?: Record<string, string[]> }>("/api/auth/institutions/lookup", {
         institutionId: nextInstitutionId,
       });
       control.value = nextInstitutionId;
       setInstitutionFound(true);
-      setState({ success: "Institution found. Continue with role and personal details." });
+      setInstitutionName(result.institutionName || "Unknown Institution");
+      setRegistrationConfig(result.registrationConfig || {});
+      setInstitutionConfirmed(false);
+      setState({ success: "Institution found. Please confirm the name below." });
       return true;
     } catch (error) {
       setInstitutionFound(false);
@@ -504,8 +512,15 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
       return;
     }
 
-    if (accountType === "user" && currentSection.id === "institution" && !(await verifyInstitutionId())) {
-      return;
+    if (accountType === "user" && currentSection.id === "institution") {
+      if (!institutionFound) {
+        if (!(await verifyInstitutionId())) return;
+      }
+      if (!institutionConfirmed) {
+        setState({ error: "Please confirm the institution name before proceeding." });
+        return;
+      }
+      return onStepChange(Math.min(activeSections.length - 1, currentStep + 1));
     }
 
     onStepChange(Math.min(activeSections.length - 1, currentStep + 1));
@@ -572,7 +587,7 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
           </div>
         </div>
 
-        <div ref={sectionScrollerRef} className="min-w-0 touch-pan-y overflow-visible pr-1 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-contain no-scrollbar">
+        <div ref={sectionScrollerRef} className="min-w-0 touch-pan-y overflow-visible pr-1 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-contain [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full">
           <div
             className="flex min-w-0 transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${currentStep * 100}%)` }}
@@ -590,9 +605,14 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
                   sectionId={section.id}
                   accountType={accountType}
                   institutionFound={institutionFound}
+                  institutionName={institutionName}
+                  institutionConfirmed={institutionConfirmed}
+                  registrationConfig={registrationConfig}
                   selectedRole={selectedRole}
                   onAccountTypeChange={handleAccountTypeChange}
                   onRoleChange={setSelectedRole}
+                  onConfirmInstitution={() => { setInstitutionConfirmed(true); setState({}); }}
+                  onRejectInstitution={() => { setInstitutionFound(false); setInstitutionName(""); setInstitutionConfirmed(false); setRegistrationConfig({}); setSelectedRole(""); (formRef.current?.querySelector("[name=institutionId]") as HTMLInputElement)?.focus(); }}
                 />
               </section>
             ))}
@@ -606,9 +626,8 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
         <div className="mt-5 flex shrink-0 flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
           <button
             type="button"
-            disabled={currentStep === 0 || loading}
-            onClick={handleBack}
-            className="inline-flex h-9 w-full touch-manipulation items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-5 text-sm font-black text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+            onClick={currentStep === 0 ? undefined : handleBack}
+            className={`inline-flex h-9 w-full touch-manipulation items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-5 text-sm font-black text-slate-700 transition hover:bg-slate-50 sm:w-auto ${currentStep === 0 ? "cursor-not-allowed opacity-30" : ""}`}
           >
             <ArrowLeft className="h-4 w-4" />
             Back

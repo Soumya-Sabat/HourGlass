@@ -5,7 +5,7 @@ import { UserService } from "@/models/user/services/user.service";
 export const runtime = "nodejs";
 
 const lookupSchema = z.object({
-  institutionId: z.string().trim().regex(/^[A-Za-z0-9]{7}$/),
+  institutionId: z.string().trim().min(3).max(20),
 });
 
 export async function POST(request: Request) {
