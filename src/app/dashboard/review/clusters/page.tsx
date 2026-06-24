@@ -101,47 +101,47 @@ export default function ReviewerClustersPage() {
     setAddIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
   };
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading clusters...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading clusters...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <Layers className="h-5 w-5 text-[#e28774]" /> Subject Clusters
+          <Layers className="h-5 w-5 text-[var(--accent)]" /> Subject Clusters
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Group faculty by subject for coordinated teaching</p>
       </div>
 
-      {msg && <div className="border-2 border-black bg-[#eae3cb] p-3 text-xs font-bold shadow-[3px_3px_0px_0px_#1a1a14]">{msg}</div>}
+      {msg && <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-3 text-xs font-bold shadow-[3px_3px_0px_0px_var(--border-primary)]">{msg}</div>}
 
       <button onClick={() => setShowCreate(!showCreate)}
-        className="flex items-center gap-2 border-2 border-black bg-[#e28774] shadow-[3px_3px_0px_0px_#1a1a14] px-4 py-2 text-xs font-black uppercase hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all">
+        className="flex items-center gap-2 border-2 border-[var(--border-primary)] bg-[var(--accent)] shadow-[3px_3px_0px_0px_var(--border-primary)] px-4 py-2 text-xs font-black uppercase hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all">
         <Plus className="h-4 w-4" /> {showCreate ? "Cancel" : "New Cluster"}
       </button>
 
       {/* Create Form */}
       {showCreate && (
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4 space-y-3">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4 space-y-3">
           <input value={formName} onChange={(e) => setFormName(e.target.value)} placeholder="Cluster name (e.g., Mathematics Core)"
-            className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold" />
+            className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold" />
 
           <select value={formSubjectId} onChange={(e) => {
             const s = subjects.find((x) => x.id === e.target.value);
             setFormSubjectId(e.target.value);
             setFormSubjectName(s?.name || "");
           }}
-            className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold">
+            className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold">
             <option value="">Select subject (optional)</option>
             {subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
           </select>
 
           <div>
             <p className="text-[10px] font-black uppercase mb-1">Add Faculty Members:</p>
-            <div className="max-h-40 overflow-y-auto border border-black bg-white p-2 space-y-1">
+            <div className="max-h-40 overflow-y-auto border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 space-y-1">
               {faculty.map((f) => (
                 <label key={f.id} className="flex items-center gap-2 text-[10px] font-bold cursor-pointer">
                   <input type="checkbox" checked={formMembers.includes(f.id)} onChange={() => toggleFormMember(f.id)}
-                    className="accent-[#e28774]" />
+                    className="accent-[var(--accent)]" />
                   {f.name}
                 </label>
               ))}
@@ -150,7 +150,7 @@ export default function ReviewerClustersPage() {
           </div>
 
           <button onClick={handleCreate} disabled={saving}
-            className="border-2 border-black bg-[#1a1a14] text-[#f4ebd0] px-4 py-2 text-xs font-black uppercase shadow-[2px_2px_0px_0px_#e28774] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all disabled:opacity-50">
+            className="border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)] px-4 py-2 text-xs font-black uppercase shadow-[2px_2px_0px_0px_var(--accent)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all disabled:opacity-50">
             {saving ? "Creating..." : "Create Cluster"}
           </button>
         </div>
@@ -158,27 +158,27 @@ export default function ReviewerClustersPage() {
 
       {/* Cluster List */}
       {clusters.length === 0 && !showCreate && (
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-6 text-center text-sm font-bold text-gray-500">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-6 text-center text-sm font-bold text-gray-500">
           No clusters yet. Create your first one above.
         </div>
       )}
 
       <div className="grid gap-4">
         {clusters.map((c) => (
-          <div key={c.id} className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14]">
-            <div className="border-b-2 border-black bg-[#1a1a14] p-2 text-[#f4ebd0] text-xs font-black uppercase flex justify-between items-center">
+          <div key={c.id} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)]">
+            <div className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] p-2 text-[var(--light-text)] text-xs font-black uppercase flex justify-between items-center">
               <span>{c.name} {c.subjectName ? `(${c.subjectName})` : ""}</span>
               <div className="flex gap-1">
                 <Link href={`/dashboard/faculty/clusters/${c.id}`}
-                  className="text-[9px] bg-white text-[#1a1a14] px-2 py-0.5 border border-black font-black hover:bg-[#e28774] transition-colors">
+                  className="text-[9px] bg-[var(--surface-white)] text-[var(--text-primary)] px-2 py-0.5 border border-[var(--border-primary)] font-black hover:bg-[var(--accent)] transition-colors">
                   <MessageSquare className="h-3 w-3 inline" /> Chat
                 </Link>
                 <button onClick={() => { setShowAdd(showAdd === c.id ? null : c.id); setAddIds([]); }}
-                  className="text-[9px] bg-[#e28774] text-[#1a1a14] px-2 py-0.5 border border-black font-black">
+                  className="text-[9px] bg-[var(--accent)] text-[var(--text-primary)] px-2 py-0.5 border border-[var(--border-primary)] font-black">
                   <UserPlus className="h-3 w-3 inline" /> Add
                 </button>
                 <button onClick={() => handleDelete(c.id)}
-                  className="text-[9px] bg-red-400 text-[#1a1a14] px-2 py-0.5 border border-black font-black">
+                  className="text-[9px] bg-red-400 text-[var(--text-primary)] px-2 py-0.5 border border-[var(--border-primary)] font-black">
                   <Trash2 className="h-3 w-3 inline" />
                 </button>
               </div>
@@ -187,13 +187,13 @@ export default function ReviewerClustersPage() {
             <div className="p-3">
               {/* Add member UI */}
               {showAdd === c.id && (
-                <div className="mb-3 border border-black bg-white p-2 space-y-1">
+                <div className="mb-3 border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 space-y-1">
                   <p className="text-[9px] font-black uppercase">Select faculty to add:</p>
                   <div className="max-h-32 overflow-y-auto space-y-1">
                     {faculty.filter((f) => !c.members.some((m) => m.userId === f.id)).map((f) => (
                       <label key={f.id} className="flex items-center gap-2 text-[10px] font-bold cursor-pointer">
                         <input type="checkbox" checked={addIds.includes(f.id)} onChange={() => toggleAddMember(f.id)}
-                          className="accent-[#e28774]" />
+                          className="accent-[var(--accent)]" />
                         {f.name}
                       </label>
                     ))}
@@ -202,7 +202,7 @@ export default function ReviewerClustersPage() {
                     )}
                   </div>
                   <button onClick={() => handleAddMembers(c.id)}
-                    className="text-[9px] font-black uppercase border border-black px-2 py-1 bg-[#e28774] hover:bg-[#d17664] transition-colors">
+                    className="text-[9px] font-black uppercase border border-[var(--border-primary)] px-2 py-1 bg-[var(--accent)] hover:bg-[#d17664] transition-colors">
                     Add Selected
                   </button>
                 </div>
@@ -215,7 +215,7 @@ export default function ReviewerClustersPage() {
 
               <div className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
                 {c.members.map((m) => (
-                  <div key={m.userId} className="flex items-center justify-between border border-black bg-white p-1.5 text-[10px] font-bold">
+                  <div key={m.userId} className="flex items-center justify-between border border-[var(--border-primary)] bg-[var(--surface-white)] p-1.5 text-[10px] font-bold">
                     <span>{m.name}</span>
                     <button onClick={() => handleRemoveMember(c.id, m.userId)}
                       className="text-red-500 hover:text-red-700">
