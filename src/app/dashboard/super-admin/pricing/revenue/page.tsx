@@ -75,16 +75,16 @@ export default async function RevenuePage() {
             {MOCK_MONTHLY_REVENUE.map((item) => (
               <div key={item.month} className="flex-1 flex flex-col items-center gap-1">
                 <div
-                  className="w-full bg-[#e28774] border border-black transition-all hover:opacity-80"
+                  className="w-full bg-[var(--accent)] border border-[var(--border-primary)] transition-all hover:opacity-80"
                   style={{ height: `${(item.rev / maxRev) * 100}%` }}
                 />
                 <span className="text-[8px] font-black uppercase">{item.month}</span>
               </div>
             ))}
           </div>
-          <div className="flex items-center justify-between text-[9px] font-bold text-[#1a1a14]/60 pt-2 border-t border-black/10">
+          <div className="flex items-center justify-between text-[9px] font-bold text-[var(--text-primary)]/60 pt-2 border-t border-[var(--border-primary)]/10">
             <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 bg-[#e28774] border border-black inline-block" />
+              <span className="h-2.5 w-2.5 bg-[var(--accent)] border border-[var(--border-primary)] inline-block" />
               <span>Monthly Revenue</span>
             </div>
             <span>Total: ₹{MOCK_MONTHLY_REVENUE.reduce((s, d) => s + d.rev, 0).toLocaleString()}</span>
@@ -94,15 +94,15 @@ export default async function RevenuePage() {
 
       <Card title="Key Metrics">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-          <div className="p-4 border-2 border-black bg-[#f4ebd0]">
+          <div className="p-4 border-2 border-[var(--border-primary)] bg-[var(--bg-primary)]">
             <div className="text-[10px] font-black uppercase tracking-wider opacity-70">Avg. Revenue / Sub</div>
             <div className="text-xl font-black mt-1">₹{(totalRevenue / (activeSubs || 1)).toLocaleString()}</div>
           </div>
-          <div className="p-4 border-2 border-black bg-[#f4ebd0]">
+          <div className="p-4 border-2 border-[var(--border-primary)] bg-[var(--bg-primary)]">
             <div className="text-[10px] font-black uppercase tracking-wider opacity-70">Active Subscriptions</div>
             <div className="text-xl font-black mt-1">{activeSubs}</div>
           </div>
-          <div className="p-4 border-2 border-black bg-[#f4ebd0]">
+          <div className="p-4 border-2 border-[var(--border-primary)] bg-[var(--bg-primary)]">
             <div className="text-[10px] font-black uppercase tracking-wider opacity-70">Projected Annual Run Rate</div>
             <div className="text-xl font-black mt-1">₹{(mrr * 12).toLocaleString()}</div>
           </div>
