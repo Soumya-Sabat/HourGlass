@@ -24,7 +24,7 @@ export default function InAppNotificationsPage() {
     } catch {} finally { setLoading(false); }
   }
 
-  if (loading) return <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>;
 
   const rows = data.map((n: any) => [
     <span key="t" className="font-black">{n.title}</span>,
@@ -40,7 +40,7 @@ export default function InAppNotificationsPage() {
   ]);
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
       <PageHeader
         title="IN-APP NOTIFICATIONS"
         description="Push notifications displayed inside the application"
