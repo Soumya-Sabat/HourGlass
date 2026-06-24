@@ -70,39 +70,39 @@ export default function RegistrationSettingsPage() {
     }
   };
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading...</div>;
   if (!config) return null;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4 flex items-center justify-between">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4 flex items-center justify-between">
         <div>
           <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-            <Settings className="h-5 w-5 text-[#e28774]" /> Registration Settings
+            <Settings className="h-5 w-5 text-[var(--accent)]" /> Registration Settings
           </h1>
           <p className="text-[10px] font-bold text-gray-600 mt-1">
             Define the options users see when registering under your institution
           </p>
         </div>
         <button onClick={handleSave} disabled={saving}
-          className="flex items-center gap-2 border-2 border-black bg-[#1a1a14] text-[#f4ebd0] px-4 py-2 text-xs font-black uppercase hover:bg-[#2a2a24] disabled:opacity-50">
+          className="flex items-center gap-2 border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)] px-4 py-2 text-xs font-black uppercase hover:bg-[var(--bg-primary)] disabled:opacity-50">
           <Save className="h-3 w-3" /> {saving ? "Saving..." : "Save"}
         </button>
       </div>
 
       {message && (
-        <div className={`border-2 border-black p-3 text-xs font-black shadow-[3px_3px_0px_0px_#1a1a14] ${message.includes("success") ? "bg-green-200 text-green-900" : "bg-red-200 text-red-900"}`}>
+        <div className={`border-2 border-[var(--border-primary)] p-3 text-xs font-black shadow-[3px_3px_0px_0px_var(--border-primary)] ${message.includes("success") ? "bg-green-200 text-green-900" : "bg-red-200 text-red-900"}`}>
           {message}
         </div>
       )}
 
       <div className="space-y-4">
         {fields.map((f) => (
-          <div key={f.key} className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+          <div key={f.key} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-xs font-black uppercase">{f.label}</h2>
               <button onClick={() => addItem(f.key)}
-                className="flex items-center gap-1 border-2 border-black bg-white px-2 py-1 text-[10px] font-black hover:bg-[#f4ebd0]">
+                className="flex items-center gap-1 border-2 border-[var(--border-primary)] bg-[var(--surface-white)] px-2 py-1 text-[10px] font-black hover:bg-[var(--bg-primary)]">
                 <Plus className="h-3 w-3" /> Add
               </button>
             </div>
@@ -113,9 +113,9 @@ export default function RegistrationSettingsPage() {
                 {config[f.key].map((item, i) => (
                   <div key={i} className="flex gap-2">
                     <input value={item} onChange={(e) => updateItem(f.key, i, e.target.value)}
-                      className="flex-1 border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold" placeholder={f.placeholder} />
+                      className="flex-1 border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold" placeholder={f.placeholder} />
                     <button onClick={() => removeItem(f.key, i)}
-                      className="p-2 border border-black bg-red-200 hover:bg-red-300">
+                      className="p-2 border border-[var(--border-primary)] bg-red-200 hover:bg-red-300">
                       <Trash2 className="h-3 w-3" />
                     </button>
                   </div>
