@@ -18,13 +18,13 @@ export default function HeadFacultyRosterPage() {
     f.role.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading roster...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading roster...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <Users className="h-5 w-5 text-[#e28774]" /> Faculty Roster
+          <Users className="h-5 w-5 text-[var(--accent)]" /> Faculty Roster
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Overview of all instructors in your department</p>
       </div>
@@ -32,17 +32,17 @@ export default function HeadFacultyRosterPage() {
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
         <input type="text" placeholder="Search faculty..." value={search} onChange={(e) => setSearch(e.target.value)}
-          className="w-full border-2 border-black bg-[#f4ebd0] p-2 pl-9 text-xs font-bold" />
+          className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 pl-9 text-xs font-bold" />
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.length === 0 && (
-          <div className="col-span-full border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-6 text-center text-sm font-bold text-gray-500">
+          <div className="col-span-full border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-6 text-center text-sm font-bold text-gray-500">
             {search ? "No faculty match your search." : "No faculty in this department."}
           </div>
         )}
         {filtered.map((f) => (
-          <div key={f.id} className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+          <div key={f.id} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
             <h3 className="text-sm font-black">{f.name}</h3>
             <p className="text-[10px] font-bold text-gray-600 mt-0.5 capitalize">{f.role.replace("_", " ")}</p>
             {f.clusters.length > 0 && (
@@ -50,7 +50,7 @@ export default function HeadFacultyRosterPage() {
                 <p className="text-[9px] font-black uppercase text-gray-500">Clusters:</p>
                 <div className="flex flex-wrap gap-1 mt-1">
                   {f.clusters.map((c, i) => (
-                    <span key={i} className="text-[9px] bg-[#1a1a14] text-[#f4ebd0] px-1.5 py-0.5 font-bold">{c}</span>
+                    <span key={i} className="text-[9px] bg-[var(--dark-bg)] text-[var(--light-text)] px-1.5 py-0.5 font-bold">{c}</span>
                   ))}
                 </div>
               </div>
