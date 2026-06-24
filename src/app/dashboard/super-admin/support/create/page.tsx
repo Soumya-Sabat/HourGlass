@@ -48,15 +48,15 @@ export default function CreateTicketPage() {
             <textarea
               id="description" name="description" rows={5} required
               placeholder="Provide detailed information about the issue..."
-              className="w-full px-3 py-2 text-[12px] font-bold border-2 border-black bg-white focus:outline-none focus:ring-2 focus:ring-[#e28774]"
+              className="w-full px-3 py-2 text-[12px] font-bold border-2 border-[var(--border-primary)] bg-[var(--surface-white)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
             />
           </div>
 
           <div>
             <label className="block text-[10px] font-black uppercase tracking-wider mb-1">Attachments</label>
-            <div className="border-2 border-dashed border-black p-6 text-center bg-[#f4ebd0]/30">
-              <Paperclip className="h-5 w-5 mx-auto mb-2 text-[#1a1a14]/40" />
-              <p className="text-[10px] font-bold text-[#1a1a14]/60">Drag & drop files or click to browse</p>
+            <div className="border-2 border-dashed border-[var(--border-primary)] p-6 text-center bg-[var(--bg-primary)]/30">
+              <Paperclip className="h-5 w-5 mx-auto mb-2 text-[var(--text-primary)]/40" />
+              <p className="text-[10px] font-bold text-[var(--text-primary)]/60">Drag & drop files or click to browse</p>
               <input type="file" multiple className="hidden" />
             </div>
           </div>
