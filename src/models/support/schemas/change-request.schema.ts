@@ -8,6 +8,11 @@ const ChangeRequestSchema = new Schema(
       required: true,
       index: true,
     },
+    institutionId: {
+      type: String,
+      required: true,
+      index: true,
+    },
     fieldName: {
       type: String,
       required: true,
