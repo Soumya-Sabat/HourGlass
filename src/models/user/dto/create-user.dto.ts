@@ -50,6 +50,9 @@ export type CreateUserDto = {
     postalCode?: string;
     line?: string;
   };
+  classGroup?: string;
+  section?: string;
+  batch?: string;
   yearsOfExperience?: number;
   areasOfInterest?: string[];
   education?: {
