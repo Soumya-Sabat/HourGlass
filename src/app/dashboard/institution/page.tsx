@@ -16,8 +16,8 @@ export default function InstitutionDashboardPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading dashboard...</div>;
-  if (error) return <div className="border-2 border-black bg-[#e28774] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">{error}</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading dashboard...</div>;
+  if (error) return <div className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">{error}</div>;
   if (!stats) return null;
 
   const cards = [
@@ -31,17 +31,17 @@ export default function InstitutionDashboardPage() {
   ];
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <Building2 className="h-5 w-5 text-[#e28774]" /> Institution Dashboard
+          <Building2 className="h-5 w-5 text-[var(--accent)]" /> Institution Dashboard
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Overview of your institution&apos;s activity</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         {cards.map((card) => (
-          <div key={card.label} className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+          <div key={card.label} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className={`p-1.5 ${card.color} text-white rounded-sm`}>
                 <card.icon className="h-4 w-4" />
@@ -53,8 +53,8 @@ export default function InstitutionDashboardPage() {
         ))}
       </div>
 
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14]">
-        <div className="border-b-2 border-black p-3 bg-[#1a1a14] text-[#f4ebd0]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)]">
+        <div className="border-b-2 border-[var(--border-primary)] p-3 bg-[var(--dark-bg)] text-[var(--light-text)]">
           <h2 className="text-xs font-black uppercase tracking-wide">Recent Users</h2>
         </div>
         {stats.recentUsers.length === 0 ? (
@@ -63,7 +63,7 @@ export default function InstitutionDashboardPage() {
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-xs font-bold">
               <thead>
-                <tr className="border-b-2 border-black bg-[#eae3cb] text-[10px] uppercase">
+                <tr className="border-b-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] text-[10px] uppercase">
                   <th className="p-3 text-left">Name</th>
                   <th className="p-3 text-left">Email</th>
                   <th className="p-3 text-left">Role</th>
@@ -72,7 +72,7 @@ export default function InstitutionDashboardPage() {
               </thead>
               <tbody>
                 {stats.recentUsers.map((u) => (
-                  <tr key={u.id} className="border-b border-black">
+                  <tr key={u.id} className="border-b border-[var(--border-primary)]">
                     <td className="p-3 font-black">{u.name}</td>
                     <td className="p-3">{u.email}</td>
                     <td className="p-3 uppercase text-[10px]">{u.role.replace("_", " ")}</td>
