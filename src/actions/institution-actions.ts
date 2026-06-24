@@ -171,7 +171,8 @@ export async function deleteUser(userId: string) {
 export async function updateUserRole(userId: string, role: string) {
   const { institutionId } = await authGuard();
   if (!Object.values(UserRole).includes(role as UserRole)) throw new Error("Invalid role");
-  await UserModel.updateOne({ _id: userId, institutionId }, { $set: { role } });
+  const result = await UserModel.updateOne({ _id: userId, institutionId }, { $set: { role } });
+  if (result.matchedCount === 0) throw new Error("User not found in your institution.");
 }
 
 export async function addUser(data: {
@@ -212,6 +213,47 @@ export async function addUser(data: {
   await UserModel.collection.insertOne({ ...userData, createdAt: now, updatedAt: now });
 }
 
+export async function updateUser(data: {
+  userId: string;
+  fullName: string;
+  email: string;
+  role: string;
+  department?: string;
+  classGroup?: string;
+  section?: string;
+  batch?: string;
+}) {
+  const { institutionId } = await authGuard();
+  const { userId, email, fullName, role, department, classGroup, section, batch } = data;
+  if (!Object.values(UserRole).includes(role as UserRole)) throw new Error("Invalid role");
+
+  const user = await UserRepository.findById(userId);
+  if (!user) throw new Error("User not found");
+  if (user.institutionId !== institutionId) throw new Error("Not authorized to edit this user");
+
+  const normalizedEmail = normalizeEmail(email);
+  const emailHash = createLookupHash(normalizedEmail, "email");
+  const existing = await UserRepository.findByEmailHash(emailHash);
+  if (existing && String(existing._id) !== userId) throw new Error("A user with this email already exists");
+
+  await UserModel.updateOne(
+    { _id: userId },
+    {
+      $set: {
+        emailHash,
+        email: encryptValue(normalizedEmail),
+        fullName: encryptValue(fullName.trim()),
+        role,
+        department: department?.trim() ?? "",
+        classGroup: classGroup?.trim() ?? "",
+        section: section?.trim() ?? "",
+        batch: batch?.trim() ?? "",
+        updatedAt: new Date(),
+      },
+    }
+  );
+}
+
 // ─── Dashboard Stats ─────────────────────────────────────────
 
 export type InstitutionDashboardStats = {
@@ -228,7 +270,7 @@ export type InstitutionDashboardStats = {
 
 export async function getInstitutionDashboardStats(): Promise<InstitutionDashboardStats> {
   const { institutionId } = await authGuard();
-  const [users, faculty, students, subjects, exams, complaints, announcements] = await Promise.all([
+  const [users, faculty, students, subjects, exams, complaints, announcements, depts] = await Promise.all([
     UserModel.countDocuments({ institutionId }),
     UserModel.countDocuments({ institutionId, role: "faculty" }),
     UserModel.countDocuments({ institutionId, role: "student" }),
@@ -236,6 +278,7 @@ export async function getInstitutionDashboardStats(): Promise<InstitutionDashboa
     ExamBlueprintModel.countDocuments({ institutionId }),
     SupportTicketModel.countDocuments({ institutionId }),
     AnnouncementModel.countDocuments({ institutionId }),
+    UserModel.distinct("department", { institutionId, department: { $ne: "" } }),
   ]);
   const recentUsersRaw = await UserModel.find({ institutionId }).sort({ createdAt: -1 }).limit(5).lean();
   const recentUsers = recentUsersRaw.map((u) => ({
@@ -254,7 +297,7 @@ export async function getInstitutionDashboardStats(): Promise<InstitutionDashboa
     totalUsers: users,
     totalFaculty: faculty,
     totalStudents: students,
-    totalDepartments: 0,
+    totalDepartments: depts.length,
     totalSubjects: subjects,
     totalExams: exams,
     totalComplaints: complaints,
@@ -293,6 +336,7 @@ export async function createSubject(data: {
   credits?: number;
   semester?: number;
   department?: string;
+  facultyIds?: string[];
 }) {
   const { institutionId } = await authGuard();
   await SubjectModel.create({
@@ -302,7 +346,17 @@ export async function createSubject(data: {
     credits: data.credits ?? 0,
     semester: data.semester ?? 1,
     department: data.department?.trim() ?? "",
+    facultyIds: data.facultyIds ?? [],
   });
+}
+
+export async function assignFacultyToSubject(subjectId: string, facultyIds: string[]) {
+  const { institutionId } = await authGuard();
+  await SubjectModel.updateOne(
+    { _id: subjectId, institutionId },
+    { $set: { facultyIds } },
+  );
+  return { success: true };
 }
 
 export async function deleteSubject(id: string) {
@@ -659,4 +713,76 @@ export async function getActivityLog(): Promise<ActivityEntry[]> {
     details: (e.details as string) || "",
     timestamp: e.createdAt ? new Date(e.createdAt as Date).toLocaleString() : "",
   }));
+}
+
+// ─── Change Requests ─────────────────────────────────────────
+
+export type ChangeRequestEntry = {
+  _id: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+  fieldName: string;
+  currentValue: string;
+  requestedValue: string;
+  reason: string;
+  status: string;
+  adminNote: string;
+  createdAt: string;
+};
+
+export async function getChangeRequests(): Promise<ChangeRequestEntry[]> {
+  await connectToDatabase();
+  const user = await getCurrentUser();
+  if (!user) throw new Error("Not authenticated");
+  const dbUser = await UserRepository.findById(user.sub);
+  const institutionId = dbUser?.institutionId;
+  if (!institutionId) throw new Error("No institution found");
+
+  const { ChangeRequestModel: CRM } = await import("@/models/support/schemas/change-request.schema");
+  const docs = await CRM.find({ institutionId }).sort({ createdAt: -1 }).lean() as Record<string, unknown>[];
+  const userIds = [...new Set(docs.map((d) => String(d.userId)))];
+  const users = await UserModel.find({ _id: { $in: userIds } }).lean() as Record<string, unknown>[];
+  const userMap = new Map(users.map((u) => [String(u._id), u]));
+
+  function isEncObject(v: unknown): v is Record<string, unknown> {
+    return v !== null && typeof v === "object";
+  }
+
+  return docs.map((d) => {
+    const u = userMap.get(String(d.userId));
+    return {
+      _id: String(d._id),
+      userId: String(d.userId),
+      userName: u?.fullName && isEncObject(u.fullName) ? decryptValue<string>(u.fullName as EncryptedValue) ?? "Unknown" : String(u?.fullName ?? "Unknown"),
+      userEmail: u?.email && isEncObject(u.email) ? decryptValue<string>(u.email as EncryptedValue) ?? "" : String(u?.email ?? ""),
+      fieldName: (d.fieldName as string) ?? "",
+      currentValue: (d.currentValue as string) ?? "",
+      requestedValue: (d.requestedValue as string) ?? "",
+      reason: (d.reason as string) ?? "",
+      status: (d.status as string) ?? "pending",
+      adminNote: (d.adminNote as string) ?? "",
+      createdAt: d.createdAt ? new Date(d.createdAt as Date).toLocaleString() : "",
+    };
+  });
+}
+
+export async function approveChangeRequest(id: string, adminNote: string): Promise<{ success: boolean; error?: string }> {
+  await connectToDatabase();
+  const user = await getCurrentUser();
+  if (!user) return { success: false, error: "Not authenticated" };
+
+  const { ChangeRequestModel: CRM } = await import("@/models/support/schemas/change-request.schema");
+  await CRM.updateOne({ _id: id }, { $set: { status: "approved", adminNote } });
+  return { success: true };
+}
+
+export async function rejectChangeRequest(id: string, adminNote: string): Promise<{ success: boolean; error?: string }> {
+  await connectToDatabase();
+  const user = await getCurrentUser();
+  if (!user) return { success: false, error: "Not authenticated" };
+
+  const { ChangeRequestModel: CRM } = await import("@/models/support/schemas/change-request.schema");
+  await CRM.updateOne({ _id: id }, { $set: { status: "rejected", adminNote } });
+  return { success: true };
 }
