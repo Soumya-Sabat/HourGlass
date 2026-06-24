@@ -29,8 +29,8 @@ export default function DepartmentDashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading dashboard...</div>;
-  if (error) return <div className="border-2 border-black bg-[#e28774] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">{error}</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading dashboard...</div>;
+  if (error) return <div className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">{error}</div>;
 
   const cards = [
     { label: "Faculty", value: stats?.totalFaculty ?? 0, icon: Users, color: "bg-blue-200" },
@@ -40,18 +40,18 @@ export default function DepartmentDashboard() {
   ];
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <LayoutDashboard className="h-5 w-5 text-[#e28774]" /> Department Dashboard
+          <LayoutDashboard className="h-5 w-5 text-[var(--accent)]" /> Department Dashboard
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Overview of your department</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {cards.map((card) => (
-          <div key={card.label} className={`${card.color} border-2 border-black shadow-[3px_3px_0px_0px_#1a1a14] p-4`}>
-            <card.icon className="h-5 w-5 mb-2 text-[#1a1a14]" />
+          <div key={card.label} className={`${card.color} border-2 border-[var(--border-primary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4`}>
+            <card.icon className="h-5 w-5 mb-2 text-[var(--text-primary)]" />
             <p className="text-2xl font-black">{card.value}</p>
             <p className="text-[10px] font-bold uppercase">{card.label}</p>
           </div>
@@ -60,16 +60,16 @@ export default function DepartmentDashboard() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         {/* Recent Users */}
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
           <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-            <Users className="h-4 w-4 text-[#e28774]" /> Recent Users
+            <Users className="h-4 w-4 text-[var(--accent)]" /> Recent Users
           </h2>
           {recentUsers.length === 0 ? (
             <p className="text-xs font-bold text-gray-500">No users found.</p>
           ) : (
             <div className="space-y-2">
               {recentUsers.map((u) => (
-                <div key={u.id} className="flex items-center justify-between border-b border-black/10 pb-2 last:border-0">
+                <div key={u.id} className="flex items-center justify-between border-b border-[var(--border-primary)]/10 pb-2 last:border-0">
                   <div>
                     <p className="text-xs font-black">{u.name}</p>
                     <p className="text-[9px] font-bold text-gray-500">{u.role.replace("_", " ")} &middot; {u.lastLogin}</p>
@@ -84,16 +84,16 @@ export default function DepartmentDashboard() {
         </div>
 
         {/* Upcoming Exams */}
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
           <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-            <ClipboardList className="h-4 w-4 text-[#e28774]" /> Upcoming Exams
+            <ClipboardList className="h-4 w-4 text-[var(--accent)]" /> Upcoming Exams
           </h2>
           {upcomingExams.length === 0 ? (
             <p className="text-xs font-bold text-gray-500">No exams scheduled.</p>
           ) : (
             <div className="space-y-2">
               {upcomingExams.map((e) => (
-                <div key={e.id} className="flex items-center justify-between border-b border-black/10 pb-2 last:border-0">
+                <div key={e.id} className="flex items-center justify-between border-b border-[var(--border-primary)]/10 pb-2 last:border-0">
                   <div>
                     <p className="text-xs font-black">{e.title}</p>
                     <p className="text-[9px] font-bold text-gray-500">{e.subject}</p>
@@ -106,16 +106,16 @@ export default function DepartmentDashboard() {
         </div>
 
         {/* Recent Notices */}
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
           <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-            <Bell className="h-4 w-4 text-[#e28774]" /> Recent Notices
+            <Bell className="h-4 w-4 text-[var(--accent)]" /> Recent Notices
           </h2>
           {recentNotices.length === 0 ? (
             <p className="text-xs font-bold text-gray-500">No notices yet.</p>
           ) : (
             <div className="space-y-2">
               {recentNotices.map((n) => (
-                <div key={n.id} className="border-b border-black/10 pb-2 last:border-0">
+                <div key={n.id} className="border-b border-[var(--border-primary)]/10 pb-2 last:border-0">
                   <p className="text-xs font-black">{n.title}</p>
                   <p className="text-[9px] font-bold text-gray-500">{n.date}</p>
                 </div>
@@ -125,21 +125,21 @@ export default function DepartmentDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
           <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-            <Calendar className="h-4 w-4 text-[#e28774]" /> Quick Actions
+            <Calendar className="h-4 w-4 text-[var(--accent)]" /> Quick Actions
           </h2>
           <div className="grid grid-cols-2 gap-2">
-            <a href="/dashboard/department/events" className="border-2 border-black bg-[#e28774] p-3 text-center text-[10px] font-black uppercase  hover:bg-[#d97766] shadow-[2px_2px_0px_0px_#1a1a14] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none">
+            <a href="/dashboard/department/events" className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-3 text-center text-[10px] font-black uppercase  hover:bg-[var(--accent)] shadow-[2px_2px_0px_0px_var(--border-primary)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none">
               Add Event
             </a>
-            <a href="/dashboard/department/exams" className="border-2 border-black bg-[#e28774] p-3 text-center text-[10px] font-black uppercase  hover:bg-[#d97766] shadow-[2px_2px_0px_0px_#1a1a14] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none">
+            <a href="/dashboard/department/exams" className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-3 text-center text-[10px] font-black uppercase  hover:bg-[var(--accent)] shadow-[2px_2px_0px_0px_var(--border-primary)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none">
               Schedule Exam
             </a>
-            <a href="/dashboard/department/notices" className="border-2 border-black bg-[#e28774] p-3 text-center text-[10px] font-black uppercase  hover:bg-[#d97766] shadow-[2px_2px_0px_0px_#1a1a14] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none">
+            <a href="/dashboard/department/notices" className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-3 text-center text-[10px] font-black uppercase  hover:bg-[var(--accent)] shadow-[2px_2px_0px_0px_var(--border-primary)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none">
               Post Notice
             </a>
-            <a href="/dashboard/department/faculty-roster" className="border-2 border-black bg-[#e28774] p-3 text-center text-[10px] font-black uppercase  hover:bg-[#d97766] shadow-[2px_2px_0px_0px_#1a1a14] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none">
+            <a href="/dashboard/department/faculty-roster" className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-3 text-center text-[10px] font-black uppercase  hover:bg-[var(--accent)] shadow-[2px_2px_0px_0px_var(--border-primary)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none">
               View Roster
             </a>
           </div>
