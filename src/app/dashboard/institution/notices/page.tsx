@@ -27,13 +27,13 @@ export default function NoticesPage() {
     n.content.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading notices...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading notices...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <ScrollText className="h-5 w-5 text-[#e28774]" /> Notices
+          <ScrollText className="h-5 w-5 text-[var(--accent)]" /> Notices
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Official notices and alerts</p>
       </div>
@@ -41,16 +41,16 @@ export default function NoticesPage() {
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
         <input type="text" placeholder="Search notices..." value={search} onChange={(e) => setSearch(e.target.value)}
-          className="w-full border-2 border-black bg-[#f4ebd0] p-2 pl-9 text-xs font-bold" />
+          className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 pl-9 text-xs font-bold" />
       </div>
 
       <div className="space-y-3">
         {filtered.length === 0 ? (
-          <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-6 text-center text-xs font-black">No notices found.</div>
+          <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-6 text-center text-xs font-black">No notices found.</div>
         ) : filtered.map((n) => (
-          <div key={n.id} className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+          <div key={n.id} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
             <div className="flex items-start gap-3">
-              <div className={`p-1.5 ${n.priority === "high" ? "bg-red-200" : n.priority === "medium" ? "bg-yellow-200" : "bg-green-200"} border border-black`}>
+              <div className={`p-1.5 ${n.priority === "high" ? "bg-red-200" : n.priority === "medium" ? "bg-yellow-200" : "bg-green-200"} border border-[var(--border-primary)]`}>
                 <ScrollText className="h-4 w-4" />
               </div>
               <div className="flex-1 min-w-0">
