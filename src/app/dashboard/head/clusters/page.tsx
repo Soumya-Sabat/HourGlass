@@ -66,51 +66,51 @@ export default function HeadClustersPage() {
 
   const isMember = (c: AllClusterData) => c.members.some((m) => m.userId === yourId);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading clusters...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading clusters...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <Layers className="h-5 w-5 text-[#e28774]" /> Cluster Oversight
+          <Layers className="h-5 w-5 text-[var(--accent)]" /> Cluster Oversight
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">View all clusters, rearrange order, join/leave groups</p>
       </div>
 
-      {msg && <div className="border-2 border-black bg-[#eae3cb] p-3 text-xs font-bold shadow-[3px_3px_0px_0px_#1a1a14]">{msg}</div>}
+      {msg && <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-3 text-xs font-bold shadow-[3px_3px_0px_0px_var(--border-primary)]">{msg}</div>}
 
       {clusters.length === 0 && (
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-6 text-center text-sm font-bold text-gray-500">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-6 text-center text-sm font-bold text-gray-500">
           No clusters configured yet.
         </div>
       )}
 
       <div className="grid gap-4">
         {clusters.map((c) => (
-          <div key={c.id} className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14]">
-            <div className="border-b-2 border-black bg-[#1a1a14] p-2 text-[#f4ebd0] text-xs font-black uppercase flex justify-between items-center">
+          <div key={c.id} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)]">
+            <div className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] p-2 text-[var(--light-text)] text-xs font-black uppercase flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <span>{c.name}</span>
                 {c.subjectName && <span className="text-[9px] text-gray-400">({c.subjectName})</span>}
-                {isMember(c) && <span className="text-[8px] bg-green-500 text-black px-1">MEMBER</span>}
+                {isMember(c) && <span className="text-[8px] bg-green-500 text-[var(--text-primary)] px-1">MEMBER</span>}
               </div>
               <div className="flex gap-1 items-center">
                 <button onClick={() => handleMoveUp(c.id, c.order)} title="Move up"
-                  className="text-[9px] bg-[#f4ebd0] text-[#1a1a14] px-1.5 py-0.5 border border-black font-black hover:bg-[#e28774]">
+                  className="text-[9px] bg-[var(--bg-primary)] text-[var(--text-primary)] px-1.5 py-0.5 border border-[var(--border-primary)] font-black hover:bg-[var(--accent)]">
                   <ArrowUpDown className="h-3 w-3 rotate-180" />
                 </button>
                 <button onClick={() => handleMoveDown(c.id, c.order)} title="Move down"
-                  className="text-[9px] bg-[#f4ebd0] text-[#1a1a14] px-1.5 py-0.5 border border-black font-black hover:bg-[#e28774]">
+                  className="text-[9px] bg-[var(--bg-primary)] text-[var(--text-primary)] px-1.5 py-0.5 border border-[var(--border-primary)] font-black hover:bg-[var(--accent)]">
                   <ArrowUpDown className="h-3 w-3" />
                 </button>
                 {isMember(c) ? (
                   <button onClick={() => handleLeave(c.id)}
-                    className="text-[9px] bg-yellow-400 text-[#1a1a14] px-2 py-0.5 border border-black font-black hover:bg-yellow-300">
+                    className="text-[9px] bg-yellow-400 text-[var(--text-primary)] px-2 py-0.5 border border-[var(--border-primary)] font-black hover:bg-yellow-300">
                     <Minus className="h-3 w-3 inline" /> Leave
                   </button>
                 ) : (
                   <button onClick={() => handleJoin(c.id)}
-                    className="text-[9px] bg-green-400 text-[#1a1a14] px-2 py-0.5 border border-black font-black hover:bg-green-300">
+                    className="text-[9px] bg-green-400 text-[var(--text-primary)] px-2 py-0.5 border border-[var(--border-primary)] font-black hover:bg-green-300">
                     <Plus className="h-3 w-3 inline" /> Join
                   </button>
                 )}
@@ -126,14 +126,14 @@ export default function HeadClustersPage() {
               </div>
 
               <button onClick={() => setExpandedCluster(expandedCluster === c.id ? null : c.id)}
-                className="text-[9px] font-black uppercase border border-black px-2 py-1 bg-white hover:bg-[#e28774] transition-colors mb-2">
+                className="text-[9px] font-black uppercase border border-[var(--border-primary)] px-2 py-1 bg-[var(--surface-white)] hover:bg-[var(--accent)] transition-colors mb-2">
                 {expandedCluster === c.id ? "Hide Members" : `Show ${c.memberCount} Members`}
               </button>
 
               {expandedCluster === c.id && (
                 <div className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
                   {c.members.map((m) => (
-                    <div key={m.userId} className="flex items-center justify-between border border-black bg-white p-1.5 text-[10px] font-bold">
+                    <div key={m.userId} className="flex items-center justify-between border border-[var(--border-primary)] bg-[var(--surface-white)] p-1.5 text-[10px] font-bold">
                       <span>{m.name}{m.userId === c.leadId ? " (Lead)" : ""}{m.userId === yourId ? " (You)" : ""}</span>
                       <button onClick={() => handleRemoveMember(c.id, m.userId)}
                         className="text-red-500 hover:text-red-700">
