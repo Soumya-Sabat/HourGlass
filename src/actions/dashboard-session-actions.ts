@@ -163,13 +163,14 @@ export async function getStudentSettingsData(): Promise<StudentSettingsData> {
       institutionId,
       emailVerified: String(Boolean(dbUser.isEmailVerified)),
     },
-    studentProfile: profileRecord(profileRecordData, [
-      "studentId",
-      "programOrClass",
-      "batchOrSection",
-      "subjects",
-      "preferredSlots",
-    ]),
+    studentProfile: {
+      studentId: encryptedToString(profileRecordData["studentId"] as EncryptedField),
+      classGroup: (dbUser.classGroup as string) || "Not available",
+      section: (dbUser.section as string) || "Not available",
+      batch: (dbUser.batch as string) || "Not available",
+      subjects: encryptedToString(profileRecordData["subjects"] as EncryptedField),
+      enrollmentYear: encryptedToString(profileRecordData["enrollmentYear"] as EncryptedField),
+    },
     institution: profileRecord(institutionRecordData, institutionKeys),
     personalDetails: {
       ...profileRecord(userRecordData, personalKeys),
