@@ -104,19 +104,19 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
     <>
       {isOpen && <div className="fixed inset-0 z-40 bg-black/50 lg:hidden block" onClick={onClose} />}
       
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#f4ebd0] border-r-2 border-[#1a1a14] flex flex-col justify-between transition-transform duration-200 lg:translate-x-0 ${
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[var(--bg-primary)] border-r-2 border-[var(--border-primary)] flex flex-col justify-between transition-transform duration-200 lg:translate-x-0 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
-      } font-mono text-[#1a1a14]`}>
+      } font-mono text-[var(--text-primary)]`}>
         
         <div className="flex flex-col flex-1 min-h-0">
-          <div className="h-16 flex items-center justify-between px-4 border-b-2 border-[#1a1a14] bg-[#eae3cb] shrink-0">
+          <div className="h-16 flex items-center justify-between px-4 border-b-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shrink-0">
             <Link href="/dashboard" className="flex items-center gap-3">
-              <div className="h-9 w-9 bg-[#1a1a14] text-[#f4ebd0] flex items-center justify-center rounded-sm border border-[#1a1a14]">
+              <div className="h-9 w-9 bg-[var(--dark-bg)] text-[var(--light-text)] flex items-center justify-center rounded-sm border border-[var(--border-primary)]">
                 <Hourglass className="h-4 w-4" />
               </div>
               <span className="text-base font-black tracking-tight uppercase">HOURGLASS</span>
             </Link>
-            <button onClick={onClose} className="lg:hidden p-1.5 border border-black bg-[#f4ebd0]">
+            <button onClick={onClose} className="lg:hidden p-1.5 border border-[var(--border-primary)] bg-[var(--bg-primary)]">
               <X className="h-4 w-4" />
             </button>
           </div>
@@ -129,11 +129,11 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
                   key={item.name}
                   href={item.href}
                   onClick={onClose}
-                  className={`flex items-center gap-3 px-3 py-2 text-xs font-bold uppercase border transition-all ${
-                    isActive
-                      ? "bg-[#e28774] border-2 border-[#1a1a14] shadow-[3px_3px_0px_0px_#1a1a14] translate-x-[-2px] translate-y-[-2px]"
-                      : "border-transparent hover:bg-[#eae3cb] hover:border-[#1a1a14]"
-                  }`}
+              className={`flex items-center gap-3 px-3 py-2 text-xs font-bold uppercase border transition-all ${
+                isActive
+                  ? "bg-[var(--accent)] border-2 border-[var(--border-primary)] shadow-[3px_3px_0px_0px_var(--border-primary)] translate-x-[-2px] translate-y-[-2px]"
+                  : "border-transparent hover:bg-[var(--bg-secondary)] hover:border-[var(--border-primary)]"
+              }`}
                 >
                   <item.icon className="h-4 w-4 shrink-0 stroke-[2.5]" />
                   <span>{item.name}</span>
@@ -143,14 +143,14 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
           </nav>
         </div>
 
-        <div className="p-3 border-t-2 border-[#1a1a14] bg-[#eae3cb] shrink-0">
-          <div className="flex items-center gap-3 p-2 border border-[#1a1a14] bg-[#f4ebd0]">
-            <div className="h-8 w-8 bg-[#1a1a14] text-[#e28774] flex items-center justify-center text-xs font-black shrink-0">
+        <div className="p-3 border-t-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shrink-0">
+          <div className="flex items-center gap-3 p-2 border border-[var(--border-primary)] bg-[var(--bg-primary)]">
+            <div className="h-8 w-8 bg-[var(--dark-bg)] text-[var(--accent)] flex items-center justify-center text-xs font-black shrink-0">
               {user?.name?.charAt(0).toUpperCase() || "U"}
             </div>
             <div className="min-w-0 flex-1">
               <div className="text-xs font-black truncate">{user?.name || "OPERATIVE"}</div>
-              <div className="text-[9px] font-black text-[#f4ebd0] bg-[#1a1a14] px-1.5 py-0.5 mt-1 inline-block uppercase tracking-wide">
+              <div className="text-[9px] font-black text-[var(--light-text)] bg-[var(--dark-bg)] px-1.5 py-0.5 mt-1 inline-block uppercase tracking-wide">
                 {role.replace("_", " ")}
               </div>
             </div>
