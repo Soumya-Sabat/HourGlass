@@ -58,53 +58,53 @@ export default function FacultyExchangeDeskPage() {
   const receivedRequests = requests.filter((r) => r.direction === "received");
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <ArrowUpDown className="h-5 w-5 text-[#e28774]" /> Exchange Desk
+          <ArrowUpDown className="h-5 w-5 text-[var(--accent)]" /> Exchange Desk
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Request slot exchanges with colleagues</p>
       </div>
 
       {error && (
-        <div className="border-2 border-black bg-red-100 p-3 text-xs font-bold shadow-[3px_3px_0px_0px_#1a1a14]">{error}</div>
+        <div className="border-2 border-[var(--border-primary)] bg-red-100 p-3 text-xs font-bold shadow-[3px_3px_0px_0px_var(--border-primary)]">{error}</div>
       )}
       {msg && (
-        <div className="border-2 border-black bg-green-100 p-3 text-xs font-bold shadow-[3px_3px_0px_0px_#1a1a14]">{msg}</div>
+        <div className="border-2 border-[var(--border-primary)] bg-green-100 p-3 text-xs font-bold shadow-[3px_3px_0px_0px_var(--border-primary)]">{msg}</div>
       )}
 
-      <div className="flex gap-1 border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-1 w-fit">
+      <div className="flex gap-1 border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-1 w-fit">
         <button onClick={() => setTab("send")}
-          className={`flex items-center gap-1 px-3 py-1.5 text-[10px] font-black uppercase transition-all ${tab === "send" ? "bg-[#1a1a14] text-[#f4ebd0]" : "bg-[#f4ebd0] text-[#1a1a14] hover:bg-[#e28774]"}`}>
+          className={`flex items-center gap-1 px-3 py-1.5 text-[10px] font-black uppercase transition-all ${tab === "send" ? "bg-[var(--dark-bg)] text-[var(--light-text)]" : "bg-[var(--bg-primary)] text-[var(--text-primary)] hover:bg-[var(--accent)]"}`}>
           <Send className="h-3 w-3" /> New Request
         </button>
         <button onClick={() => setTab("inbox")}
-          className={`flex items-center gap-1 px-3 py-1.5 text-[10px] font-black uppercase transition-all ${tab === "inbox" ? "bg-[#1a1a14] text-[#f4ebd0]" : "bg-[#f4ebd0] text-[#1a1a14] hover:bg-[#e28774]"}`}>
+          className={`flex items-center gap-1 px-3 py-1.5 text-[10px] font-black uppercase transition-all ${tab === "inbox" ? "bg-[var(--dark-bg)] text-[var(--light-text)]" : "bg-[var(--bg-primary)] text-[var(--text-primary)] hover:bg-[var(--accent)]"}`}>
           <Inbox className="h-3 w-3" /> Inbox ({receivedRequests.length})
         </button>
       </div>
 
       {tab === "send" && (
-        <div className="max-w-md border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4 space-y-3">
+        <div className="max-w-md border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4 space-y-3">
           {loading ? (
             <p className="text-xs font-bold text-gray-500">Loading...</p>
           ) : (
             <>
               <input type="text" placeholder="From slot (e.g., Mon 10:00-11:00)" value={fromSlot} onChange={(e) => setFromSlot(e.target.value)}
-                className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold" />
+                className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold" />
               <input type="text" placeholder="To slot (e.g., Wed 14:00-15:00)" value={toSlot} onChange={(e) => setToSlot(e.target.value)}
-                className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold" />
+                className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold" />
               <select value={targetId} onChange={(e) => setTargetId(e.target.value)}
-                className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold">
+                className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold">
                 <option value="">Select faculty to exchange with</option>
                 {faculty.map((f) => (
                   <option key={f.id} value={f.id}>{f.name}{f.role ? ` (${f.role.replace("_", " ")})` : ""}</option>
                 ))}
               </select>
               <textarea placeholder="Reason for exchange" value={reason} onChange={(e) => setReason(e.target.value)} rows={3}
-                className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold resize-none" />
+                className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold resize-none" />
               <button onClick={handleSubmit}
-                className="w-full border-2 border-black bg-[#e28774] text-[#1a1a14] p-2 text-xs font-black uppercase shadow-[3px_3px_0px_0px_#1a1a14] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all">
+                className="w-full border-2 border-[var(--border-primary)] bg-[var(--accent)] text-[var(--text-primary)] p-2 text-xs font-black uppercase shadow-[3px_3px_0px_0px_var(--border-primary)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all">
                 Send Request
               </button>
             </>
@@ -115,19 +115,19 @@ export default function FacultyExchangeDeskPage() {
       {tab === "inbox" && (
         <div className="space-y-3">
           {receivedRequests.length === 0 && (
-            <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-6 text-center text-sm font-bold text-gray-500">
+            <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-6 text-center text-sm font-bold text-gray-500">
               No received requests.
             </div>
           )}
           {receivedRequests.map((r) => (
-            <div key={r.id} className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-3">
+            <div key={r.id} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-3">
               <div className="text-xs font-black">{r.targetFacultyName} wants to exchange</div>
               <div className="text-[10px] font-bold text-gray-600 mt-1">
                 {r.fromSlot} &harr; {r.toSlot}
               </div>
               {r.reason && <div className="text-[10px] font-bold mt-1">Reason: {r.reason}</div>}
               <div className="flex items-center gap-2 mt-2">
-                <span className={`text-[9px] font-black uppercase px-1 py-0.5 border border-black ${
+                <span className={`text-[9px] font-black uppercase px-1 py-0.5 border border-[var(--border-primary)] ${
                   r.status === "pending" ? "bg-yellow-200" : r.status === "accepted" ? "bg-green-200" : "bg-red-200"
                 }`}>{r.status}</span>
                 <span className="text-[9px] text-gray-500">{r.createdAt}</span>
@@ -135,11 +135,11 @@ export default function FacultyExchangeDeskPage() {
               {r.status === "pending" && (
                 <div className="flex gap-2 mt-2">
                   <button onClick={() => handleRespond(r.id, "accepted")}
-                    className="text-[9px] font-black uppercase border border-black px-2 py-1 bg-green-300 hover:bg-green-400 transition-colors">
+                    className="text-[9px] font-black uppercase border border-[var(--border-primary)] px-2 py-1 bg-green-300 hover:bg-green-400 transition-colors">
                     Accept
                   </button>
                   <button onClick={() => handleRespond(r.id, "rejected")}
-                    className="text-[9px] font-black uppercase border border-black px-2 py-1 bg-red-300 hover:bg-red-400 transition-colors">
+                    className="text-[9px] font-black uppercase border border-[var(--border-primary)] px-2 py-1 bg-red-300 hover:bg-red-400 transition-colors">
                     Reject
                   </button>
                 </div>
@@ -151,18 +151,18 @@ export default function FacultyExchangeDeskPage() {
 
       {/* Sent requests history */}
       {sentRequests.length > 0 && (
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
           <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-            <Send className="h-4 w-4 text-[#e28774]" /> Sent Requests
+            <Send className="h-4 w-4 text-[var(--accent)]" /> Sent Requests
           </h2>
           <div className="space-y-2">
             {sentRequests.map((r) => (
-              <div key={r.id} className="border border-black bg-white p-2 text-[10px] font-bold">
+              <div key={r.id} className="border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-[10px] font-bold">
                 To: {r.targetFacultyName}
                 <br />{r.fromSlot} &harr; {r.toSlot}
                 {r.reason && <><br />Reason: {r.reason}</>}
                 <br />
-                <span className={`text-[9px] font-black uppercase px-1 py-0.5 border border-black ${
+                <span className={`text-[9px] font-black uppercase px-1 py-0.5 border border-[var(--border-primary)] ${
                   r.status === "pending" ? "bg-yellow-200" : r.status === "accepted" ? "bg-green-200" : "bg-red-200"
                 }`}>{r.status}</span>
                 <span className="text-[9px] text-gray-500 ml-2">{r.createdAt}</span>
