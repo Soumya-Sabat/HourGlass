@@ -58,7 +58,7 @@ export default function DataPrivacyPage() {
   const [selectedType, setSelectedType] = useState<typeof DATA_TYPES[0] | null>(null);
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
       <PageHeader
         title="DATA PRIVACY & RETENTION"
         description="Configure data retention policies and review compliance status across all data categories"
@@ -69,7 +69,7 @@ export default function DataPrivacyPage() {
           <Card key={dt.id} title={dt.name} className="flex flex-col">
             <div className="space-y-3 text-[11px]">
               <p className="font-bold text-gray-600 leading-relaxed">{dt.description}</p>
-              <div className="border-t border-dashed border-black pt-3 space-y-2">
+              <div className="border-t border-dashed border-[var(--border-primary)] pt-3 space-y-2">
                 <div className="flex justify-between">
                   <span className="font-black uppercase text-[10px]">Retention</span>
                   <span className="font-bold">{dt.retentionPeriod}</span>
@@ -81,7 +81,7 @@ export default function DataPrivacyPage() {
               </div>
               <button
                 onClick={() => setSelectedType(dt)}
-                className="text-[10px] font-black uppercase underline underline-offset-2 hover:text-[#e28774] transition-colors"
+                className="text-[10px] font-black uppercase underline underline-offset-2 hover:text-[var(--accent)] transition-colors"
               >
                 View Details →
               </button>
@@ -107,7 +107,7 @@ export default function DataPrivacyPage() {
                 <input
                   type="text"
                   defaultValue={selectedType.retentionPeriod}
-                  className="flex-1 h-9 px-3 text-[12px] font-bold border-2 border-black bg-white focus:outline-none focus:ring-2 focus:ring-[#e28774]"
+                  className="flex-1 h-9 px-3 text-[12px] font-bold border-2 border-[var(--border-primary)] bg-[var(--surface-white)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
                 />
                 <ActionButton label="Save" variant="primary" onClick={() => setSelectedType(null)} />
               </div>
