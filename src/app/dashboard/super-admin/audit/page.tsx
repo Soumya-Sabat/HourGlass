@@ -29,7 +29,7 @@ export default function AuditLogsPage() {
     } catch {} finally { setLoading(false); }
   }
 
-  if (loading) return <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>;
 
   const rows = data.map((log: any) => [
     new Date(log.createdAt).toLocaleString("en-IN", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }),
@@ -41,7 +41,7 @@ export default function AuditLogsPage() {
   ]);
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
       <PageHeader title="AUDIT LOGS" description="System-wide activity tracking and compliance trail" />
       <FilterBar>
         <FilterActions actionTypes={actionTypes} currentAction={action || ""} />
