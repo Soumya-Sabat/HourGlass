@@ -2,7 +2,7 @@ import { Play } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative pt-20 pb-16 md:pt-36 md:pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-mono text-[#1a1a14]">
+    <section className="relative pt-26 pb-16 md:pt-36 md:pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-mono text-[#1a1a14]">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         {/* Left Content Column */}
