@@ -15,7 +15,7 @@ export default function AnalyticsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading analytics...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading analytics...</div>;
   if (!stats) return null;
 
   const metrics = [
@@ -28,17 +28,17 @@ export default function AnalyticsPage() {
   ];
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <BarChart3 className="h-5 w-5 text-[#e28774]" /> Analytics & Reports
+          <BarChart3 className="h-5 w-5 text-[var(--accent)]" /> Analytics & Reports
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Monitor usage, performance, and activity</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {metrics.map((m) => (
-          <div key={m.label} className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+          <div key={m.label} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className={`p-1.5 ${m.color} text-white rounded-sm`}><m.icon className="h-4 w-4" /></div>
               <span className="text-[10px] font-black uppercase tracking-wide">{m.label}</span>
