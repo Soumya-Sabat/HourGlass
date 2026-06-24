@@ -8,7 +8,7 @@ export default function CreateAnnouncementPage() {
   const [audience, setAudience] = useState("All");
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14] max-w-3xl">
+    <div className="space-y-6 font-mono text-[var(--text-primary)] max-w-3xl">
       <PageHeader
         title="CREATE ANNOUNCEMENT"
         description="Draft a new system-wide announcement or notification"
@@ -32,7 +32,7 @@ export default function CreateAnnouncementPage() {
               rows={6}
               required
               placeholder="Write your announcement content here..."
-              className="w-full px-3 py-2 text-[12px] font-bold border-2 border-black bg-white focus:outline-none focus:ring-2 focus:ring-[#e28774]"
+              className="w-full px-3 py-2 text-[12px] font-bold border-2 border-[var(--border-primary)] bg-[var(--surface-white)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
             />
           </div>
 
@@ -47,14 +47,14 @@ export default function CreateAnnouncementPage() {
                     value={opt}
                     checked={audience === opt}
                     onChange={(e) => setAudience(e.target.value)}
-                    className="accent-[#1a1a14]"
+                    className="accent-[var(--text-primary)]"
                   />
                   <span className="text-[12px] font-bold">{opt}</span>
                 </label>
               ))}
             </div>
             {audience === "Institution" && (
-              <select className="mt-2 w-full h-9 px-3 text-[12px] font-bold border-2 border-black bg-white focus:outline-none">
+              <select className="mt-2 w-full h-9 px-3 text-[12px] font-bold border-2 border-[var(--border-primary)] bg-[var(--surface-white)] focus:outline-none">
                 <option value="">Select Institution</option>
                 <option value="INST001">Springfields Academy</option>
                 <option value="INST002">Greenwood High</option>
@@ -65,7 +65,7 @@ export default function CreateAnnouncementPage() {
               <input
                 type="text"
                 placeholder="Enter user emails (comma separated)"
-                className="mt-2 w-full h-9 px-3 text-[12px] font-bold border-2 border-black bg-white focus:outline-none"
+                className="mt-2 w-full h-9 px-3 text-[12px] font-bold border-2 border-[var(--border-primary)] bg-[var(--surface-white)] focus:outline-none"
               />
             )}
           </div>
@@ -75,7 +75,7 @@ export default function CreateAnnouncementPage() {
             <InputField label="Expiry Date" name="expiryDate" type="datetime-local" />
           </div>
 
-          <div className="flex items-center gap-3 pt-2 border-t-2 border-dashed border-black">
+          <div className="flex items-center gap-3 pt-2 border-t-2 border-dashed border-[var(--border-primary)]">
             <ActionButton label="Save as Draft" variant="default" icon={Save} />
             <ActionButton label="Publish Now" variant="primary" icon={Send} />
           </div>
