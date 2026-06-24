@@ -42,32 +42,32 @@ export default function DepartmentNoticesPage() {
     }
   };
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading notices...</div>;
-  if (error) return <div className="border-2 border-black bg-[#e28774] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">{error}</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading notices...</div>;
+  if (error) return <div className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">{error}</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <BellRing className="h-5 w-5 text-[#e28774]" /> Department Notices
+          <BellRing className="h-5 w-5 text-[var(--accent)]" /> Department Notices
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Post and manage department announcements</p>
       </div>
 
       <button onClick={() => setShowAdd(true)}
-        className="flex items-center gap-1.5 border-2 border-black bg-[#e28774] px-4 py-2 text-xs font-black text-white hover:bg-[#d97766]">
+        className="flex items-center gap-1.5 border-2 border-[var(--border-primary)] bg-[var(--accent)] px-4 py-2 text-xs font-black text-white hover:bg-[var(--accent)]">
         <Plus className="h-3.5 w-3.5" /> New Notice
       </button>
 
       <div className="space-y-3">
         {notices.map((n) => (
-          <div key={n.id} className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+          <div key={n.id} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-sm font-black">{n.title}</h3>
                 <p className="text-[10px] font-bold text-gray-500 mt-0.5">{n.date}</p>
               </div>
-              <button onClick={() => handleDelete(n.id)} className="p-1 border border-black bg-red-200 hover:bg-red-300" title="Delete">
+              <button onClick={() => handleDelete(n.id)} className="p-1 border border-[var(--border-primary)] bg-red-200 hover:bg-red-300" title="Delete">
                 <Trash2 className="h-3 w-3" />
               </button>
             </div>
@@ -75,7 +75,7 @@ export default function DepartmentNoticesPage() {
           </div>
         ))}
         {notices.length === 0 && (
-          <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-6 text-center text-sm font-bold text-gray-500">
+          <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-6 text-center text-sm font-bold text-gray-500">
             No notices yet.
           </div>
         )}
@@ -83,23 +83,23 @@ export default function DepartmentNoticesPage() {
 
       {showAdd && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={() => setShowAdd(false)}>
-          <div className="w-full max-w-md border-2 border-black bg-[#f4ebd0] p-6 shadow-[6px_6px_0px_0px_#1a1a14]" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full max-w-md border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-6 shadow-[6px_6px_0px_0px_var(--border-primary)]" onClick={(e) => e.stopPropagation()}>
             <h3 className="text-sm font-black uppercase mb-4">New Notice</h3>
             <form onSubmit={handleAdd} className="space-y-3">
               <div>
                 <label className="block text-[10px] font-black uppercase mb-1">Title</label>
                 <input type="text" required value={newTitle} onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full border-2 border-black bg-white p-2 text-xs font-bold" placeholder="Notice title" />
+                  className="w-full border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold" placeholder="Notice title" />
               </div>
               <div>
                 <label className="block text-[10px] font-black uppercase mb-1">Content</label>
                 <textarea required rows={4} value={newContent} onChange={(e) => setNewContent(e.target.value)}
-                  className="w-full border-2 border-black bg-white p-2 text-xs font-bold" placeholder="Notice content..." />
+                  className="w-full border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold" placeholder="Notice content..." />
               </div>
               {error && <p className="text-xs font-bold text-red-600">{error}</p>}
               <div className="flex gap-2 justify-end pt-2">
-                <button type="button" onClick={() => setShowAdd(false)} disabled={saving} className="border-2 border-black bg-white px-4 py-1.5 text-xs font-black hover:bg-[#eae3cb] disabled:opacity-40">Cancel</button>
-                <button type="submit" disabled={saving} className="border-2 border-black bg-[#e28774] px-4 py-1.5 text-xs font-black text-white hover:bg-[#d97766] disabled:opacity-40">{saving ? "Posting..." : "Post Notice"}</button>
+                <button type="button" onClick={() => setShowAdd(false)} disabled={saving} className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] px-4 py-1.5 text-xs font-black hover:bg-[var(--bg-secondary)] disabled:opacity-40">Cancel</button>
+                <button type="submit" disabled={saving} className="border-2 border-[var(--border-primary)] bg-[var(--accent)] px-4 py-1.5 text-xs font-black text-white hover:bg-[var(--accent)] disabled:opacity-40">{saving ? "Posting..." : "Post Notice"}</button>
               </div>
             </form>
           </div>
