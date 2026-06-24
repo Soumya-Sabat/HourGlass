@@ -68,31 +68,31 @@ export default function ExamSetupPage() {
     } catch (err) { console.error(err); }
   };
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]"><Loader className="h-4 w-4 animate-spin" /> Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]"><Loader className="h-4 w-4 animate-spin" /> Loading...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4 flex items-center justify-between">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4 flex items-center justify-between">
         <div>
           <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-            <BookMarked className="h-5 w-5 text-[#e28774]" /> Exam Setup
+            <BookMarked className="h-5 w-5 text-[var(--accent)]" /> Exam Setup
           </h1>
           <p className="text-[10px] font-bold text-gray-600 mt-1">Define exam columns per subject and semester</p>
         </div>
         <button onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-2 border-2 border-black bg-[#1a1a14] text-[#f4ebd0] px-3 py-2 text-xs font-black uppercase hover:bg-[#2a2a24]">
+          className="flex items-center gap-2 border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)] px-3 py-2 text-xs font-black uppercase hover:bg-[var(--bg-primary)]">
           {showForm ? <X className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
           {showForm ? "Cancel" : "New Blueprint"}
         </button>
       </div>
 
       {showForm && (
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4 space-y-4">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-[10px] font-black uppercase block mb-1">Subject</label>
               <select value={form.subjectId} onChange={(e) => setForm({ ...form, subjectId: e.target.value })}
-                className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold">
+                className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold">
                 <option value="">Select subject...</option>
                 {subjects.map((s) => <option key={s.id} value={s.id}>{s.name} (Sem {s.semester})</option>)}
               </select>
@@ -100,14 +100,14 @@ export default function ExamSetupPage() {
             <div>
               <label className="text-[10px] font-black uppercase block mb-1">Semester</label>
               <input type="number" value={form.semester} onChange={(e) => setForm({ ...form, semester: Number(e.target.value) })}
-                className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold" />
+                className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold" />
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="text-[10px] font-black uppercase">Exam Columns</label>
-              <button onClick={addExamField} className="text-[10px] font-black uppercase text-[#e28774] hover:underline">
+              <button onClick={addExamField} className="text-[10px] font-black uppercase text-[var(--accent)] hover:underline">
                 + Add Exam
               </button>
             </div>
@@ -116,10 +116,10 @@ export default function ExamSetupPage() {
               <div key={i} className="flex items-center gap-2 mb-2">
                 <span className="text-[10px] font-black w-6">#{exam.order}</span>
                 <input placeholder="Exam name (e.g. Midterm 1)" value={exam.name} onChange={(e) => updateExamField(i, { name: e.target.value })}
-                  className="flex-1 border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold" />
+                  className="flex-1 border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold" />
                 <input type="number" placeholder="Max marks" value={exam.totalMarks} onChange={(e) => updateExamField(i, { totalMarks: Number(e.target.value) })}
-                  className="w-24 border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold" />
-                <button onClick={() => removeExamField(i)} className="p-1.5 border border-black bg-red-200 hover:bg-red-300">
+                  className="w-24 border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold" />
+                <button onClick={() => removeExamField(i)} className="p-1.5 border border-[var(--border-primary)] bg-red-200 hover:bg-red-300">
                   <Trash2 className="h-3 w-3" />
                 </button>
               </div>
@@ -127,17 +127,17 @@ export default function ExamSetupPage() {
           </div>
 
           <button onClick={handleCreate} disabled={saving || !form.subjectId || form.exams.length === 0}
-            className="flex items-center gap-2 border-2 border-black bg-[#1a1a14] text-[#f4ebd0] px-4 py-2 text-xs font-black uppercase hover:bg-[#2a2a24] disabled:opacity-50">
+            className="flex items-center gap-2 border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)] px-4 py-2 text-xs font-black uppercase hover:bg-[var(--bg-primary)] disabled:opacity-50">
             {saving ? <Loader className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
             {saving ? "Creating..." : "Create Blueprint"}
           </button>
         </div>
       )}
 
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] overflow-x-auto">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] overflow-x-auto">
         <table className="w-full border-collapse text-xs font-bold">
           <thead>
-            <tr className="border-b-2 border-black bg-[#1a1a14] text-[#f4ebd0] text-[10px] uppercase">
+            <tr className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)] text-[10px] uppercase">
               <th className="p-3 text-left">Subject</th>
               <th className="p-3 text-left">Sem</th>
               <th className="p-3 text-left">Year</th>
@@ -150,14 +150,14 @@ export default function ExamSetupPage() {
             {blueprints.length === 0 ? (
               <tr><td colSpan={6} className="p-6 text-center font-black">No exam blueprints created yet.</td></tr>
             ) : blueprints.map((bp) => (
-              <tr key={bp.id} className="border-b border-black">
+              <tr key={bp.id} className="border-b border-[var(--border-primary)]">
                 <td className="p-3 font-black">{bp.subjectName}</td>
                 <td className="p-3">{bp.semester}</td>
                 <td className="p-3 text-[10px]">{bp.academicYear}</td>
                 <td className="p-3">
                   <div className="flex flex-wrap gap-1">
                     {bp.exams.map((e) => (
-                      <span key={e.name} className="px-2 py-0.5 bg-[#1a1a14] text-[#f4ebd0] text-[9px] font-black uppercase">
+                      <span key={e.name} className="px-2 py-0.5 bg-[var(--dark-bg)] text-[var(--light-text)] text-[9px] font-black uppercase">
                         {e.name} ({e.totalMarks})
                       </span>
                     ))}
@@ -169,7 +169,7 @@ export default function ExamSetupPage() {
                   </span>
                 </td>
                 <td className="p-3">
-                  <button onClick={() => handleDelete(bp.id)} className="p-1.5 border border-black bg-red-200 hover:bg-red-300">
+                  <button onClick={() => handleDelete(bp.id)} className="p-1.5 border border-[var(--border-primary)] bg-red-200 hover:bg-red-300">
                     <Trash2 className="h-3 w-3" />
                   </button>
                 </td>
