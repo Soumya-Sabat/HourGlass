@@ -18,7 +18,7 @@ export default function PricingPlansPage() {
     } catch {} finally { setLoading(false); }
   }
 
-  if (loading) return <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>;
 
   const rows = data.map((plan: any) => [
     <span key="name" className="font-black">{plan.name}</span>,
