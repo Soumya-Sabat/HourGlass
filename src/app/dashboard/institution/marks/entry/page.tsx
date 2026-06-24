@@ -67,19 +67,19 @@ export default function GradeEntryPage() {
     finally { setSaving(false); }
   };
 
-  if (initialLoading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]"><Loader className="h-4 w-4 animate-spin" /> Loading...</div>;
+  if (initialLoading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]"><Loader className="h-4 w-4 animate-spin" /> Loading...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4 flex items-center justify-between">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4 flex items-center justify-between">
         <div>
           <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-            <PenLine className="h-5 w-5 text-[#e28774]" /> Grade Entry
+            <PenLine className="h-5 w-5 text-[var(--accent)]" /> Grade Entry
           </h1>
           <p className="text-[10px] font-bold text-gray-600 mt-1">Fill marks for students per exam column</p>
         </div>
         <button onClick={handleSaveAll} disabled={saving || !selectedSubject || !selectedExam}
-          className="flex items-center gap-2 border-2 border-black bg-[#1a1a14] text-[#f4ebd0] px-4 py-2 text-xs font-black uppercase hover:bg-[#2a2a24] disabled:opacity-50">
+          className="flex items-center gap-2 border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)] px-4 py-2 text-xs font-black uppercase hover:bg-[var(--bg-primary)] disabled:opacity-50">
           {saving ? <Loader className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {saving ? "Saving..." : `Save ${selectedExam}`}
         </button>
@@ -89,7 +89,7 @@ export default function GradeEntryPage() {
         <div>
           <label className="text-[10px] font-black uppercase block mb-1">Subject</label>
           <select value={selectedSubject} onChange={(e) => { setSelectedSubject(e.target.value); setSelectedExam(""); }}
-            className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold">
+            className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold">
             <option value="">Select subject...</option>
             {subjects.map((s) => <option key={s.id} value={s.id}>{s.name} (Sem {s.semester})</option>)}
           </select>
@@ -97,7 +97,7 @@ export default function GradeEntryPage() {
         <div>
           <label className="text-[10px] font-black uppercase block mb-1">Exam Column</label>
           <select value={selectedExam} onChange={(e) => setSelectedExam(e.target.value)}
-            className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold">
+            className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold">
             <option value="">Select exam...</option>
             {exams.map((e) => <option key={e.name} value={e.name}>{e.name} ({e.totalMarks} marks)</option>)}
           </select>
@@ -109,14 +109,14 @@ export default function GradeEntryPage() {
         </div>
       </div>
 
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] overflow-x-auto">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] overflow-x-auto">
         <table className="w-full border-collapse text-xs font-bold">
           <thead>
-            <tr className="border-b-2 border-black bg-[#1a1a14] text-[#f4ebd0] text-[10px] uppercase">
+            <tr className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)] text-[10px] uppercase">
               <th className="p-3 text-left">#</th>
               <th className="p-3 text-left">Student</th>
               {exams.map((e) => (
-                <th key={e.name} className={`p-3 text-center ${selectedExam === e.name ? "bg-[#e28774] text-[#1a1a14]" : ""}`}>
+                <th key={e.name} className={`p-3 text-center ${selectedExam === e.name ? "bg-[var(--accent)] text-[var(--text-primary)]" : ""}`}>
                   {e.name}<br /><span className="text-[8px]">({e.totalMarks})</span>
                 </th>
               ))}
@@ -128,20 +128,20 @@ export default function GradeEntryPage() {
             ) : rows.length === 0 ? (
               <tr><td colSpan={2 + exams.length} className="p-6 text-center font-black">Select a subject to load students.</td></tr>
             ) : rows.map((row, idx) => (
-              <tr key={row.studentId} className="border-b border-black">
+              <tr key={row.studentId} className="border-b border-[var(--border-primary)]">
                 <td className="p-3 text-[10px]">{idx + 1}</td>
                 <td className="p-3 font-black">{row.studentName}</td>
                 {exams.map((e) => {
                   const mark = row.marks[e.name];
                   return (
-                    <td key={e.name} className={`p-2 text-center ${selectedExam === e.name ? "bg-[#f4ebd0]" : ""}`}>
+                    <td key={e.name} className={`p-2 text-center ${selectedExam === e.name ? "bg-[var(--bg-primary)]" : ""}`}>
                       <input
                         type="number"
                         min={0}
                         max={e.totalMarks}
                         value={mark?.obtained ?? 0}
                         onChange={(v) => updateMark(row.studentId, e.name, v.target.value, e.totalMarks)}
-                        className={`w-20 border-2 border-black p-1.5 text-center text-xs font-bold ${selectedExam === e.name ? "bg-white" : "bg-[#eae3cb] opacity-60"}`}
+                        className={`w-20 border-2 border-[var(--border-primary)] p-1.5 text-center text-xs font-bold ${selectedExam === e.name ? "bg-[var(--surface-white)]" : "bg-[var(--bg-secondary)] opacity-60"}`}
                         disabled={selectedExam !== e.name}
                       />
                     </td>
