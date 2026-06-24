@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { FormState, ProfileField } from "@/components/forms/auth-form.types";
 
 export function FieldLabel({ children }: { children: ReactNode }) {
-  return <label className="block break-words text-xs font-black uppercase tracking-wider text-slate-500">{children}</label>;
+  return <label className="block break-words text-lg font-black uppercase tracking-wider text-[#f4ebd0]/70">{children}</label>;
 }
 
 export function Message({ state }: { state: FormState }) {
@@ -12,10 +12,10 @@ export function Message({ state }: { state: FormState }) {
 
   return (
     <div
-      className={`break-words rounded-lg border px-4 py-3 text-sm font-semibold ${
+      className={`break-words rounded-lg border-2 px-4 py-3 text-lg font-semibold ${
         state.error
-          ? "border-red-200 bg-red-50 text-red-700"
-          : "border-emerald-200 bg-emerald-50 text-emerald-700"
+          ? "border-[#e28774]/50 bg-[#e28774]/10 text-[#e28774]"
+          : "border-[#f4ebd0]/30 bg-[#f4ebd0]/10 text-[#f4ebd0]"
       }`}
     >
       {state.error ?? state.success}
@@ -68,7 +68,7 @@ export function TextInput({
         inputMode={inputMode}
         autoComplete={autoComplete}
         placeholder={placeholder}
-        className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+        className="h-12 w-full min-w-0 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] px-4 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
       />
     </div>
   );
@@ -83,7 +83,7 @@ export function ProfileFieldInput({ field }: { field: ProfileField }) {
           name={`profile.${field.name}`}
           required={field.required}
           defaultValue=""
-          className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+        className="h-12 w-full min-w-0 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] px-4 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
         >
           <option value="" disabled>
             Select
@@ -107,7 +107,7 @@ export function ProfileFieldInput({ field }: { field: ProfileField }) {
           required={field.required}
           rows={4}
           placeholder={field.placeholder}
-          className="w-full min-w-0 resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+          className="w-full min-w-0 resize-none rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] px-4 py-3 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
         />
       </div>
     );
