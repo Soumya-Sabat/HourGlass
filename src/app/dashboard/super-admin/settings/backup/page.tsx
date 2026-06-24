@@ -24,7 +24,7 @@ export default function BackupPage() {
     } catch {} finally { setLoading(false); }
   }
 
-  if (loading) return <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>;
 
   const lastBackup = data.find((b: any) => b.status === "Completed");
   const latestDate = lastBackup ? new Date(lastBackup.completedAt).toLocaleString() : "No backups available";
@@ -39,7 +39,7 @@ export default function BackupPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <div className="flex items-center gap-3">
-            <Database className="h-6 w-6 text-[#e28774]" />
+            <Database className="h-6 w-6 text-[var(--accent)]" />
             <div>
               <div className="text-[10px] font-black uppercase tracking-wider opacity-70">Last Backup</div>
               <div className="text-sm font-black mt-0.5">{latestDate}</div>
@@ -49,7 +49,7 @@ export default function BackupPage() {
 
         <Card>
           <div className="flex items-center gap-3">
-            <Clock className="h-6 w-6 text-[#e28774]" />
+            <Clock className="h-6 w-6 text-[var(--accent)]" />
             <div>
               <div className="text-[10px] font-black uppercase tracking-wider opacity-70">Total Backups</div>
               <div className="text-sm font-black mt-0.5">{data.length} records</div>
@@ -59,7 +59,7 @@ export default function BackupPage() {
 
         <Card>
           <div className="flex items-center gap-3">
-            <Download className="h-6 w-6 text-[#e28774]" />
+            <Download className="h-6 w-6 text-[var(--accent)]" />
             <div>
               <div className="text-[10px] font-black uppercase tracking-wider opacity-70">Latest Size</div>
               <div className="text-sm font-black mt-0.5">{lastBackup ? formatBytes(lastBackup.fileSize) : "—"}</div>
@@ -73,10 +73,10 @@ export default function BackupPage() {
         <ActionButton label="Restore from Backup" variant="default" icon={Upload} />
       </div>
 
-      <div className="border-2 border-black bg-white overflow-x-auto">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] overflow-x-auto">
         <table className="w-full text-left text-[11px] font-mono">
           <thead>
-            <tr className="border-b-2 border-black bg-[#1a1a14] text-[#f4ebd0]">
+            <tr className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)]">
               <th className="px-3 py-2.5 text-[10px] font-black uppercase">File Name</th>
               <th className="px-3 py-2.5 text-[10px] font-black uppercase">Size</th>
               <th className="px-3 py-2.5 text-[10px] font-black uppercase">Type</th>
@@ -87,7 +87,7 @@ export default function BackupPage() {
           </thead>
           <tbody>
             {data.map((b: any) => (
-              <tr key={b._id} className="border-b border-black/10 hover:bg-[#f4ebd0]/50 transition-colors">
+              <tr key={b._id} className="border-b border-[var(--border-primary)]/10 hover:bg-[var(--bg-primary)]/50 transition-colors">
                 <td className="px-3 py-2.5 font-mono text-[10px] font-black">{b.fileName}</td>
                 <td className="px-3 py-2.5 text-[10px]">{formatBytes(b.fileSize)}</td>
                 <td className="px-3 py-2.5"><StatusBadge status={b.type} /></td>
@@ -98,7 +98,7 @@ export default function BackupPage() {
             ))}
             {data.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-3 py-8 text-center text-[12px] font-bold text-[#1a1a14]/40">
+                <td colSpan={6} className="px-3 py-8 text-center text-[12px] font-bold text-[var(--text-primary)]/40">
                   No backup records found
                 </td>
               </tr>
