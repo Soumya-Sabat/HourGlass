@@ -13,10 +13,10 @@ export default function MarksMainPage() {
   ];
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <ClipboardList className="h-5 w-5 text-[#e28774]" /> Marks & Exams
+          <ClipboardList className="h-5 w-5 text-[var(--accent)]" /> Marks & Exams
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Manage exam structures, mark entry, and gradebook</p>
       </div>
@@ -24,7 +24,7 @@ export default function MarksMainPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {cards.map((card) => (
           <Link key={card.href} href={card.href}
-            className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-5 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#1a1a14] transition-all block">
+            className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-5 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border-primary)] transition-all block">
             <div className={`p-2 ${card.color} text-white rounded-sm w-fit mb-3`}>
               <card.icon className="h-5 w-5" />
             </div>
@@ -34,7 +34,7 @@ export default function MarksMainPage() {
         ))}
       </div>
 
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-5">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-5">
         <h2 className="text-sm font-black uppercase mb-2">How It Works</h2>
         <ol className="list-decimal list-inside space-y-2 text-xs font-bold">
           <li><span className="font-black">Admin creates exam columns</span> &mdash; Define which exams exist per subject/semester (e.g., Midterm 1, Midterm 2, Final) with max marks and order.</li>
