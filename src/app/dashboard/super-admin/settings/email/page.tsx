@@ -53,13 +53,13 @@ export default function EmailSettingsPage() {
           </div>
 
           {testResult === "success" && (
-            <div className="flex items-center gap-2 p-3 border-2 border-black bg-green-100 text-green-900 text-[11px] font-black">
+            <div className="flex items-center gap-2 p-3 border-2 border-[var(--border-primary)] bg-green-100 text-green-900 text-[11px] font-black">
               <CheckCircle className="h-4 w-4" />
               Test email sent successfully! Check your inbox.
             </div>
           )}
           {testResult === "error" && (
-            <div className="flex items-center gap-2 p-3 border-2 border-black bg-red-100 text-red-900 text-[11px] font-black">
+            <div className="flex items-center gap-2 p-3 border-2 border-[var(--border-primary)] bg-red-100 text-red-900 text-[11px] font-black">
               <XCircle className="h-4 w-4" />
               Test email failed. Please verify your SMTP configuration.
             </div>
