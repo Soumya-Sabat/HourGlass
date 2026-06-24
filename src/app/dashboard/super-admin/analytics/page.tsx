@@ -47,7 +47,7 @@ export default function AnalyticsDashboardPage() {
               ["Active Subscriptions", activeSubscriptions],
               ["Total Users", totalUsers],
             ].map(([label, value]) => (
-              <div key={label as string} className="flex justify-between items-center border-b border-black/10 pb-2 last:border-0">
+              <div key={label as string} className="flex justify-between items-center border-b border-[var(--border-primary)]/10 pb-2 last:border-0">
                 <span className="text-[10px] font-black uppercase">{label as string}</span>
                 <span className="text-sm font-black">{value as number}</span>
               </div>
@@ -58,13 +58,13 @@ export default function AnalyticsDashboardPage() {
         <Card title="Quick Actions">
           <div className="grid grid-cols-2 gap-3">
             {[
-              { label: "Institution Analytics", href: "/dashboard/super-admin/analytics/institution", color: "bg-[#e28774]" },
-              { label: "User Activity", href: "/dashboard/super-admin/analytics/user-activity", color: "bg-[#1a1a14]" },
-              { label: "AI Performance", href: "/dashboard/super-admin/analytics/ai-performance", color: "bg-[#e28774]" },
-              { label: "Conflict Reports", href: "/dashboard/super-admin/analytics/conflicts", color: "bg-[#1a1a14]" },
+              { label: "Institution Analytics", href: "/dashboard/super-admin/analytics/institution", color: "bg-[var(--accent)]" },
+              { label: "User Activity", href: "/dashboard/super-admin/analytics/user-activity", color: "bg-[var(--dark-bg)]" },
+              { label: "AI Performance", href: "/dashboard/super-admin/analytics/ai-performance", color: "bg-[var(--accent)]" },
+              { label: "Conflict Reports", href: "/dashboard/super-admin/analytics/conflicts", color: "bg-[var(--dark-bg)]" },
             ].map((action) => (
               <a key={action.label} href={action.href}
-                className={`${action.color} text-[#f4ebd0] text-[10px] font-black uppercase px-3 py-3 border-2 border-black shadow-[2px_2px_0px_0px_#1a1a14] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all text-center`}>
+                className={`${action.color} text-[var(--light-text)] text-[10px] font-black uppercase px-3 py-3 border-2 border-[var(--border-primary)] shadow-[2px_2px_0px_0px_var(--border-primary)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all text-center`}>
                 {action.label}
               </a>
             ))}
