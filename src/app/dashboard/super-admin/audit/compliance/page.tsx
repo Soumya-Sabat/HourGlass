@@ -83,7 +83,7 @@ export default function CompliancePage() {
   const [selectedFramework, setSelectedFramework] = useState<typeof FRAMEWORKS[0] | null>(null);
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
       <PageHeader
         title="COMPLIANCE OVERVIEW"
         description="Monitor regulatory compliance status across data protection frameworks"
@@ -96,8 +96,8 @@ export default function CompliancePage() {
             <div className="space-y-4">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="border-2 border-black bg-[#1a1a14] p-2">
-                    <fw.icon className="h-5 w-5 text-[#f4ebd0]" />
+                  <div className="border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] p-2">
+                    <fw.icon className="h-5 w-5 text-[var(--light-text)]" />
                   </div>
                   <div>
                     <h3 className="text-sm font-black uppercase">{fw.name}</h3>
@@ -112,7 +112,7 @@ export default function CompliancePage() {
 
               <p className="text-[11px] font-bold text-gray-600 leading-relaxed">{fw.description}</p>
 
-              <div className="border-t border-dashed border-black pt-3 space-y-2">
+              <div className="border-t border-dashed border-[var(--border-primary)] pt-3 space-y-2">
                 <div className="flex justify-between text-[10px] font-bold">
                   <span className="uppercase tracking-wider">Last Audit</span>
                   <span>{fw.lastAudit}</span>
@@ -141,7 +141,7 @@ export default function CompliancePage() {
             </div>
             <div className="space-y-2">
               {selectedFramework.checks.map((check, i) => (
-                <div key={i} className="flex items-center justify-between border border-black p-2.5 text-[11px]">
+                <div key={i} className="flex items-center justify-between border border-[var(--border-primary)] p-2.5 text-[11px]">
                   <span className="font-bold">{check.name}</span>
                   {check.pass ? (
                     <span className="text-green-700 font-black text-[10px]">✓ PASS</span>
