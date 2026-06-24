@@ -18,7 +18,7 @@ export default function AnnouncementsPage() {
     } catch {} finally { setLoading(false); }
   }
 
-  if (loading) return <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>;
 
   const rows = data.map((a: any) => [
     <span key="t" className="font-black">{a.title}</span>,
@@ -33,7 +33,7 @@ export default function AnnouncementsPage() {
   ]);
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
       <PageHeader
         title="ANNOUNCEMENTS"
         description="Create and manage system-wide announcements"
