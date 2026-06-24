@@ -117,6 +117,14 @@ export function buildRegisterPayload(form: FormData) {
 
   const hasAddress = Object.values(address).some(Boolean);
 
+  // Map step-2 dropdown values for student
+  const classGroup = readString(form, "studentClass");
+  const section = readString(form, "studentSection");
+  const batch = readString(form, "studentBatch");
+
+  // yearsOfExperience may come from role profile fields instead of top-level
+  const yearsOfExperience = readNumber(form, "profile.yearsOfExperience") ?? readNumber(form, "yearsOfExperience");
+
   return {
     email,
     payload: {
@@ -133,7 +141,10 @@ export function buildRegisterPayload(form: FormData) {
       nationality: readString(form, "nationality"),
       dateOfBirth: readString(form, "dateOfBirth"),
       address: hasAddress ? address : undefined,
-      yearsOfExperience: readNumber(form, "yearsOfExperience"),
+      classGroup,
+      section,
+      batch,
+      yearsOfExperience,
       areasOfInterest: readTags(form, "areasOfInterest"),
       profile,
     },
