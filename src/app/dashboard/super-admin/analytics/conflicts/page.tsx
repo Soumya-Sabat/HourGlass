@@ -46,7 +46,7 @@ export default async function ConflictsPage() {
       <Card title="Conflict Breakdown">
         <div className="space-y-3">
           {CONFLICT_TABLE_DATA.map((item) => (
-            <div key={item.type} className="flex items-center justify-between p-3 border-2 border-black bg-white">
+            <div key={item.type} className="flex items-center justify-between p-3 border-2 border-[var(--border-primary)] bg-[var(--surface-white)]">
               <div className="flex-1">
                 <div className="text-[11px] font-black">{item.type}</div>
                 <div className="text-[9px] font-bold text-gray-500 mt-0.5">{item.cause}</div>
