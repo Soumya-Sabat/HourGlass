@@ -11,8 +11,9 @@ import { getCurrentUser } from "@/auth";
 type EditableFields = {
   name?: string;
   phoneNumber?: string;
-  programOrClass?: string;
-  batchOrSection?: string;
+  classGroup?: string;
+  section?: string;
+  batch?: string;
   subjects?: string;
   preferredSlots?: string;
   bio?: string;
@@ -32,9 +33,13 @@ const USER_ENCRYPTED_FIELDS = new Set([
   "socialLinks",
 ]);
 
+const USER_PLAIN_FIELDS = new Set([
+  "classGroup",
+  "section",
+  "batch",
+]);
+
 const PROFILE_PLAIN_FIELDS = new Set([
-  "programOrClass",
-  "batchOrSection",
   "subjects",
   "preferredSlots",
 ]);
@@ -64,7 +69,7 @@ export async function updateStudentSettings(
   const dbUser = await UserRepository.findById(user.sub);
   if (!dbUser) return { success: false, error: "User not found." };
 
-  const userUpdates: Record<string, EncryptedValue> = {};
+  const userUpdates: Record<string, EncryptedValue | string> = {};
   const profileUpdates: Record<string, string> = {};
 
   for (const [key, value] of Object.entries(fields)) {
@@ -73,6 +78,8 @@ export async function updateStudentSettings(
     if (USER_ENCRYPTED_FIELDS.has(key)) {
       const dbKey = FIELD_TO_USER_KEY[key];
       userUpdates[dbKey] = encryptValue(value);
+    } else if (USER_PLAIN_FIELDS.has(key)) {
+      userUpdates[key] = value;
     } else if (PROFILE_PLAIN_FIELDS.has(key)) {
       profileUpdates[key] = value;
     }
@@ -111,8 +118,12 @@ export async function submitChangeRequest(
   if (user.role !== UserRole.Student)
     return { success: false, error: "Not authorized." };
 
+  const dbUser = await UserRepository.findById(user.sub);
+  const institutionId = dbUser?.institutionId ?? "";
+
   await ChangeRequestModel.create({
     userId: user.sub,
+    institutionId,
     fieldName: input.fieldName,
     currentValue: input.currentValue,
     requestedValue: input.requestedValue,
