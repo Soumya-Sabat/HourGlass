@@ -155,7 +155,7 @@ export default function CreatePricingPlanPage() {
               value={form.features}
               onChange={handleChange}
               placeholder="Up to 500 users, AI Timetable Generation, Priority Support"
-              className="w-full h-9 px-3 text-[12px] font-bold border-2 border-black bg-white focus:outline-none focus:ring-2 focus:ring-[#e28774]"
+              className="w-full h-9 px-3 text-[12px] font-bold border-2 border-[var(--border-primary)] bg-[var(--surface-white)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
             />
           </div>
 
