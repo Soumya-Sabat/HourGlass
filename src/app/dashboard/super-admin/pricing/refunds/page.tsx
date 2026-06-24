@@ -16,7 +16,7 @@ export default function RefundsPage() {
     } catch {} finally { setLoading(false); }
   }
 
-  if (loading) return <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>;
 
   const rows = data.map((refund: any) => [
     <span key="inst" className="font-black">{refund.institutionName || refund.institutionId?.toString()}</span>,
