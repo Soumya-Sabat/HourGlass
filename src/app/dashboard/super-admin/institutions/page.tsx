@@ -78,21 +78,21 @@ export default function InstitutionsPage() {
       />
       <FilterBar>
         <SearchInput value={search} onChange={setSearch} placeholder="Search institutions..." />
-        <select className="h-9 px-2 text-[10px] font-black uppercase border-2 border-black bg-white" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+        <select className="h-9 px-2 text-[10px] font-black uppercase border-2 border-[var(--border-primary)] bg-[var(--surface-white)]" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
           <option>All Types</option>
           <option>University</option>
           <option>College</option>
           <option>Institute</option>
           <option>School</option>
         </select>
-        <select className="h-9 px-2 text-[10px] font-black uppercase border-2 border-black bg-white" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+        <select className="h-9 px-2 text-[10px] font-black uppercase border-2 border-[var(--border-primary)] bg-[var(--surface-white)]" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
           <option>All Status</option>
           <option>Pending</option>
           <option>Approved</option>
         </select>
       </FilterBar>
       {loading ? (
-        <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>
       ) : (
         <Table headers={["Institution Name", "Institution Code", "Type", "Status", "Registration Date", "Actions"]} rows={rows} />
       )}
