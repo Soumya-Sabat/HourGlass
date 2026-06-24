@@ -44,10 +44,10 @@ export default function NotificationsPage() {
           <button
             key={ch}
             onClick={() => setFilter(ch)}
-            className={`px-3 py-1.5 text-[10px] font-black uppercase border-2 border-black transition-all ${
+            className={`px-3 py-1.5 text-[10px] font-black uppercase border-2 border-[var(--border-primary)] transition-all ${
               filter === ch
-                ? "bg-[#1a1a14] text-[#f4ebd0]"
-                : "bg-white hover:bg-[#eae3cb]"
+                ? "bg-[var(--dark-bg)] text-[var(--light-text)]"
+                : "bg-[var(--surface-white)] hover:bg-[var(--bg-secondary)]"
             }`}
           >
             {ch === "All" ? "All Channels" : ch}
@@ -57,26 +57,26 @@ export default function NotificationsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filtered.map((n) => (
-          <Card key={n.id} className="!bg-white">
+          <Card key={n.id} className="!bg-[var(--surface-white)]">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3">
-                <div className="mt-0.5 text-[#1a1a14]/60">{channelIcons[n.channel]}</div>
+                <div className="mt-0.5 text-[var(--text-primary)]/60">{channelIcons[n.channel]}</div>
                 <div>
                   <h3 className="text-[12px] font-black uppercase">{n.type}</h3>
                   <div className="flex items-center gap-2 mt-1">
                     <StatusBadge status={n.channel} />
-                    <span className="text-[10px] font-bold text-[#1a1a14]/60">{n.recipients}</span>
+                    <span className="text-[10px] font-bold text-[var(--text-primary)]/60">{n.recipients}</span>
                   </div>
                 </div>
               </div>
               <button
                 onClick={() => toggleNotification(n.id)}
-                className={`relative w-10 h-5 border-2 border-black transition-all ${
+                className={`relative w-10 h-5 border-2 border-[var(--border-primary)] transition-all ${
                   n.enabled ? "bg-green-400" : "bg-gray-200"
                 }`}
               >
                 <span
-                  className={`absolute top-0.5 w-3.5 h-3.5 bg-white border-2 border-black transition-all ${
+                  className={`absolute top-0.5 w-3.5 h-3.5 bg-[var(--surface-white)] border-2 border-[var(--border-primary)] transition-all ${
                     n.enabled ? "left-[18px]" : "left-0.5"
                   }`}
                 />
