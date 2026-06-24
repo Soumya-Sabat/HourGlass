@@ -26,7 +26,7 @@ export default function DashboardShell({ children, userSession }: DashboardShell
   const isSuperAdmin = userSession.role === "super_admin";
 
   return (
-    <div className="min-h-screen bg-[#f4ebd0] text-[#1a1a14] antialiased font-mono flex overflow-x-hidden">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased font-mono flex overflow-x-hidden">
       
       {/* Dynamic Role-Namespaced Navigation Column */}
       {isSuperAdmin ? (
