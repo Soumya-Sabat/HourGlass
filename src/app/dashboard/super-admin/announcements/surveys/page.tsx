@@ -17,7 +17,7 @@ export default function SurveysPage() {
     } catch {} finally { setLoading(false); }
   }
 
-  if (loading) return <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>;
 
   const rows = data.map((s: any) => [
     <span key="n" className="font-black">{s.name}</span>,
@@ -34,7 +34,7 @@ export default function SurveysPage() {
   ]);
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
       <PageHeader
         title="SURVEYS"
         description="Create and manage surveys for feedback collection"
