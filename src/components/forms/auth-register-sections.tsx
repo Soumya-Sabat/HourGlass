@@ -91,7 +91,7 @@ function RolePicker({
           return (
             <label
               key={role.value}
-              className="flex min-w-0 cursor-pointer items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 transition has-[:checked]:border-brand-blue has-[:checked]:bg-blue-50 has-[:checked]:text-brand-dark"
+              className="flex min-w-0 cursor-pointer items-center gap-3 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#1a1a14] px-4 py-3 text-xl font-bold text-[#f4ebd0] transition has-[:checked]:border-[#e28774] has-[:checked]:bg-[#e28774]/10 has-[:checked]:text-[#e28774]"
             >
               <input
                 type="radio"
@@ -127,7 +127,7 @@ function AccountTypeSection({
         return (
           <label
             key={option.value}
-            className="flex min-w-0 cursor-pointer gap-3 rounded-lg border border-slate-200 bg-white p-4 text-slate-700 transition has-[:checked]:border-brand-blue has-[:checked]:bg-blue-50 has-[:checked]:text-brand-dark"
+            className="flex min-w-0 cursor-pointer gap-3 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#1a1a14] p-4 text-xl font-bold text-[#f4ebd0] transition has-[:checked]:border-[#e28774] has-[:checked]:bg-[#e28774]/10 has-[:checked]:text-[#e28774]"
           >
             <input
               type="radio"
@@ -139,8 +139,8 @@ function AccountTypeSection({
             />
             <Icon className="mt-0.5 h-5 w-5 shrink-0" />
             <span className="min-w-0">
-              <span className="block text-sm font-black">{option.label}</span>
-              <span className="mt-1 block text-xs font-semibold leading-5 text-slate-500">{option.detail}</span>
+              <span className="block text-xl font-black">{option.label}</span>
+              <span className="mt-1 block text-lg font-semibold leading-5 text-[#f4ebd0]/60">{option.detail}</span>
             </span>
           </label>
         );
@@ -152,8 +152,8 @@ function AccountTypeSection({
 function InstitutionSection() {
   return (
     <div className="min-w-0 space-y-4">
-      <div className="rounded-lg border-2 border-amber-300 bg-amber-50 p-3">
-        <p className="text-xs font-bold text-amber-800">
+      <div className="rounded-lg border-2 border-[#e28774]/50 bg-[#e28774]/10 p-4">
+        <p className="text-lg font-bold text-[#e28774]">
           The contact person must be the Head of the Institution (Principal, Director, or equivalent). This person will receive the login credentials after approval.
         </p>
       </div>
@@ -164,7 +164,7 @@ function InstitutionSection() {
           name="institution.type"
           required
           defaultValue=""
-          className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+          className="h-12 w-full min-w-0 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] px-4 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
         >
           <option value="" disabled>Select type</option>
           <option value="school">School</option>
@@ -178,7 +178,7 @@ function InstitutionSection() {
           name="institution.academicMode"
           required
           defaultValue=""
-          className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+          className="h-12 w-full min-w-0 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] px-4 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
         >
           <option value="" disabled>Select mode</option>
           <option value="school">School</option>
@@ -245,8 +245,8 @@ function InstitutionLookupSection({
           title="Enter the institution ID shared by your institution."
         />
         {institutionFound && institutionName && (
-          <div className="rounded-lg border-2 border-emerald-300 bg-emerald-50 p-4 space-y-3">
-            <div className="text-sm font-bold text-emerald-800">
+          <div className="rounded-lg border-2 border-[#e28774]/50 bg-[#e28774]/10 p-4 space-y-3">
+            <div className="text-xl font-bold text-[#e28774]">
               Institution: <span className="font-black">{institutionName}</span>
             </div>
             {!institutionConfirmed ? (
@@ -254,37 +254,37 @@ function InstitutionLookupSection({
                 <button
                   type="button"
                   onClick={onConfirmInstitution}
-                  className="inline-flex h-9 items-center justify-center rounded-lg bg-emerald-600 px-4 text-xs font-black text-white hover:bg-emerald-700"
+                  className="inline-flex h-10 items-center justify-center rounded-lg bg-[#e28774] px-4 text-lg font-black text-[#1a1a14] hover:bg-[#d97766]"
                 >
                   Yes, this is correct
                 </button>
                 <button
                   type="button"
                   onClick={onRejectInstitution}
-                  className="inline-flex h-9 items-center justify-center rounded-lg border border-red-200 bg-white px-4 text-xs font-black text-red-700 hover:bg-red-50"
+                  className="inline-flex h-10 items-center justify-center rounded-lg border-2 border-[#f4ebd0]/30 bg-transparent px-4 text-lg font-black text-[#f4ebd0] hover:bg-[#f4ebd0]/10"
                 >
                   No, try again
                 </button>
               </div>
             ) : (
-              <div className="text-xs font-black text-emerald-700">✓ Confirmed. Proceed with your details.</div>
+              <div className="text-lg font-black text-[#e28774]">✓ Confirmed. Proceed with your details.</div>
             )}
           </div>
         )}
         {!institutionFound && (
-          <p className="text-xs font-bold text-slate-500">
+          <p className="text-lg font-bold text-[#f4ebd0]/50">
             Enter the ID first. The form checks this before your user details are collected.
           </p>
         )}
       </div>
       {institutionConfirmed && <RolePicker selectedRole={selectedRole} onRoleChange={onRoleChange} />}
       {institutionConfirmed && selectedRole && dynamicFields.length > 0 && (
-        <div className="border-t border-slate-200 pt-4 space-y-3">
-          <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">Institution-Specific Details</p>
+        <div className="border-t-2 border-[#f4ebd0]/20 pt-4 space-y-3">
+          <p className="text-base font-black uppercase tracking-wider text-[#f4ebd0]/60">Institution-Specific Details</p>
           {dynamicFields.map((f) => (
             <div key={f.name} className="min-w-0 space-y-1.5">
-              <label className="text-xs font-bold text-slate-700">{f.label} <span className="text-red-500">*</span></label>
-              <select name={f.name} required className="h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10">
+              <label className="text-lg font-bold text-[#f4ebd0]">{f.label} <span className="text-[#e28774]">*</span></label>
+              <select name={f.name} required className="h-12 w-full rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] px-3 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20">
                 <option value="">Select {f.label}...</option>
                 {f.options.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
               </select>
@@ -302,7 +302,7 @@ function PersonalDataSection() {
       <div className="min-w-0 space-y-2">
         <FieldLabel>Full Name</FieldLabel>
         <div className="relative">
-          <UserRound className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+          <UserRound className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#f4ebd0]/50" />
           <input
             name="fullName"
             required
@@ -312,14 +312,14 @@ function PersonalDataSection() {
             title="Use letters, spaces, apostrophes, hyphens, and periods only."
             autoComplete="name"
             placeholder="Dr. Ananya Rao"
-            className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white pl-12 pr-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+            className="h-12 w-full min-w-0 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] pl-12 pr-4 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
           />
         </div>
       </div>
       <div className="min-w-0 space-y-2">
         <FieldLabel>Email</FieldLabel>
         <div className="relative">
-          <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+          <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#f4ebd0]/50" />
           <input
             name="email"
             type="email"
@@ -329,7 +329,7 @@ function PersonalDataSection() {
             title="Enter a valid email address."
             autoComplete="email"
             placeholder="you@institution.ac.in"
-            className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white pl-12 pr-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+            className="h-12 w-full min-w-0 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] pl-12 pr-4 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
           />
         </div>
       </div>
@@ -340,7 +340,7 @@ function PersonalDataSection() {
             name="phoneCountryCode"
             required
             defaultValue="+91"
-            className="h-12 min-w-0 rounded-lg border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+            className="h-12 min-w-0 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] px-3 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
           >
             {countryCodeOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -362,7 +362,7 @@ function PersonalDataSection() {
             onInput={(event) => {
               event.currentTarget.value = event.currentTarget.value.replace(/\D/g, "").slice(0, 10);
             }}
-            className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+            className="h-12 w-full min-w-0 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] px-4 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
           />
         </div>
       </div>
@@ -372,7 +372,7 @@ function PersonalDataSection() {
           name="gender"
           required
           defaultValue=""
-          className="h-12 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+          className="h-12 w-full min-w-0 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] px-4 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
         >
           <option value="" disabled>Select gender</option>
           {genderOptions.map((option) => (
@@ -394,15 +394,6 @@ function PersonalDataSection() {
         autoComplete="country-name"
       />
       <TextInput name="dateOfBirth" label="Date of Birth" type="date" required max={todayDate} />
-      <TextInput
-        name="yearsOfExperience"
-        label="Years of Experience"
-        type="number"
-        placeholder="4"
-        required
-        min={0}
-        max={80}
-      />
       <TextInput
         name="skills"
         label="Skills or Domains"
@@ -430,7 +421,7 @@ function PersonalDataSection() {
           rows={3}
           maxLength={1000}
           placeholder="Short professional summary"
-          className="w-full min-w-0 resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+          className="w-full min-w-0 resize-none rounded-lg border-2 border-[#f4ebd0]/30 bg-[#f4ebd0] px-4 py-3 text-xl font-semibold text-[#1a1a14] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20"
         />
       </div>
       <TextInput name="address.country" label="Country" placeholder="India" required minLength={2} maxLength={80} pattern={placeNamePattern} title="Use letters, spaces, apostrophes, hyphens, and periods only." autoComplete="country-name" />
@@ -447,15 +438,15 @@ function PersonalDataSection() {
 function RoleDetailsSection({ selectedRole }: Pick<RegisterSectionProps, "selectedRole">) {
   if (!selectedRole) {
     return (
-      <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-5 py-8 text-center">
-        <p className="text-sm font-bold text-slate-500">Choose a profile type in the first step to unlock this section.</p>
+      <div className="rounded-lg border-2 border-dashed border-[#f4ebd0]/30 bg-[#1a1a14] px-5 py-8 text-center">
+        <p className="text-xl font-bold text-[#f4ebd0]/50">Choose a profile type in the first step to unlock this section.</p>
       </div>
     );
   }
 
   return (
     <div className="min-w-0 space-y-4">
-      <h4 className="break-words text-sm font-black uppercase tracking-wider text-slate-400">{getRoleLabel(selectedRole)}</h4>
+      <h4 className="break-words text-xl font-black uppercase tracking-wider text-[#f4ebd0]/70">{getRoleLabel(selectedRole)}</h4>
       <div className="grid min-w-0 gap-4 sm:grid-cols-2">
         {roleProfileFields[selectedRole]?.map((field) => (
           <ProfileFieldInput key={field.name} field={field} />
