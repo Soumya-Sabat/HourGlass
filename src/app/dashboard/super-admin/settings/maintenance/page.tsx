@@ -29,7 +29,7 @@ export default function MaintenancePage() {
                 <div className="text-[12px] font-black uppercase">
                   System is {maintenanceMode ? "UNDER MAINTENANCE" : "OPERATIONAL"}
                 </div>
-                <p className="text-[10px] font-bold text-[#1a1a14]/60 mt-0.5">
+                <p className="text-[10px] font-bold text-[var(--text-primary)]/60 mt-0.5">
                   {maintenanceMode
                     ? "Users will see the maintenance message below"
                     : "All services are available to users"}
@@ -39,9 +39,9 @@ export default function MaintenancePage() {
             <button
               type="button"
               onClick={() => setMaintenanceMode(!maintenanceMode)}
-              className={`relative w-12 h-6 border-2 border-black transition-all ${maintenanceMode ? "bg-red-400" : "bg-green-400"}`}
+              className={`relative w-12 h-6 border-2 border-[var(--border-primary)] transition-all ${maintenanceMode ? "bg-red-400" : "bg-green-400"}`}
             >
-              <span className={`absolute top-0.5 w-4 h-4 bg-white border-2 border-black transition-all ${maintenanceMode ? "left-6" : "left-0.5"}`} />
+              <span className={`absolute top-0.5 w-4 h-4 bg-[var(--surface-white)] border-2 border-[var(--border-primary)] transition-all ${maintenanceMode ? "left-6" : "left-0.5"}`} />
             </button>
           </div>
 
@@ -52,7 +52,7 @@ export default function MaintenancePage() {
                 <textarea
                   id="message" name="message" rows={3}
                   defaultValue="System is currently undergoing scheduled maintenance. Please check back in a few hours. We apologize for the inconvenience."
-                  className="w-full px-3 py-2 text-[12px] font-bold border-2 border-black bg-white focus:outline-none focus:ring-2 focus:ring-[#e28774]"
+                  className="w-full px-3 py-2 text-[12px] font-bold border-2 border-[var(--border-primary)] bg-[var(--surface-white)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
                 />
               </div>
 
@@ -80,15 +80,15 @@ export default function MaintenancePage() {
             { date: "2026-05-28", duration: "1 hour", status: "Completed", message: "SSL certificate renewal" },
             { date: "2026-04-10", duration: "4 hours", status: "Completed", message: "Server infrastructure upgrade" },
           ].map((event, idx) => (
-            <div key={idx} className="flex items-center justify-between p-3 border-2 border-black bg-[#f4ebd0]/30">
+            <div key={idx} className="flex items-center justify-between p-3 border-2 border-[var(--border-primary)] bg-[var(--bg-primary)]/30">
               <div className="flex items-center gap-3">
-                <Clock className="h-4 w-4 text-[#e28774]" />
+                <Clock className="h-4 w-4 text-[var(--accent)]" />
                 <div>
                   <div className="text-[11px] font-black">{event.message}</div>
-                  <div className="text-[10px] font-bold text-[#1a1a14]/60">{event.date} · {event.duration}</div>
+                  <div className="text-[10px] font-bold text-[var(--text-primary)]/60">{event.date} · {event.duration}</div>
                 </div>
               </div>
-              <span className="text-[9px] font-black px-2 py-0.5 bg-green-200 text-green-900 border border-black">
+              <span className="text-[9px] font-black px-2 py-0.5 bg-green-200 text-green-900 border border-[var(--border-primary)]">
                 {event.status.toUpperCase()}
               </span>
             </div>
