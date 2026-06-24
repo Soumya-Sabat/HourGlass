@@ -1,6 +1,7 @@
 export type UserRole = 
   | "student" 
   | "faculty" 
+  | "reviewer" 
   | "department_head" 
   | "department_admin" 
   | "institution_admin" 
@@ -16,7 +17,9 @@ export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
     "/dashboard/student/alerts",           // Student relevant notice boards
     "/dashboard/student/attendance",       // Student personal attendance logs
     "/dashboard/student/marksheet",        // Student marksheet
-    "/dashboard/student/settings"          // Student settings
+    "/dashboard/student/settings",          // Student settings
+    "/dashboard/events",
+    "/dashboard/alerts"
   ],
   
   faculty: [
@@ -27,7 +30,26 @@ export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
     "/dashboard/faculty/messages",         // Instructor inter-app messages
     "/dashboard/faculty/notices",          // Faculty official notices
     "/dashboard/faculty/attendance",       // Attendance update/marking terminal
-    "/dashboard/faculty/downloads"         // Department sheet templates
+    "/dashboard/faculty/downloads",        // Department sheet templates
+    "/dashboard/faculty/clusters",         // My teaching clusters
+    "/dashboard/events",
+    "/dashboard/alerts"
+  ],
+
+  reviewer: [
+    "/dashboard/review",                   // Reviewer overview
+    "/dashboard/review/clusters",          // Manage subject clusters
+    "/dashboard/review/timetable-review",  // Review & suggest timetable changes
+    "/dashboard/faculty/timetable",        // Teacher schedules across batches
+    "/dashboard/faculty/exchange-desk",    // Request/Trade slot manager
+    "/dashboard/faculty/subjects",         // Handled syllabus tracking
+    "/dashboard/faculty/messages",         // Instructor inter-app messages
+    "/dashboard/faculty/notices",          // Faculty official notices
+    "/dashboard/faculty/attendance",       // Attendance update/marking terminal
+    "/dashboard/faculty/downloads",        // Department sheet templates
+    "/dashboard/faculty/clusters",         // Cluster chat access
+    "/dashboard/events",
+    "/dashboard/alerts"
   ],
   
   department_head: [
@@ -35,14 +57,26 @@ export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
     "/dashboard/head/subjects",           // Dept syllabus review maps
     "/dashboard/head/faculty-roster",     // HOD overview of instructors
     "/dashboard/head/messages",
-    "/dashboard/head/notices"
+    "/dashboard/head/notices",
+    "/dashboard/head/clusters",           // Cluster oversight & rearrangement
+    "/dashboard/events",
+    "/dashboard/alerts"
   ],
   
   department_admin: [
     "/dashboard/department",               // Building raw schedules
     "/dashboard/department/faculty-roster",// Allocating teaching staffs
+    "/dashboard/department/students",
+    "/dashboard/department/timetable",
+    "/dashboard/department/exams",
+    "/dashboard/department/events",
+    "/dashboard/department/settings",
+    "/dashboard/department/analytics",
+    "/dashboard/department/alerts",
     "/dashboard/department/messages",
-    "/dashboard/department/notices"
+    "/dashboard/department/notices",
+    "/dashboard/events",
+    "/dashboard/alerts"
   ],
   
   institution_admin: [
@@ -61,7 +95,9 @@ export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
     "/dashboard/institution/announcements",
     "/dashboard/institution/messages",
     "/dashboard/institution/notices",
-    "/dashboard/institution/physical"
+    "/dashboard/institution/physical",
+    "/dashboard/events",
+    "/dashboard/alerts"
   ],
 
   
@@ -125,7 +161,9 @@ export const ROLE_ROUTES_MATRIX: Record<UserRole, string[]> = {
     "/dashboard/faculty",
     "/dashboard/head",
     "/dashboard/department",
-    "/dashboard/institution"
+    "/dashboard/institution",
+    "/dashboard/events",
+    "/dashboard/alerts"
   ]
 };
 
