@@ -234,7 +234,7 @@ export default function StudentSettingsPage() {
 
   if (loading) {
     return (
-      <div className="border-2 border-black bg-[#eae3cb] p-4 font-mono text-[#1a1a14] shadow-[4px_4px_0px_0px_#1a1a14]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-4 font-mono text-[var(--text-primary)] shadow-[4px_4px_0px_0px_var(--border-primary)]">
         Loading...
       </div>
     );
@@ -242,7 +242,7 @@ export default function StudentSettingsPage() {
 
   if (error || !data) {
     return (
-      <div className="border-2 border-black bg-[#e28774] p-4 font-mono text-[#1a1a14] shadow-[4px_4px_0px_0px_#1a1a14]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-4 font-mono text-[var(--text-primary)] shadow-[4px_4px_0px_0px_var(--border-primary)]">
         {error || "Unable to load settings."}
       </div>
     );
@@ -252,18 +252,18 @@ export default function StudentSettingsPage() {
   const lockedSections: SettingsSection[] = ["account", "studentProfile", "institution", "personalDetails"];
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4 flex items-center justify-between">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4 flex items-center justify-between">
         <div>
           <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight">STUDENT SETTINGS</h1>
-          <p className="text-[11px] mt-1 font-bold tracking-tight text-[#1a1a14]/80">
+          <p className="text-[11px] mt-1 font-bold tracking-tight text-[var(--text-primary)]/80">
             Records are loaded into editable and locked settings boxes.
           </p>
         </div>
         <button
           onClick={handleDownload}
           disabled={downloading}
-          className="flex items-center gap-2 border-2 border-black bg-[#1a1a14] px-4 py-2 text-xs font-black uppercase text-[#f4ebd0] shadow-[2px_2px_0px_0px_#1a1a14] hover:bg-[#2a2a24] disabled:opacity-50"
+          className="flex items-center gap-2 border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] px-4 py-2 text-xs font-black uppercase text-[var(--light-text)] shadow-[2px_2px_0px_0px_var(--border-primary)] hover:bg-[var(--bg-primary)] disabled:opacity-50"
         >
           {downloading ? <Loader className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
           {downloading ? "Generating..." : "Download Dossier (PDF)"}
@@ -281,11 +281,11 @@ export default function StudentSettingsPage() {
           mode="editable"
           onChange={updateField}
         >
-          <div className="border-t-2 border-black p-4 flex items-center gap-3">
+          <div className="border-t-2 border-[var(--border-primary)] p-4 flex items-center gap-3">
             <button
               onClick={handleSave}
               disabled={saving}
-              className="flex items-center gap-2 border-2 border-black bg-[#1a1a14] px-5 py-2 text-xs font-black uppercase text-[#f4ebd0] shadow-[3px_3px_0px_0px_#1a1a14] hover:bg-[#2a2a24] disabled:opacity-50"
+              className="flex items-center gap-2 border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] px-5 py-2 text-xs font-black uppercase text-[var(--light-text)] shadow-[3px_3px_0px_0px_var(--border-primary)] hover:bg-[var(--bg-primary)] disabled:opacity-50"
             >
               {saving ? <Loader className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               {saving ? "Saving..." : "Save Changes"}
@@ -317,46 +317,46 @@ export default function StudentSettingsPage() {
 
       {requestField && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="w-full max-w-md border-2 border-black bg-[#eae3cb] shadow-[8px_8px_0px_0px_#1a1a14]">
-            <div className="flex items-center justify-between border-b-2 border-black bg-[#1a1a14] p-3">
-              <h2 className="text-xs font-black uppercase text-[#f4ebd0]">Request Change</h2>
-              <button onClick={() => { setRequestField(null); setRequestMessage(null); }} className="text-[#f4ebd0] hover:text-white">
+          <div className="w-full max-w-md border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[8px_8px_0px_0px_var(--border-primary)]">
+            <div className="flex items-center justify-between border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] p-3">
+              <h2 className="text-xs font-black uppercase text-[var(--light-text)]">Request Change</h2>
+              <button onClick={() => { setRequestField(null); setRequestMessage(null); }} className="text-[var(--light-text)] hover:text-white">
                 <X className="h-4 w-4" />
               </button>
             </div>
             <form action={handleRequestSubmit} className="p-4 space-y-4">
               <div>
-                <div className="text-[10px] font-black uppercase tracking-wider text-[#1a1a14]/70">Field</div>
-                <div className="mt-1 border-2 border-black bg-white px-3 py-2 text-xs font-black">
+                <div className="text-[10px] font-black uppercase tracking-wider text-[var(--text-primary)]/70">Field</div>
+                <div className="mt-1 border-2 border-[var(--border-primary)] bg-[var(--surface-white)] px-3 py-2 text-xs font-black">
                   {labelFor(requestField.key)}
                 </div>
               </div>
               <div>
-                <div className="text-[10px] font-black uppercase tracking-wider text-[#1a1a14]/70">Current Value</div>
-                <div className="mt-1 border-2 border-black bg-[#f4ebd0] px-3 py-2 text-xs font-black">
+                <div className="text-[10px] font-black uppercase tracking-wider text-[var(--text-primary)]/70">Current Value</div>
+                <div className="mt-1 border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] px-3 py-2 text-xs font-black">
                   {requestField.currentValue || "Not available"}
                 </div>
               </div>
               <div>
-                <label className="text-[10px] font-black uppercase tracking-wider text-[#1a1a14]/70">
+                <label className="text-[10px] font-black uppercase tracking-wider text-[var(--text-primary)]/70">
                   Requested Value
                 </label>
                 <input
                   name="requestedValue"
                   type="text"
                   required
-                  className="mt-1 w-full border-2 border-black bg-white px-3 py-2 text-xs font-black uppercase outline-none focus:bg-[#eae3cb]"
+                  className="mt-1 w-full border-2 border-[var(--border-primary)] bg-[var(--surface-white)] px-3 py-2 text-xs font-black uppercase outline-none focus:bg-[var(--bg-secondary)]"
                 />
               </div>
               <div>
-                <label className="text-[10px] font-black uppercase tracking-wider text-[#1a1a14]/70">
+                <label className="text-[10px] font-black uppercase tracking-wider text-[var(--text-primary)]/70">
                   Reason
                 </label>
                 <textarea
                   name="reason"
                   required
                   rows={3}
-                  className="mt-1 w-full border-2 border-black bg-white px-3 py-2 text-xs font-black uppercase outline-none focus:bg-[#eae3cb]"
+                  className="mt-1 w-full border-2 border-[var(--border-primary)] bg-[var(--surface-white)] px-3 py-2 text-xs font-black uppercase outline-none focus:bg-[var(--bg-secondary)]"
                 />
               </div>
               {requestMessage && (
@@ -369,7 +369,7 @@ export default function StudentSettingsPage() {
                 <button
                   type="submit"
                   disabled={requestSending}
-                  className="flex items-center gap-2 border-2 border-black bg-[#1a1a14] px-4 py-2 text-xs font-black uppercase text-[#f4ebd0] shadow-[2px_2px_0px_0px_#1a1a14] hover:bg-[#2a2a24] disabled:opacity-50"
+                  className="flex items-center gap-2 border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] px-4 py-2 text-xs font-black uppercase text-[var(--light-text)] shadow-[2px_2px_0px_0px_var(--border-primary)] hover:bg-[var(--bg-primary)] disabled:opacity-50"
                 >
                   {requestSending ? <Loader className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
                   {requestSending ? "Sending..." : "Send Request"}
@@ -377,7 +377,7 @@ export default function StudentSettingsPage() {
                 <button
                   type="button"
                   onClick={() => { setRequestField(null); setRequestMessage(null); }}
-                  className="border-2 border-black bg-white px-4 py-2 text-xs font-black uppercase shadow-[2px_2px_0px_0px_#1a1a14] hover:bg-[#eae3cb]"
+                  className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] px-4 py-2 text-xs font-black uppercase shadow-[2px_2px_0px_0px_var(--border-primary)] hover:bg-[var(--bg-secondary)]"
                 >
                   Cancel
                 </button>
@@ -415,23 +415,23 @@ function SettingsSectionBox({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14]">
-      <div className="border-b-2 border-black bg-[#1a1a14] p-3 text-[#f4ebd0] text-xs font-black uppercase flex items-center gap-2">
+    <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)]">
+      <div className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] p-3 text-[var(--light-text)] text-xs font-black uppercase flex items-center gap-2">
         <Icon className="h-4 w-4" />
         {title}
       </div>
-      <div className="p-3 text-[10px] font-black uppercase tracking-widest bg-[#f4ebd0] border-b-2 border-black">
+      <div className="p-3 text-[10px] font-black uppercase tracking-widest bg-[var(--bg-primary)] border-b-2 border-[var(--border-primary)]">
         {subtitle}
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 p-4 bg-white">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 p-4 bg-[var(--surface-white)]">
         {sections.map((section) => {
           const sectionFields = fields.filter(([fieldSection]) => fieldSection === section);
           const sectionData = getSectionData(data, section);
 
           return (
-            <div key={section} className="border-2 border-black bg-[#f4ebd0]/40">
-              <div className="border-b-2 border-black bg-[#1a1a14] p-2 text-[#f4ebd0] text-xs font-black uppercase">
+            <div key={section} className="border-2 border-[var(--border-primary)] bg-[var(--bg-primary)]/40">
+              <div className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] p-2 text-[var(--light-text)] text-xs font-black uppercase">
                 {sectionLabel(section)}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 p-3">
@@ -477,15 +477,15 @@ function SettingsField({
   if (mode === "locked") {
     return (
       <div className="space-y-1">
-        <div className="text-[10px] font-black uppercase tracking-wider text-[#1a1a14]/70">{label}</div>
+        <div className="text-[10px] font-black uppercase tracking-wider text-[var(--text-primary)]/70">{label}</div>
         <div className="flex items-start gap-2">
-          <div className="min-h-[42px] flex-1 whitespace-pre-wrap break-words border-2 border-black bg-white px-3 py-2 text-xs font-black">
+          <div className="min-h-[42px] flex-1 whitespace-pre-wrap break-words border-2 border-[var(--border-primary)] bg-[var(--surface-white)] px-3 py-2 text-xs font-black">
             {value}
           </div>
           {onRequestChange && (
             <button
               onClick={() => onRequestChange(section, fieldKey)}
-              className="mt-0 flex h-[42px] w-[42px] shrink-0 items-center justify-center border-2 border-black bg-[#eae3cb] hover:bg-[#d4cbb3]"
+              className="mt-0 flex h-[42px] w-[42px] shrink-0 items-center justify-center border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] hover:bg-[var(--bg-secondary)]"
               title="Request change"
             >
               <Mail className="h-4 w-4" />
@@ -498,20 +498,20 @@ function SettingsField({
 
   return (
     <label className="space-y-1">
-      <div className="text-[10px] font-black uppercase tracking-wider text-[#1a1a14]/70">{label}</div>
+      <div className="text-[10px] font-black uppercase tracking-wider text-[var(--text-primary)]/70">{label}</div>
       {isLongField(section, fieldKey) ? (
         <textarea
           value={value}
           onChange={(event) => onChange(section, fieldKey, event.target.value)}
           rows={isLongField(section, fieldKey) ? 5 : 2}
-          className="w-full bg-white border-2 border-black px-3 py-2 text-xs font-black uppercase outline-none focus:bg-[#eae3cb]"
+          className="w-full bg-[var(--surface-white)] border-2 border-[var(--border-primary)] px-3 py-2 text-xs font-black uppercase outline-none focus:bg-[var(--bg-secondary)]"
         />
       ) : (
         <input
           type="text"
           value={value}
           onChange={(event) => onChange(section, fieldKey, event.target.value)}
-          className="w-full bg-white border-2 border-black px-3 py-2 text-xs font-black uppercase outline-none focus:bg-[#eae3cb]"
+          className="w-full bg-[var(--surface-white)] border-2 border-[var(--border-primary)] px-3 py-2 text-xs font-black uppercase outline-none focus:bg-[var(--bg-secondary)]"
         />
       )}
     </label>
