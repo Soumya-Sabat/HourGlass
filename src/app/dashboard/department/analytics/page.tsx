@@ -21,7 +21,7 @@ export default function DepartmentAnalyticsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading analytics...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading analytics...</div>;
 
   const total = (stats?.totalFaculty ?? 0) + (stats?.totalStudents ?? 0);
   const facultyPct = total > 0 ? Math.round(((stats?.totalFaculty ?? 0) / total) * 100) : 0;
@@ -37,18 +37,18 @@ export default function DepartmentAnalyticsPage() {
   ];
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <BarChart3 className="h-5 w-5 text-[#e28774]" /> Department Analytics
+          <BarChart3 className="h-5 w-5 text-[var(--accent)]" /> Department Analytics
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Department-wide statistics and insights</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {metrics.map((m) => (
-          <div key={m.label} className={`${m.color} border-2 border-black shadow-[3px_3px_0px_0px_#1a1a14] p-4`}>
-            <m.icon className="h-5 w-5 mb-2 text-[#1a1a14]" />
+          <div key={m.label} className={`${m.color} border-2 border-[var(--border-primary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4`}>
+            <m.icon className="h-5 w-5 mb-2 text-[var(--text-primary)]" />
             <p className="text-2xl font-black">{m.value}</p>
             <p className="text-[10px] font-bold uppercase">{m.label}</p>
           </div>
@@ -57,9 +57,9 @@ export default function DepartmentAnalyticsPage() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         {/* User distribution */}
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
           <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-            <Activity className="h-4 w-4 text-[#e28774]" /> User Distribution
+            <Activity className="h-4 w-4 text-[var(--accent)]" /> User Distribution
           </h2>
           <div className="space-y-3">
             <div>
@@ -67,7 +67,7 @@ export default function DepartmentAnalyticsPage() {
                 <span>Faculty</span>
                 <span>{facultyPct}% ({stats?.totalFaculty ?? 0})</span>
               </div>
-              <div className="h-3 bg-white border border-black">
+              <div className="h-3 bg-[var(--surface-white)] border border-[var(--border-primary)]">
                 <div className="h-full bg-blue-400 transition-all" style={{ width: `${facultyPct}%` }} />
               </div>
             </div>
@@ -76,7 +76,7 @@ export default function DepartmentAnalyticsPage() {
                 <span>Students</span>
                 <span>{studentPct}% ({stats?.totalStudents ?? 0})</span>
               </div>
-              <div className="h-3 bg-white border border-black">
+              <div className="h-3 bg-[var(--surface-white)] border border-[var(--border-primary)]">
                 <div className="h-full bg-green-400 transition-all" style={{ width: `${studentPct}%` }} />
               </div>
             </div>
@@ -84,16 +84,16 @@ export default function DepartmentAnalyticsPage() {
         </div>
 
         {/* Account status */}
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
           <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-            <Users className="h-4 w-4 text-[#e28774]" /> Account Status
+            <Users className="h-4 w-4 text-[var(--accent)]" /> Account Status
           </h2>
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-green-200 border-2 border-black p-3 text-center shadow-[2px_2px_0px_0px_#1a1a14]">
+            <div className="bg-green-200 border-2 border-[var(--border-primary)] p-3 text-center shadow-[2px_2px_0px_0px_var(--border-primary)]">
               <p className="text-2xl font-black">{activeUsers}</p>
               <p className="text-[9px] font-black uppercase">Active</p>
             </div>
-            <div className="bg-red-200 border-2 border-black p-3 text-center shadow-[2px_2px_0px_0px_#1a1a14]">
+            <div className="bg-red-200 border-2 border-[var(--border-primary)] p-3 text-center shadow-[2px_2px_0px_0px_var(--border-primary)]">
               <p className="text-2xl font-black">{suspendedUsers}</p>
               <p className="text-[9px] font-black uppercase">Suspended</p>
             </div>
@@ -101,9 +101,9 @@ export default function DepartmentAnalyticsPage() {
         </div>
 
         {/* Recent exams list */}
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4 lg:col-span-2">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4 lg:col-span-2">
           <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-            <ClipboardList className="h-4 w-4 text-[#e28774]" /> Exam Schedule Overview
+            <ClipboardList className="h-4 w-4 text-[var(--accent)]" /> Exam Schedule Overview
           </h2>
           {exams.length === 0 ? (
             <p className="text-xs font-bold text-gray-500">No exams scheduled.</p>
@@ -111,7 +111,7 @@ export default function DepartmentAnalyticsPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-xs font-bold">
                 <thead>
-                  <tr className="border-b-2 border-black text-[10px] uppercase">
+                  <tr className="border-b-2 border-[var(--border-primary)] text-[10px] uppercase">
                     <th className="p-2 text-left">Title</th>
                     <th className="p-2 text-left">Subject</th>
                     <th className="p-2 text-left">Date</th>
@@ -119,7 +119,7 @@ export default function DepartmentAnalyticsPage() {
                 </thead>
                 <tbody>
                   {exams.map((e) => (
-                    <tr key={e.id} className="border-b border-black/20">
+                    <tr key={e.id} className="border-b border-[var(--border-primary)]/20">
                       <td className="p-2 font-black">{e.title}</td>
                       <td className="p-2">{e.subject}</td>
                       <td className="p-2">{e.date}</td>
