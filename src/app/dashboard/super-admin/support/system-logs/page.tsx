@@ -55,10 +55,10 @@ export default function SystemLogsPage() {
           <button
             key={level}
             onClick={() => setFilter(level)}
-            className={`px-3 py-1.5 text-[10px] font-black uppercase border-2 border-black transition-all ${
+            className={`px-3 py-1.5 text-[10px] font-black uppercase border-2 border-[var(--border-primary)] transition-all ${
               filter === level
-                ? "bg-[#1a1a14] text-[#f4ebd0] shadow-[2px_2px_0px_0px_#1a1a14]"
-                : "bg-white hover:bg-[#eae3cb]"
+                ? "bg-[var(--dark-bg)] text-[var(--light-text)] shadow-[2px_2px_0px_0px_var(--border-primary)]"
+                : "bg-[var(--surface-white)] hover:bg-[var(--bg-secondary)]"
             }`}
           >
             {level} <span className="ml-1 text-[9px]">({countByLevel(level)})</span>
@@ -66,10 +66,10 @@ export default function SystemLogsPage() {
         ))}
       </FilterBar>
 
-      <div className="border-2 border-black bg-white overflow-x-auto">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] overflow-x-auto">
         <table className="w-full text-left text-[11px] font-mono">
           <thead>
-            <tr className="border-b-2 border-black bg-[#1a1a14] text-[#f4ebd0]">
+            <tr className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)]">
               <th className="px-3 py-2.5 text-[10px] font-black uppercase">Timestamp</th>
               <th className="px-3 py-2.5 text-[10px] font-black uppercase">Level</th>
               <th className="px-3 py-2.5 text-[10px] font-black uppercase">Component</th>
@@ -78,10 +78,10 @@ export default function SystemLogsPage() {
           </thead>
           <tbody>
             {filteredLogs.map((log) => (
-              <tr key={log.id} className="border-b border-black/10 hover:bg-[#f4ebd0]/50 transition-colors">
+              <tr key={log.id} className="border-b border-[var(--border-primary)]/10 hover:bg-[var(--bg-primary)]/50 transition-colors">
                 <td className="px-3 py-2.5 whitespace-nowrap font-mono text-[10px]">{log.timestamp}</td>
                 <td className="px-3 py-2.5 whitespace-nowrap">
-                  <span className={`inline-flex items-center gap-1 text-[9px] font-black px-2 py-0.5 border border-black ${levelColors[log.level]}`}>
+                  <span className={`inline-flex items-center gap-1 text-[9px] font-black px-2 py-0.5 border border-[var(--border-primary)] ${levelColors[log.level]}`}>
                     {levelIcon[log.level]}
                     {log.level.toUpperCase()}
                   </span>
@@ -92,7 +92,7 @@ export default function SystemLogsPage() {
             ))}
             {filteredLogs.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-3 py-8 text-center text-[12px] font-bold text-[#1a1a14]/40">
+                <td colSpan={4} className="px-3 py-8 text-center text-[12px] font-bold text-[var(--text-primary)]/40">
                   No log entries found
                 </td>
               </tr>
