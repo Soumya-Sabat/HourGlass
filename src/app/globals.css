@@ -1,9 +1,54 @@
 /* we are using the neo-brutalist dosseir theme  */
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Neo-brutalist light theme */
+  --bg-primary: #f4ebd0;
+  --bg-secondary: #eae3cb;
+  --text-primary: #1a1a14;
+  --text-primary-70: rgba(26, 26, 20, 0.7);
+  --text-primary-50: rgba(26, 26, 20, 0.5);
+  --text-primary-40: rgba(26, 26, 20, 0.4);
+  --text-primary-30: rgba(26, 26, 20, 0.3);
+  --text-primary-60: rgba(26, 26, 20, 0.6);
+  --text-primary-80: rgba(26, 26, 20, 0.8);
+  --accent: #e28774;
+  --accent-20: rgba(226, 135, 116, 0.2);
+  --dark-bg: #1a1a14;
+  --light-text: #f4ebd0;
+  --border-primary: #1a1a14;
+  --border-primary-20: rgba(26, 26, 20, 0.2);
+  --border-primary-30: rgba(26, 26, 20, 0.3);
+  --surface-white: #ffffff;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+
+  /* Neo-brutalist dark theme */
+  --bg-primary: #1c1c1c;
+  --bg-secondary: #2a2a2a;
+  --text-primary: #e0dcd0;
+  --text-primary-70: rgba(224, 220, 208, 0.7);
+  --text-primary-50: rgba(224, 220, 208, 0.5);
+  --text-primary-40: rgba(224, 220, 208, 0.4);
+  --text-primary-30: rgba(224, 220, 208, 0.3);
+  --text-primary-60: rgba(224, 220, 208, 0.6);
+  --text-primary-80: rgba(224, 220, 208, 0.8);
+  --accent: #c97a6a;
+  --accent-20: rgba(201, 122, 106, 0.2);
+  --dark-bg: #121212;
+  --light-text: #e0dcd0;
+  --border-primary: #d97a5a;
+  --border-primary-20: rgba(217, 122, 90, 0.2);
+  --border-primary-30: rgba(217, 122, 90, 0.3);
+  --surface-white: #2a2a2a;
 }
 
 @theme inline {
@@ -11,13 +56,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
