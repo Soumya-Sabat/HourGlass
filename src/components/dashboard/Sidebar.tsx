@@ -7,7 +7,8 @@ import {
   LayoutDashboard, GraduationCap, UserSquare2, 
   BellRing, CheckSquare, Download, Hourglass, X, Settings,
   Building2, Layers, ShieldAlert, Users, Package2,UsersRound,BookOpenText,ScrollText, Mails,
-  Activity, ClipboardList, BookMarked, Megaphone, AlertTriangle, BarChart3, PenLine
+  Activity, ClipboardList, BookMarked, Megaphone, AlertTriangle, BarChart3, PenLine, Mail,
+  Calendar, MessageSquare
 } from "lucide-react";
 
 export interface SidebarProps {
@@ -34,18 +35,42 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
     { name: "MY MARKSHEET", href: "/dashboard/student/marksheet", icon: Download },    
     { name: "STUDENT SETTINGS", href: "/dashboard/student/settings", icon: Settings },    
     
-    // faculty section 
+    // faculty section
     { name: "FACULTY CORE", href: "/dashboard/faculty", icon: UserSquare2 },
     { name: "TEACHING SCHEDULES", href: "/dashboard/faculty/timetable", icon: GraduationCap },
-    { name: "ALERTS", href: "/dashboard/faculty/alerts", icon: BellRing },    
+    { name: "SUBJECTS", href: "/dashboard/faculty/subjects", icon: BookOpenText },
+    { name: "NOTICES", href: "/dashboard/faculty/notices", icon: BellRing },
+    { name: "ATTENDANCE", href: "/dashboard/faculty/attendance", icon: ScrollText },
+    { name: "DOWNLOADS", href: "/dashboard/faculty/downloads", icon: Download },
+    { name: "MESSAGES", href: "/dashboard/faculty/messages", icon: Mails },
+    { name: "MY CLUSTERS", href: "/dashboard/faculty/clusters", icon: Layers },
     { name: "EXCHANGE DESK", href: "/dashboard/faculty/exchange-desk", icon: ShieldAlert },
+
+    // reviewer section (only reviewer-specific entries; shared faculty routes inherited from faculty section)
+    { name: "REVIEWER CORE", href: "/dashboard/review", icon: ShieldAlert },
+    { name: "TIMETABLE REVIEW", href: "/dashboard/review/timetable-review", icon: Calendar },
+    { name: "CLUSTERS", href: "/dashboard/review/clusters", icon: Layers },
     
     // Head of dept
-    { name: "APPROVALS DESK", href: "/dashboard/head", icon: CheckSquare },
+    { name: "HEAD COMMAND CENTER", href: "/dashboard/head", icon: CheckSquare },
+    { name: "FACULTY ROSTER", href: "/dashboard/head/faculty-roster", icon: Users },
+    { name: "SUBJECTS", href: "/dashboard/head/subjects", icon: BookOpenText },
+    { name: "NOTICES", href: "/dashboard/head/notices", icon: BellRing },
+    { name: "MESSAGES", href: "/dashboard/head/messages", icon: Mails },
+    { name: "CLUSTER OVERSIGHT", href: "/dashboard/head/clusters", icon: Layers },
     
     //dept admin - dean , supervisor
-    { name: "DEPT SCHEDULER", href: "/dashboard/department", icon: Layers },
-    { name: "DEPT LOGISTICS", href: "/dashboard/department/physical", icon: Package2 },
+    { name: "DEPT DASHBOARD", href: "/dashboard/department", icon: LayoutDashboard },
+    { name: "FACULTY ROSTER", href: "/dashboard/department/faculty-roster", icon: Users },
+    { name: "STUDENTS", href: "/dashboard/department/students", icon: GraduationCap },
+    { name: "TIMETABLE", href: "/dashboard/department/timetable", icon: Calendar },
+    { name: "EXAMS", href: "/dashboard/department/exams", icon: ClipboardList },
+    { name: "EVENTS", href: "/dashboard/department/events", icon: BellRing },
+    { name: "ALERTS", href: "/dashboard/department/alerts", icon: AlertTriangle },
+    { name: "ANALYTICS", href: "/dashboard/department/analytics", icon: BarChart3 },
+    { name: "MESSAGES", href: "/dashboard/department/messages", icon: MessageSquare },
+    { name: "NOTICES", href: "/dashboard/department/notices", icon: BellRing },
+    { name: "SETTINGS", href: "/dashboard/department/settings", icon: Settings },
     
     //institutuon head
     { name: "INSTITUTION CORE", href: "/dashboard/institution", icon: Building2 },
@@ -62,6 +87,8 @@ export default function Sidebar({ role, user, isOpen, onClose }: SidebarProps) {
     { name: "ANALYTICS", href: "/dashboard/institution/analytics", icon: BarChart3 },
     { name: "COMPLAINTS", href: "/dashboard/institution/complaints", icon: AlertTriangle },
     { name: "ANNOUNCEMENTS", href: "/dashboard/institution/announcements", icon: Megaphone },
+    { name: "CHANGE REQUESTS", href: "/dashboard/institution/change-requests", icon: Mail },
+    { name: "MESSAGES", href: "/dashboard/institution/messages", icon: MessageSquare },
     { name: "CAMPUS ESTATE", href: "/dashboard/institution/physical", icon: Package2 },
     
     // for main controller
