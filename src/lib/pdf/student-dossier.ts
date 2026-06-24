@@ -13,7 +13,7 @@ const FIELD_LABELS: Record<string, string> = {
   programOrClass: "Program Or Class",
   batchOrSection: "Batch Or Section",
   subjects: "Subjects",
-  preferredSlots: "Preferred Slots",
+  // preferredSlots: "Preferred Slots",
   type: "Institution Type",
   academicMode: "Academic Mode",
   affiliation: "Affiliation",
