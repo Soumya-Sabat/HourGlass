@@ -12,16 +12,19 @@ const roleProfileSchemas: Partial<Record<UserRole, z.ZodType>> = {
     academicMode: requiredString,
     managedDepartments: requiredTags,
     timetableCycle: requiredString,
+    yearsOfExperience: requiredNumber,
   }),
   [UserRole.DepartmentAdmin]: z.object({
     departmentName: requiredString,
     managedBatches: requiredTags,
     roomPlanningAccess: requiredString,
     approvalLevel: requiredString,
+    yearsOfExperience: requiredNumber,
   }),
   [UserRole.DepartmentHead]: z.object({
     departmentName: requiredString,
     facultyCount: requiredNumber,
+    yearsOfExperience: requiredNumber,
     approvalResponsibility: requiredString,
     priorityRules: requiredTags,
   }),
@@ -29,6 +32,7 @@ const roleProfileSchemas: Partial<Record<UserRole, z.ZodType>> = {
     employeeId: requiredString,
     departmentName: requiredString,
     subjects: requiredTags,
+    yearsOfExperience: requiredNumber,
     maxClassesPerDay: requiredNumber,
     preferredSlots: requiredTags,
   }),
@@ -39,10 +43,8 @@ const roleProfileSchemas: Partial<Record<UserRole, z.ZodType>> = {
   }),
   [UserRole.Student]: z.object({
     studentId: requiredString,
-    programOrClass: requiredString,
-    batchOrSection: requiredString,
     subjects: requiredTags,
-    preferredSlots: requiredTags,
+    enrollmentYear: requiredNumber,
   }),
   [UserRole.SuperAdmin]: z.object({
     adminArea: requiredString,
@@ -104,6 +106,9 @@ export const createUserSchema = z.object({
       line: z.string().trim().optional(),
     })
     .optional(),
+  classGroup: z.string().trim().optional(),
+  section: z.string().trim().optional(),
+  batch: z.string().trim().optional(),
   yearsOfExperience: z.number().min(0).optional(),
   areasOfInterest: z.array(z.string().trim().min(1)).optional(),
   education: z
