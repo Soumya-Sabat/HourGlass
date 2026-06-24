@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Users, Search, UserX, UserCheck, Plus, Trash2, Shield } from "lucide-react";
-import { getInstitutionUsers, suspendUser, activateUser, deleteUser, updateUserRole, addUser, getDepartments, createDepartment, type InstitutionUser, type DepartmentInfo } from "@/actions/institution-actions";
+import { Users, Search, UserX, UserCheck, Plus, Trash2, Shield, Pencil } from "lucide-react";
+import { getInstitutionUsers, suspendUser, activateUser, deleteUser, updateUserRole, addUser, updateUser, getDepartments, createDepartment, type InstitutionUser, type DepartmentInfo } from "@/actions/institution-actions";
 import { roleOptions } from "@/components/forms/auth-role-options";
 
 const roleLabels: Record<string, string> = {};
@@ -37,6 +37,19 @@ export default function UsersPage() {
   // Role change
   const [roleChangeId, setRoleChangeId] = useState<string | null>(null);
   const [roleChangeValue, setRoleChangeValue] = useState("");
+  const [roleChangeError, setRoleChangeError] = useState("");
+
+  // Edit user modal
+  const [editUser, setEditUser] = useState<InstitutionUser | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editEmail, setEditEmail] = useState("");
+  const [editRole, setEditRole] = useState("faculty");
+  const [editDepartment, setEditDepartment] = useState("");
+  const [editClassGroup, setEditClassGroup] = useState("");
+  const [editSection, setEditSection] = useState("");
+  const [editBatch, setEditBatch] = useState("");
+  const [editError, setEditError] = useState("");
+  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     Promise.all([getInstitutionUsers(), getDepartments()])
@@ -73,11 +86,14 @@ export default function UsersPage() {
   };
 
   const handleRoleChange = async (userId: string, newRole: string) => {
+    setRoleChangeError("");
     try {
       await updateUserRole(userId, newRole);
-      setUsers(users.map((u) => u.id === userId ? { ...u, role: newRole } : u));
-    } catch (err) {
-      console.error(err);
+      const fresh = await getInstitutionUsers();
+      setUsers(fresh);
+    } catch (err: any) {
+      setRoleChangeError(err?.message || "Failed to update role.");
+      return;
     }
     setRoleChangeId(null);
   };
@@ -112,6 +128,45 @@ export default function UsersPage() {
       setAddError(err?.message || "Failed to add user");
     } finally {
       setAdding(false);
+    }
+  };
+
+  const openEditModal = (user: InstitutionUser) => {
+    setEditUser(user);
+    setEditName(user.name);
+    setEditEmail(user.email);
+    setEditRole(user.role);
+    setEditDepartment(user.department);
+    setEditClassGroup(user.classGroup);
+    setEditSection(user.section);
+    setEditBatch(user.batch);
+    setEditError("");
+    setEditing(false);
+  };
+
+  const handleEditUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editUser) return;
+    setEditError("");
+    setEditing(true);
+    try {
+      await updateUser({
+        userId: editUser.id,
+        fullName: editName,
+        email: editEmail,
+        role: editRole,
+        department: editDepartment || undefined,
+        classGroup: editClassGroup || undefined,
+        section: editSection || undefined,
+        batch: editBatch || undefined,
+      });
+      setEditUser(null);
+      const fresh = await getInstitutionUsers();
+      setUsers(fresh);
+    } catch (err: any) {
+      setEditError(err?.message || "Failed to update user");
+    } finally {
+      setEditing(false);
     }
   };
 
@@ -176,6 +231,11 @@ export default function UsersPage() {
                   <div className="flex gap-1">
                     {u.role !== "institution_admin" && (
                       <>
+                        <button onClick={() => openEditModal(u)}
+                          className="p-1.5 border border-black bg-blue-200 hover:bg-blue-300"
+                          title="Edit user">
+                          <Pencil className="h-3 w-3" />
+                        </button>
                         <button onClick={() => handleToggleStatus(u.id, u.status)}
                           className={`p-1.5 border border-black ${u.status === "Active" ? "bg-red-200 hover:bg-red-300" : "bg-green-200 hover:bg-green-300"}`}
                           title={u.status === "Active" ? "Suspend" : "Activate"}>
@@ -215,8 +275,9 @@ export default function UsersPage() {
                 <option key={r.value} value={r.value}>{r.label}</option>
               ))}
             </select>
+            {roleChangeError && <p className="text-xs font-bold text-red-600">{roleChangeError}</p>}
             <div className="flex gap-2 justify-end">
-              <button onClick={() => setRoleChangeId(null)} className="border-2 border-black bg-white px-4 py-1.5 text-xs font-black hover:bg-[#eae3cb]">Cancel</button>
+              <button onClick={() => { setRoleChangeId(null); setRoleChangeError(""); }} className="border-2 border-black bg-white px-4 py-1.5 text-xs font-black hover:bg-[#eae3cb]">Cancel</button>
               <button onClick={() => roleChangeId && handleRoleChange(roleChangeId, roleChangeValue)} className="border-2 border-black bg-[#e28774] px-4 py-1.5 text-xs font-black text-white hover:bg-[#d97766]">Save</button>
             </div>
           </div>
@@ -304,6 +365,66 @@ export default function UsersPage() {
               <div className="flex gap-2 justify-end pt-2">
                 <button type="button" onClick={() => setShowAdd(false)} disabled={adding} className="border-2 border-black bg-white px-4 py-1.5 text-xs font-black hover:bg-[#eae3cb] disabled:opacity-40">Cancel</button>
                 <button type="submit" disabled={adding} className="border-2 border-black bg-[#e28774] px-4 py-1.5 text-xs font-black text-white hover:bg-[#d97766] disabled:opacity-40">{adding ? "Adding..." : "Add User"}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit user modal */}
+      {editUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={() => !editing && setEditUser(null)}>
+          <div className="w-full max-w-md border-2 border-black bg-[#f4ebd0] p-6 shadow-[6px_6px_0px_0px_#1a1a14]" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-sm font-black uppercase mb-4">Edit User</h3>
+            <form onSubmit={handleEditUser} className="space-y-3">
+              <div>
+                <label className="block text-[10px] font-black uppercase mb-1">Full Name</label>
+                <input type="text" required value={editName} onChange={(e) => setEditName(e.target.value)}
+                  className="w-full border-2 border-black bg-white p-2 text-xs font-bold" placeholder="John Doe" />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black uppercase mb-1">Email</label>
+                <input type="email" required value={editEmail} onChange={(e) => setEditEmail(e.target.value)}
+                  className="w-full border-2 border-black bg-white p-2 text-xs font-bold" placeholder="john@institution.edu" />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black uppercase mb-1">Role</label>
+                <select value={editRole} onChange={(e) => setEditRole(e.target.value)}
+                  className="w-full border-2 border-black bg-white p-2 text-xs font-bold">
+                  {roleOptions.map((r) => (
+                    <option key={r.value} value={r.value}>{r.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-[10px] font-black uppercase mb-1">Class / Course</label>
+                <input type="text" value={editClassGroup} onChange={(e) => setEditClassGroup(e.target.value)}
+                  className="w-full border-2 border-black bg-white p-2 text-xs font-bold" placeholder="B.Tech, MBA, or leave blank" />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[10px] font-black uppercase mb-1">Section</label>
+                  <input type="text" value={editSection} onChange={(e) => setEditSection(e.target.value)}
+                    className="w-full border-2 border-black bg-white p-2 text-xs font-bold" placeholder="A, B, ..." />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black uppercase mb-1">Batch</label>
+                  <input type="text" value={editBatch} onChange={(e) => setEditBatch(e.target.value)}
+                    className="w-full border-2 border-black bg-white p-2 text-xs font-bold" placeholder="2024-28" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-[10px] font-black uppercase mb-1">Department</label>
+                <select value={editDepartment} onChange={(e) => setEditDepartment(e.target.value)}
+                  className="w-full border-2 border-black bg-white p-2 text-xs font-bold">
+                  <option value="">Select department...</option>
+                  {departments.map((d) => <option key={d.id} value={d.name}>{d.name}</option>)}
+                </select>
+              </div>
+              {editError && <p className="text-xs font-bold text-red-600">{editError}</p>}
+              <div className="flex gap-2 justify-end pt-2">
+                <button type="button" onClick={() => setEditUser(null)} disabled={editing} className="border-2 border-black bg-white px-4 py-1.5 text-xs font-black hover:bg-[#eae3cb] disabled:opacity-40">Cancel</button>
+                <button type="submit" disabled={editing} className="border-2 border-black bg-[#e28774] px-4 py-1.5 text-xs font-black text-white hover:bg-[#d97766] disabled:opacity-40">{editing ? "Saving..." : "Save"}</button>
               </div>
             </form>
           </div>
