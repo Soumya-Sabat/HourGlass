@@ -24,31 +24,31 @@ export default function AttendancePage() {
   const overallPct = overall.total > 0 ? Math.round((overall.present / overall.total) * 100) : 0;
   const critical = attendance.filter((s) => s.percentage < 75);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-4 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading attendance...</div>;
-  if (error) return <div className="border-2 border-black bg-[#e28774] p-4 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">{error}</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-4 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading attendance...</div>;
+  if (error) return <div className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-4 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">{error}</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
           <ScrollText className="h-5 w-5" /> ATTENDANCE
         </h1>
       </div>
 
       {/* Overall KPI */}
-      <div className="border-2 border-black bg-white p-4 shadow-[4px_4px_0px_0px_#1a1a14]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-4 shadow-[4px_4px_0px_0px_var(--border-primary)]">
         <div className="flex items-center justify-between">
           <div>
             <div className="text-[10px] font-black uppercase text-gray-600">Overall Attendance</div>
             <div className="text-3xl font-black">{overallPct}%</div>
             <div className="text-[10px] font-bold text-gray-600">{overall.present} present / {overall.total} total</div>
           </div>
-          <div className={`p-3 border-2 border-black ${overallPct >= 75 ? "bg-green-200" : "bg-[#e28774]"}`}>
+          <div className={`p-3 border-2 border-[var(--border-primary)] ${overallPct >= 75 ? "bg-green-200" : "bg-[var(--accent)]"}`}>
             <BarChart3 className="h-8 w-8" />
           </div>
         </div>
         {critical.length > 0 && (
-          <div className="mt-3 border-t border-black pt-3 text-[10px] font-black text-red-600 flex items-center gap-1">
+          <div className="mt-3 border-t border-[var(--border-primary)] pt-3 text-[10px] font-black text-red-600 flex items-center gap-1">
             <AlertCircle className="h-3 w-3 animate-pulse" />
             {critical.length} subject{critical.length > 1 ? "s" : ""} below 75% threshold
           </div>
@@ -60,8 +60,8 @@ export default function AttendancePage() {
         {attendance.map((item) => {
           const isLow = item.percentage < 75;
           return (
-            <div key={item.subjectName} className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14]">
-              <div className="p-3 bg-white">
+            <div key={item.subjectName} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)]">
+              <div className="p-3 bg-[var(--surface-white)]">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     {isLow ? (
@@ -76,9 +76,9 @@ export default function AttendancePage() {
                   </span>
                 </div>
 
-                <div className="w-full bg-[#f4ebd0] h-4 border border-black rounded-none overflow-hidden">
+                <div className="w-full bg-[var(--bg-primary)] h-4 border border-[var(--border-primary)] rounded-none overflow-hidden">
                   <div
-                    className={`h-full border-r border-black transition-all duration-500 ${isLow ? "bg-[#e28774]" : "bg-[#1a1a14]"}`}
+                    className={`h-full border-r border-[var(--border-primary)] transition-all duration-500 ${isLow ? "bg-[var(--accent)]" : "bg-[var(--dark-bg)]"}`}
                     style={{ width: `${item.percentage}%` }}
                   />
                 </div>
@@ -95,7 +95,7 @@ export default function AttendancePage() {
       </div>
 
       {attendance.length === 0 && (
-        <div className="border-2 border-black bg-[#eae3cb] p-8 text-center text-xs font-black shadow-[4px_4px_0px_0px_#1a1a14]">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-8 text-center text-xs font-black shadow-[4px_4px_0px_0px_var(--border-primary)]">
           No attendance records found.
         </div>
       )}
