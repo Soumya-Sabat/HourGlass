@@ -3,6 +3,7 @@ import { model, models, Schema, type HydratedDocument, type InferSchemaType } fr
 const NoticeSchema = new Schema(
   {
     institutionId: { type: String, required: true, index: true },
+    department: { type: String, default: "", index: true },
     issuerId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     issuerName: { type: String, default: "" },
     issuerRole: { type: String, default: "" },
