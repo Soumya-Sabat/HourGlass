@@ -97,8 +97,8 @@ export default function ApprovedInstitutionsPage() {
           <p className="text-sm font-bold">Loading...</p>
         ) : viewData ? (
           <div className="space-y-4 text-[11px] font-bold">
-            <div className="bg-[#f4ebd0] border-2 border-black p-3 text-center">
-              <p className="text-[10px] font-black uppercase tracking-wider text-[#1a1a14]/60 mb-1">
+            <div className="bg-[var(--bg-primary)] border-2 border-[var(--border-primary)] p-3 text-center">
+              <p className="text-[10px] font-black uppercase tracking-wider text-[var(--text-primary)]/60 mb-1">
                 Enrollment / Institution Code
               </p>
               <p className="text-2xl font-black tracking-widest">{viewData.institutionId || "—"}</p>
@@ -152,7 +152,7 @@ export default function ApprovedInstitutionsPage() {
 function Section({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="text-[10px] font-black uppercase tracking-wider text-[#e28774] mb-1.5 border-b border-black/10 pb-1">{label}</h3>
+      <h3 className="text-[10px] font-black uppercase tracking-wider text-[var(--accent)] mb-1.5 border-b border-[var(--border-primary)]/10 pb-1">{label}</h3>
       <div className="space-y-1">{children}</div>
     </div>
   );
@@ -161,7 +161,7 @@ function Section({ label, children }: { label: string; children: React.ReactNode
 function Field({ label, value }: { label: string; value: string | undefined | null }) {
   return (
     <div className="flex gap-2">
-      <span className="text-[#1a1a14]/50 w-24 shrink-0">{label}:</span>
+      <span className="text-[var(--text-primary)]/50 w-24 shrink-0">{label}:</span>
       <span className="break-words">{value || "—"}</span>
     </div>
   );
