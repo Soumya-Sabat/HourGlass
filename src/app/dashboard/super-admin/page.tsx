@@ -37,7 +37,7 @@ export default function SuperAdminDashboard() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
       <PageHeader
         title="SUPER ADMIN COMMAND CENTER"
         description="System-wide oversight, compliance monitoring, and platform governance"
@@ -86,9 +86,9 @@ export default function SuperAdminDashboard() {
         <Card title="Recent Activity">
           <div className="space-y-2">
             {recentLogs.map((log: any, idx: number) => (
-              <div key={idx} className="flex items-center justify-between border-b border-dashed border-black/20 pb-2 last:border-0 last:pb-0">
+              <div key={idx} className="flex items-center justify-between border-b border-dashed border-[var(--border-primary)]/20 pb-2 last:border-0 last:pb-0">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className={`h-2 w-2 rounded-full border border-black shrink-0 ${
+                  <div className={`h-2 w-2 rounded-full border border-[var(--border-primary)] shrink-0 ${
                     log.action.includes("LOGIN") ? "bg-blue-400" :
                     log.action.includes("CREATED") ? "bg-green-400" :
                     log.action.includes("DELETED") ? "bg-red-400" :
@@ -114,10 +114,10 @@ export default function SuperAdminDashboard() {
         <Card title="System Health">
           <div className="space-y-3">
             {SYSTEM_HEALTH.map((svc) => (
-              <div key={svc.label} className="flex items-center justify-between border border-black p-3">
+              <div key={svc.label} className="flex items-center justify-between border border-[var(--border-primary)] p-3">
                 <div className="flex items-center gap-3">
-                  <div className="border-2 border-black bg-[#1a1a14] p-1.5">
-                    <svc.icon className="h-4 w-4 text-[#f4ebd0]" />
+                  <div className="border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] p-1.5">
+                    <svc.icon className="h-4 w-4 text-[var(--light-text)]" />
                   </div>
                   <div>
                     <div className="text-[12px] font-black">{svc.label}</div>
@@ -126,12 +126,12 @@ export default function SuperAdminDashboard() {
                     </div>
                   </div>
                 </div>
-                <div className={`h-3 w-3 rounded-full border border-black ${
+                <div className={`h-3 w-3 rounded-full border border-[var(--border-primary)] ${
                   svc.ok ? "bg-green-500 shadow-[0_0_6px_#22c55e]" : "bg-red-500 shadow-[0_0_6px_#ef4444] animate-pulse"
                 }`} />
               </div>
             ))}
-            <div className="border-t-2 border-dashed border-black pt-3 mt-3">
+            <div className="border-t-2 border-dashed border-[var(--border-primary)] pt-3 mt-3">
               <div className="flex items-center justify-between text-[10px] font-bold text-gray-500">
                 <span>Last checked: {new Date().toLocaleString("en-IN", {
                   day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit",
