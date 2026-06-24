@@ -17,7 +17,7 @@ export default function GDPRRequestsPage() {
     } catch {} finally { setLoading(false); }
   }
 
-  if (loading) return <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>;
 
   const rows = data.map((req: any) => [
     req._id.toString().slice(-6).toUpperCase(),
@@ -30,7 +30,7 @@ export default function GDPRRequestsPage() {
   ]);
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
       <PageHeader
         title="GDPR REQUESTS"
         description="Manage data access, deletion, and rectification requests"
