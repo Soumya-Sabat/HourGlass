@@ -267,13 +267,14 @@ export class UserService {
       areasOfInterest: input.areasOfInterest ? encryptValue(input.areasOfInterest) : undefined,
       education: input.education ? encryptValue(input.education) : undefined,
       socialLinks: input.socialLinks ? encryptValue(input.socialLinks) : undefined,
+      classGroup: input.classGroup || undefined,
+      section: input.section || undefined,
+      batch: input.batch || undefined,
       otp: createOtpPayload(otp, "email-verification"),
     });
 
     if (accountType === "institution") {
       await createInstitutionProfile(user._id, input.institution);
-    } else {
-      await createRoleProfile(user._id, input.role, input.profile);
     }
 
     const emailResult = await sendOtpEmail({ to: email, otp, purpose: "email-verification" });
@@ -425,6 +426,7 @@ export class UserService {
     }
 
     user.otp = undefined;
+    user.lastLogin = new Date();
     await UserRepository.save(user);
 
     return toAuthUser(user);
