@@ -25,30 +25,30 @@ export default function PublicEventsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading events...</div>;
-  if (error) return <div className="border-2 border-black bg-[#e28774] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">{error}</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading events...</div>;
+  if (error) return <div className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">{error}</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-[#e28774]" /> Events
+          <Calendar className="h-5 w-5 text-[var(--accent)]" /> Events
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Upcoming institution events</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
         {events.length === 0 && (
-          <div className="col-span-full border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-6 text-center text-sm font-bold text-gray-500">
+          <div className="col-span-full border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-6 text-center text-sm font-bold text-gray-500">
             No upcoming events.
           </div>
         )}
         {events.map((e) => (
-          <div key={e.id} className={`${eventTypeColors[e.eventType] || "bg-gray-200"} border-2 border-black shadow-[3px_3px_0px_0px_#1a1a14] p-4`}>
+          <div key={e.id} className={`${eventTypeColors[e.eventType] || "bg-gray-200"} border-2 border-[var(--border-primary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4`}>
             <div className="flex items-start justify-between">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[9px] font-black uppercase px-1.5 py-0.5 bg-white/60 border border-black">{e.eventType}</span>
+                  <span className="text-[9px] font-black uppercase px-1.5 py-0.5 bg-white/60 border border-[var(--border-primary)]">{e.eventType}</span>
                   <span className="text-[10px] font-bold text-gray-600">{e.eventDate}</span>
                 </div>
                 <h3 className="text-sm font-black mt-1 break-words">{e.title}</h3>
