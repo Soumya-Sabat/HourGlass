@@ -59,9 +59,9 @@ export default function ResourceUtilizationPage() {
                     {item.utilization}% {item.trend === "up" ? "↑" : "↓"}
                   </span>
                 </div>
-                <div className="w-full bg-[#f4ebd0] h-3 border border-black">
+                <div className="w-full bg-[var(--bg-primary)] h-3 border border-[var(--border-primary)]">
                   <div
-                    className="h-full bg-[#1a1a14] border-r border-black transition-all"
+                    className="h-full bg-[var(--dark-bg)] border-r border-[var(--border-primary)] transition-all"
                     style={{ width: `${item.utilization}%` }}
                   />
                 </div>
@@ -78,10 +78,10 @@ export default function ResourceUtilizationPage() {
                   <span>{item.name}</span>
                   <span>{item.workload}% ({item.courses} courses)</span>
                 </div>
-                <div className="w-full bg-[#f4ebd0] h-3 border border-black">
+                <div className="w-full bg-[var(--bg-primary)] h-3 border border-[var(--border-primary)]">
                   <div
-                    className={`h-full border-r border-black transition-all ${
-                      item.workload > 85 ? "bg-[#e28774]" : "bg-[#1a1a14]"
+                    className={`h-full border-r border-[var(--border-primary)] transition-all ${
+                      item.workload > 85 ? "bg-[var(--accent)]" : "bg-[var(--dark-bg)]"
                     }`}
                     style={{ width: `${item.workload}%` }}
                   />
@@ -97,17 +97,17 @@ export default function ResourceUtilizationPage() {
           {PEAK_TIMES.map((item) => (
             <div key={item.time} className="flex items-center gap-4">
               <span className="text-[10px] font-black w-28 shrink-0">{item.time}</span>
-              <div className="flex-1 bg-[#f4ebd0] h-4 border border-black">
+              <div className="flex-1 bg-[var(--bg-primary)] h-4 border border-[var(--border-primary)]">
                 <div
-                  className={`h-full border-r border-black transition-all ${
-                    item.label === "Peak" ? "bg-[#e28774]" : item.label === "High" ? "bg-[#1a1a14]" : "bg-gray-400"
+                  className={`h-full border-r border-[var(--border-primary)] transition-all ${
+                    item.label === "Peak" ? "bg-[var(--accent)]" : item.label === "High" ? "bg-[var(--dark-bg)]" : "bg-gray-400"
                   }`}
                   style={{ width: `${item.usage}%` }}
                 />
               </div>
               <span className="text-[10px] font-black w-16 text-right">{item.usage}%</span>
-              <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 border border-black ${
-                item.label === "Peak" ? "bg-[#e28774] text-white" : "bg-white"
+              <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 border border-[var(--border-primary)] ${
+                item.label === "Peak" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-white)]"
               }`}>
                 {item.label}
               </span>
