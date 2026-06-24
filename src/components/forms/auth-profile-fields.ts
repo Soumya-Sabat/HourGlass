@@ -9,6 +9,7 @@ export const roleProfileFields: Record<string, ProfileField[]> = {
     { name: "managedDepartments", label: "Departments / Sections", type: "tags", required: true, placeholder: "CSE, ECE, Primary, Senior Secondary" },
     { name: "staffCount", label: "Staff Count", type: "number", required: true, placeholder: "120" },
     { name: "studentCount", label: "Student Count", type: "number", required: true, placeholder: "2400" },
+    { name: "yearsOfExperience", label: "Years of Experience", type: "number", required: true, placeholder: "10" },
   ],
   department_admin: [
     { name: "departmentName", label: "Department / Section", required: true, placeholder: "Computer Science / Grade 10" },
@@ -16,10 +17,12 @@ export const roleProfileFields: Record<string, ProfileField[]> = {
     { name: "roomPlanningAccess", label: "Room Planning Access", type: "select", required: true, options: yesNoOptions },
     { name: "approvalLevel", label: "Approval Level", type: "select", required: true, options: ["Draft only", "Department approval", "Final approval"] },
     { name: "shiftTimings", label: "Shift Timings", placeholder: "Morning 7-12, Afternoon 12-5", required: true },
+    { name: "yearsOfExperience", label: "Years of Experience", type: "number", required: true, placeholder: "6" },
   ],
   department_head: [
     { name: "departmentName", label: "Department / Section", required: true, placeholder: "Physics / Senior Secondary" },
     { name: "facultyCount", label: "Faculty Count", type: "number", required: true, placeholder: "18" },
+    { name: "yearsOfExperience", label: "Years of Experience", type: "number", required: true, placeholder: "12" },
     { name: "approvalResponsibility", label: "Approval Responsibility", type: "select", required: true, options: ["Department", "Cross-department", "Institute"] },
     { name: "priorityRules", label: "Priority Rules", type: "tags", required: true, placeholder: "No Friday labs, Morning theory, Lab blocks" },
     { name: "budgetOversight", label: "Budget Oversight", type: "select", required: true, options: yesNoOptions },
@@ -30,6 +33,7 @@ export const roleProfileFields: Record<string, ProfileField[]> = {
     { name: "departmentName", label: "Department / Section", required: true, placeholder: "Mathematics" },
     { name: "subjects", label: "Subjects", type: "tags", required: true, placeholder: "Calculus, Statistics, Algebra" },
     { name: "qualifications", label: "Qualifications", type: "tags", required: true, placeholder: "M.Sc., B.Ed., Ph.D." },
+    { name: "yearsOfExperience", label: "Years of Experience", type: "number", required: true, placeholder: "5" },
     { name: "maxClassesPerDay", label: "Max Classes Per Day", type: "number", required: true, placeholder: "4" },
     { name: "preferredSlots", label: "Preferred Slots", type: "tags", required: true, placeholder: "Morning, Mon-Wed, Lab block 2" },
   ],
@@ -41,11 +45,8 @@ export const roleProfileFields: Record<string, ProfileField[]> = {
   ],
   student: [
     { name: "studentId", label: "Student ID / Roll Number", required: true, placeholder: "HG-2026-014" },
-    { name: "programOrClass", label: "Program / Class", required: true, placeholder: "B.Tech CSE / Grade 10" },
-    { name: "batchOrSection", label: "Batch / Section", required: true, placeholder: "A" },
     { name: "subjects", label: "Subjects / Electives", type: "tags", required: true, placeholder: "Physics, AI Lab, Hindi" },
     { name: "enrollmentYear", label: "Enrollment Year", type: "number", required: true, placeholder: "2026" },
-    { name: "preferredSlots", label: "Preferred Slots", type: "tags", required: true, placeholder: "Morning, No late labs" },
   ],
   super_admin: [
     { name: "adminArea", label: "Admin Area", type: "select", required: true, options: ["Platform owner", "Security", "Operations"] },
