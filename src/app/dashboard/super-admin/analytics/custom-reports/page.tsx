@@ -79,7 +79,7 @@ export default function CustomReportsPage() {
     setReports((prev) => prev.filter((r) => r._id !== reportId));
   }
 
-  if (loading) return <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>;
 
   const rows = reports.map((report) => [
     <span key="name" className="font-black text-[11px]">{report.name}</span>,
@@ -119,7 +119,7 @@ export default function CustomReportsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-[11px] font-mono">
               <thead>
-                <tr className="border-b-2 border-black bg-[#1a1a14] text-[#f4ebd0]">
+                <tr className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)]">
                   {generatedResult[0].map((h, i) => (
                     <th key={i} className="px-3 py-2.5 text-[10px] font-black uppercase tracking-wider whitespace-nowrap">{h}</th>
                   ))}
@@ -127,7 +127,7 @@ export default function CustomReportsPage() {
               </thead>
               <tbody>
                 {generatedResult.slice(1).map((row, ri) => (
-                  <tr key={ri} className="border-b border-black/10 hover:bg-[#f4ebd0]/50">
+                  <tr key={ri} className="border-b border-[var(--border-primary)]/10 hover:bg-[var(--bg-primary)]/50">
                     {row.map((cell, ci) => (
                       <td key={ci} className="px-3 py-2.5 whitespace-nowrap font-bold">{cell}</td>
                     ))}
