@@ -58,9 +58,9 @@ export default function SecuritySettingsPage() {
                   <button
                     type="button"
                     onClick={() => setTwoFA(!twoFA)}
-                    className={`relative w-10 h-5 border-2 border-black transition-all ${twoFA ? "bg-green-400" : "bg-gray-200"}`}
+                    className={`relative w-10 h-5 border-2 border-[var(--border-primary)] transition-all ${twoFA ? "bg-green-400" : "bg-gray-200"}`}
                   >
-                    <span className={`absolute top-0.5 w-3.5 h-3.5 bg-white border-2 border-black transition-all ${twoFA ? "left-[18px]" : "left-0.5"}`} />
+                    <span className={`absolute top-0.5 w-3.5 h-3.5 bg-[var(--surface-white)] border-2 border-[var(--border-primary)] transition-all ${twoFA ? "left-[18px]" : "left-0.5"}`} />
                   </button>
                   <span className="text-[11px] font-bold">{twoFA ? "Enforced for all admins" : "Not enforced"}</span>
                 </div>
