@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import { useTheme } from "@/components/ThemeProvider";
 import {
   Building2, Users, CreditCard, BarChart3, AlertTriangle,
   Settings, ShieldCheck, Megaphone, X, ChevronDown, ChevronRight,
@@ -149,6 +150,7 @@ export interface SuperAdminSidebarProps {
 
 export default function SuperAdminSidebar({ role, user, isOpen, onClose }: SuperAdminSidebarProps) {
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>(() => {
     const initialState: Record<string, boolean> = {};
     SIDEBAR_SECTIONS.forEach((section) => {
@@ -157,7 +159,6 @@ export default function SuperAdminSidebar({ role, user, isOpen, onClose }: Super
     return initialState;
   });
   const [searchQuery, setSearchQuery] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
   const [pinnedSections, setPinnedSections] = useState<string[]>(["INSTITUTIONS MANAGEMENT"]);
 
   function toggleSection(title: string) {
@@ -193,39 +194,39 @@ export default function SuperAdminSidebar({ role, user, isOpen, onClose }: Super
     <>
       {isOpen && <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={onClose} />}
 
-      <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-[#f4ebd0] border-r-2 border-[#1a1a14] flex flex-col transition-transform duration-200 lg:translate-x-0 ${
+      <aside className={`fixed inset-y-0 left-0 z-50 w-72 bg-[var(--bg-primary)] border-r-2 border-[var(--border-primary)] flex flex-col transition-transform duration-200 lg:translate-x-0 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
-      } font-mono text-[#1a1a14]`}>
+      } font-mono text-[var(--text-primary)]`}>
 
         <div className="flex flex-col flex-1 min-h-0">
-          <div className="h-14 flex items-center justify-between px-3 border-b-2 border-[#1a1a14] bg-[#eae3cb] shrink-0">
+          <div className="h-14 flex items-center justify-between px-3 border-b-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shrink-0">
             <Link href="/dashboard/super-admin" className="flex items-center gap-2">
-              <div className="h-8 w-8 bg-[#1a1a14] text-[#f4ebd0] flex items-center justify-center rounded-sm border border-[#1a1a14]">
+              <div className="h-8 w-8 bg-[var(--dark-bg)] text-[var(--light-text)] flex items-center justify-center rounded-sm border border-[var(--border-primary)]">
                 <Hourglass className="h-4 w-4" />
               </div>
               <span className="text-sm font-black tracking-tight uppercase">HOURGLASS</span>
             </Link>
-            <button onClick={onClose} className="lg:hidden p-1 border border-black bg-[#f4ebd0]">
+            <button onClick={onClose} className="lg:hidden p-1 border border-[var(--border-primary)] bg-[var(--bg-primary)]">
               <X className="h-3.5 w-3.5" />
             </button>
           </div>
 
-          <div className="px-3 py-2 border-b border-[#1a1a14]/20">
+          <div className="px-3 py-2 border-b border-[var(--border-primary-20)]">
             <div className="relative">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#1a1a14]/50" />
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[var(--text-primary-50)]" />
               <input
                 type="text"
                 placeholder="Search sections..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-8 pl-8 pr-2 text-[11px] font-bold bg-white border-2 border-[#1a1a14] outline-none focus:bg-[#f4ebd0] placeholder:text-[#1a1a14]/30"
+                className="w-full h-8 pl-8 pr-2 text-[11px] font-bold bg-[var(--surface-white)] border-2 border-[var(--border-primary)] outline-none focus:bg-[var(--bg-primary)] placeholder:text-[var(--text-primary-30)]"
               />
             </div>
           </div>
 
           {pinnedItems.length > 0 && !searchQuery && (
-            <div className="px-3 py-2 border-b border-[#1a1a14]/20">
-              <div className="text-[9px] font-black uppercase tracking-wider text-[#1a1a14]/50 mb-1.5 flex items-center gap-1">
+            <div className="px-3 py-2 border-b border-[var(--border-primary-20)]">
+              <div className="text-[9px] font-black uppercase tracking-wider text-[var(--text-primary-50)] mb-1.5 flex items-center gap-1">
                 <Star className="h-3 w-3" /> PINNED
               </div>
               <div className="flex flex-wrap gap-1">
@@ -236,8 +237,8 @@ export default function SuperAdminSidebar({ role, user, isOpen, onClose }: Super
                     onClick={onClose}
                     className={`inline-flex items-center gap-1 px-2 py-1 text-[9px] font-black uppercase border ${
                       isActive(item.href)
-                        ? "bg-[#e28774] border-[#1a1a14]"
-                        : "bg-white border-[#1a1a14]/30 hover:border-[#1a1a14]"
+                        ? "bg-[var(--accent)] border-[var(--border-primary)]"
+                        : "bg-[var(--surface-white)] border-[var(--border-primary-30)] hover:border-[var(--border-primary)]"
                     }`}
                   >
                     <item.icon className="h-3 w-3" />
@@ -255,18 +256,18 @@ export default function SuperAdminSidebar({ role, user, isOpen, onClose }: Super
                   onClick={() => toggleSection(section.title)}
                   className={`w-full flex items-center justify-between px-3 py-2 text-[10px] font-black uppercase tracking-wider border-l-2 cursor-pointer ${
                     isSectionActive(section.items)
-                      ? "bg-[#e28774]/20 border-[#e28774] text-[#1a1a14]"
-                      : "border-transparent hover:bg-[#eae3cb] text-[#1a1a14]/70"
+                      ? "bg-[var(--accent-20)] border-[var(--accent)] text-[var(--text-primary)]"
+                      : "border-transparent hover:bg-[var(--bg-secondary)] text-[var(--text-primary-70)]"
                   } transition-colors`}
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <section.icon className="h-3.5 w-3.5 shrink-0" />
                     <span className="truncate">{section.title}</span>
                     {section.title === "COMPLAINTS & SUPPORT" && (
-                      <span className="h-4 w-4 rounded-full bg-[#e28774] text-[8px] font-black flex items-center justify-center shrink-0">3</span>
+                      <span className="h-4 w-4 rounded-full bg-[var(--accent)] text-[8px] font-black flex items-center justify-center shrink-0">3</span>
                     )}
                     {section.title === "INSTITUTIONS MANAGEMENT" && (
-                      <span className="h-4 w-4 rounded-full bg-[#e28774] text-[8px] font-black flex items-center justify-center shrink-0">5</span>
+                      <span className="h-4 w-4 rounded-full bg-[var(--accent)] text-[8px] font-black flex items-center justify-center shrink-0">5</span>
                     )}
                   </div>
                   <div className="flex items-center gap-1">
@@ -282,10 +283,10 @@ export default function SuperAdminSidebar({ role, user, isOpen, onClose }: Super
                         );
                       }}
                       onKeyDown={(e) => { if (e.key === 'Enter') e.currentTarget.click(); }}
-                      className="p-0.5 hover:text-[#e28774] cursor-pointer"
+                      className="p-0.5 hover:text-[var(--accent)] cursor-pointer"
                       title={pinnedSections.includes(section.title) ? "Unpin" : "Pin"}
                     >
-                      <Star className={`h-3 w-3 ${pinnedSections.includes(section.title) ? "fill-[#e28774] text-[#e28774]" : ""}`} />
+                      <Star className={`h-3 w-3 ${pinnedSections.includes(section.title) ? "fill-[var(--accent)] text-[var(--accent)]" : ""}`} />
                     </span>
                     {expandedSections[section.title] ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
                   </div>
@@ -302,14 +303,14 @@ export default function SuperAdminSidebar({ role, user, isOpen, onClose }: Super
                           onClick={onClose}
                           className={`flex items-center gap-2 px-3 py-1.5 text-[11px] font-bold border-l-2 transition-all ${
                             active
-                              ? "bg-white border-[#e28774] text-[#1a1a14] shadow-[2px_2px_0px_0px_#1a1a14] -translate-y-[1px]"
-                              : "border-transparent hover:bg-[#eae3cb] hover:border-[#1a1a14]/30 text-[#1a1a14]/80"
+                              ? "bg-[var(--surface-white)] border-[var(--accent)] text-[var(--text-primary)] shadow-[2px_2px_0px_0px_var(--border-primary)] -translate-y-[1px]"
+                              : "border-transparent hover:bg-[var(--bg-secondary)] hover:border-[var(--border-primary-30)] text-[var(--text-primary-80)]"
                           }`}
                         >
                           <item.icon className="h-3 w-3 shrink-0" />
                           <span className="truncate">{item.name}</span>
                           {item.badge && (
-                            <span className="ml-auto text-[8px] font-black px-1 bg-[#1a1a14] text-[#f4ebd0]">{item.badge}</span>
+                            <span className="ml-auto text-[8px] font-black px-1 bg-[var(--dark-bg)] text-[var(--light-text)]">{item.badge}</span>
                           )}
                         </Link>
                       );
@@ -321,31 +322,31 @@ export default function SuperAdminSidebar({ role, user, isOpen, onClose }: Super
           </nav>
         </div>
 
-        <div className="border-t-2 border-[#1a1a14] bg-[#eae3cb] shrink-0">
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1a1a14]/20">
+        <div className="border-t-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shrink-0">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-[var(--border-primary-20)]">
             <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="flex items-center gap-1.5 px-2 py-1 text-[9px] font-black uppercase border border-[#1a1a14]/30 hover:border-[#1a1a14] bg-white"
+              onClick={toggleTheme}
+              className="flex items-center gap-1.5 px-2 py-1 text-[9px] font-black uppercase border border-[var(--border-primary-30)] hover:border-[var(--border-primary)] bg-[var(--surface-white)]"
             >
-              {darkMode ? <SunMedium className="h-3 w-3" /> : <Moon className="h-3 w-3" />}
-              {darkMode ? "LIGHT" : "DARK"}
+              {theme === "dark" ? <SunMedium className="h-3 w-3" /> : <Moon className="h-3 w-3" />}
+              {theme === "dark" ? "LIGHT" : "DARK"}
             </button>
-            <Link href="/dashboard/super-admin/settings" className="flex items-center gap-1 px-2 py-1 text-[9px] font-black uppercase border border-[#1a1a14]/30 hover:border-[#1a1a14] bg-white">
+            <Link href="/dashboard/super-admin/settings" className="flex items-center gap-1 px-2 py-1 text-[9px] font-black uppercase border border-[var(--border-primary-30)] hover:border-[var(--border-primary)] bg-[var(--surface-white)]">
               <Settings className="h-3 w-3" />
               SETTINGS
             </Link>
           </div>
           <div className="flex items-center gap-2 p-2.5">
-            <div className="h-8 w-8 bg-[#1a1a14] text-[#e28774] flex items-center justify-center text-xs font-black shrink-0 border border-[#1a1a14]">
+            <div className="h-8 w-8 bg-[var(--dark-bg)] text-[var(--accent)] flex items-center justify-center text-xs font-black shrink-0 border border-[var(--border-primary)]">
               {user?.name?.charAt(0).toUpperCase() || "S"}
             </div>
             <div className="min-w-0 flex-1">
               <div className="text-[11px] font-black truncate">{user?.name || "SUPER ADMIN"}</div>
-              <div className="text-[8px] font-bold text-[#1a1a14]/60 truncate">{user?.email || ""}</div>
+              <div className="text-[8px] font-bold text-[var(--text-primary-60)] truncate">{user?.email || ""}</div>
             </div>
             <Link
               href="/login"
-              className="h-6 px-2 text-[8px] font-black uppercase bg-white border border-[#1a1a14] hover:bg-[#e28774] flex items-center"
+              className="h-6 px-2 text-[8px] font-black uppercase bg-[var(--surface-white)] border border-[var(--border-primary)] hover:bg-[var(--accent)] flex items-center"
             >
               LOGOUT
             </Link>
