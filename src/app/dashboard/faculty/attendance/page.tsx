@@ -67,30 +67,30 @@ export default function FacultyAttendancePage() {
     setSaving(false);
   };
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <ClipboardCheck className="h-5 w-5 text-[#e28774]" /> Mark Attendance
+          <ClipboardCheck className="h-5 w-5 text-[var(--accent)]" /> Mark Attendance
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Record student attendance for a class</p>
       </div>
 
       <div className="flex flex-wrap gap-3">
         <select value={selectedSubject} onChange={(e) => setSelectedSubject(e.target.value)}
-          className="border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold min-w-[180px]">
+          className="border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold min-w-[180px]">
           <option value="">Select subject</option>
           {subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
         </select>
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
-          className="border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold" />
+          className="border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold" />
       </div>
 
       {students.length > 0 && (
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14]">
-          <div className="border-b-2 border-black bg-[#1a1a14] p-2 text-[#f4ebd0] text-xs font-black uppercase flex justify-between">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)]">
+          <div className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] p-2 text-[var(--light-text)] text-xs font-black uppercase flex justify-between">
             <span>Student</span>
             <span>Click to toggle: Present / Absent / Leave</span>
           </div>
@@ -98,7 +98,7 @@ export default function FacultyAttendancePage() {
             {students.map((s) => (
               <div key={s.id}
                 className={`flex justify-between items-center p-2 text-xs font-bold cursor-pointer ${
-                  s.status === "present" ? "bg-green-200" : s.status === "absent" ? "bg-red-200" : s.status === "leave" ? "bg-yellow-200" : "bg-white"
+                  s.status === "present" ? "bg-green-200" : s.status === "absent" ? "bg-red-200" : s.status === "leave" ? "bg-yellow-200" : "bg-[var(--surface-white)]"
                 }`}
                 onClick={() => toggleStatus(s.id)}
               >
@@ -112,7 +112,7 @@ export default function FacultyAttendancePage() {
 
       {students.length > 0 && (
         <button onClick={handleSave} disabled={saving}
-          className="border-2 border-black bg-[#e28774] text-[#1a1a14] p-3 text-xs font-black uppercase shadow-[3px_3px_0px_0px_#1a1a14] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all disabled:opacity-50">
+          className="border-2 border-[var(--border-primary)] bg-[var(--accent)] text-[var(--text-primary)] p-3 text-xs font-black uppercase shadow-[3px_3px_0px_0px_var(--border-primary)] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all disabled:opacity-50">
           {saving ? "Saving..." : "Save Attendance"}
         </button>
       )}
