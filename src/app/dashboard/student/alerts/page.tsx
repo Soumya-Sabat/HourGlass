@@ -14,7 +14,7 @@ const PRIORITY_ICONS: Record<string, typeof AlertCircle> = {
 const PRIORITY_COLORS: Record<string, string> = {
   urgent: "bg-red-200 border-red-600 text-red-900",
   high: "bg-orange-200 border-orange-600 text-orange-900",
-  normal: "bg-white",
+  normal: "bg-[var(--surface-white)]",
   low: "bg-gray-100",
 };
 
@@ -33,22 +33,22 @@ export default function AlertsPage() {
 
   const filtered = filterPriority ? notices.filter((n) => n.priority === filterPriority) : notices;
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-4 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading alerts...</div>;
-  if (error) return <div className="border-2 border-black bg-[#e28774] p-4 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">{error}</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-4 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading alerts...</div>;
+  if (error) return <div className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-4 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">{error}</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
           <BellRing className="h-5 w-5" /> NOTICES / ALERTS
         </h1>
       </div>
 
-      <div className="flex flex-wrap gap-2 border-2 border-black bg-white p-4 shadow-[4px_4px_0px_0px_#1a1a14]">
+      <div className="flex flex-wrap gap-2 border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-4 shadow-[4px_4px_0px_0px_var(--border-primary)]">
         <span className="text-xs font-black uppercase self-center">Priority:</span>
         {["", "urgent", "high", "normal", "low"].map((p) => (
           <button key={p} onClick={() => setFilterPriority(filterPriority === p ? "" : p)}
-            className={`px-3 py-1 text-[10px] font-black uppercase border-2 border-black ${filterPriority === p ? "bg-[#1a1a14] text-[#f4ebd0]" : "bg-[#f4ebd0] hover:bg-[#eae3cb]"}`}>
+            className={`px-3 py-1 text-[10px] font-black uppercase border-2 border-[var(--border-primary)] ${filterPriority === p ? "bg-[var(--dark-bg)] text-[var(--light-text)]" : "bg-[var(--bg-primary)] hover:bg-[var(--bg-secondary)]"}`}>
             {p || "All"}
           </button>
         ))}
@@ -61,7 +61,7 @@ export default function AlertsPage() {
           const colorClass = PRIORITY_COLORS[notice.priority] || PRIORITY_COLORS.normal;
 
           return (
-            <div key={notice.id} className={`border-2 border-black shadow-[3px_3px_0px_0px_#1a1a14] ${colorClass}`}>
+            <div key={notice.id} className={`border-2 border-[var(--border-primary)] shadow-[3px_3px_0px_0px_var(--border-primary)] ${colorClass}`}>
               <div className="p-3 space-y-2">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2">
@@ -69,7 +69,7 @@ export default function AlertsPage() {
                     <span className="text-xs font-black uppercase">{notice.title}</span>
                   </div>
                   {notice.priority !== "normal" && (
-                    <span className="text-[8px] font-black px-1 bg-[#1a1a14] text-[#f4ebd0] shrink-0 uppercase">{notice.priority}</span>
+                    <span className="text-[8px] font-black px-1 bg-[var(--dark-bg)] text-[var(--light-text)] shrink-0 uppercase">{notice.priority}</span>
                   )}
                 </div>
 
@@ -79,7 +79,7 @@ export default function AlertsPage() {
                   <span className="flex items-center gap-1"><User className="h-3 w-3" /> {notice.issuerName} ({notice.issuerRole})</span>
                   <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {notice.createdAt}</span>
                   {notice.tags.map((t) => (
-                    <span key={t} className="border border-black bg-[#f4ebd0] px-1">{t}</span>
+                    <span key={t} className="border border-[var(--border-primary)] bg-[var(--bg-primary)] px-1">{t}</span>
                   ))}
                 </div>
               </div>
@@ -89,7 +89,7 @@ export default function AlertsPage() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="border-2 border-black bg-[#eae3cb] p-8 text-center text-xs font-black shadow-[4px_4px_0px_0px_#1a1a14]">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-8 text-center text-xs font-black shadow-[4px_4px_0px_0px_var(--border-primary)]">
           No alerts or notices.
         </div>
       )}
