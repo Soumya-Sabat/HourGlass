@@ -8,6 +8,7 @@ const SubjectSchema = new Schema(
     credits: { type: Number, default: 0 },
     semester: { type: Number, default: 1 },
     department: { type: String, default: "" },
+    facultyIds: [{ type: Schema.Types.ObjectId, ref: "User" }],
     syllabus: { type: String, default: "" },
     syllabusFile: { type: String, default: "" },
     createdBy: { type: Schema.Types.ObjectId, ref: "User" },
