@@ -7,6 +7,7 @@ import { UserRepository } from "@/models/user/repositories/user.repository";
 import { UserModel } from "@/models/user/schemas/user.schema";
 import { InstitutionModel } from "@/models/institution/schemas/institution.schema";
 import type { InstitutionDocument } from "@/models/institution/schemas/institution.schema";
+import { AcademicProfileModel } from "@/models/academic/schemas/academic-profile.schema";
 import { SubjectModel } from "@/models/subject/schemas/subject.schema";
 import { MarksheetEntryModel } from "@/models/marksheet/schemas/marksheet-entry.schema";
 import { ExamBlueprintModel } from "@/models/exam/schemas/exam-blueprint.schema";
@@ -767,12 +768,98 @@ export async function getChangeRequests(): Promise<ChangeRequestEntry[]> {
   });
 }
 
+const ACCOUNT_FIELD_MAP: Record<string, string> = {
+  name: "fullName",
+  phoneNumber: "phoneNumber",
+  email: "email",
+  role: "role",
+  institutionId: "institutionId",
+  emailVerified: "isEmailVerified",
+};
+
+const STUDENT_PROFILE_USER_FIELDS = new Set(["classGroup", "section", "batch"]);
+
+const PLAIN_USER_FIELDS = new Set(["role", "institutionId", "department", "classGroup", "section", "batch", "isActive"]);
+
+const BOOLEAN_USER_FIELDS = new Set(["isEmailVerified", "isActive"]);
+
 export async function approveChangeRequest(id: string, adminNote: string): Promise<{ success: boolean; error?: string }> {
   await connectToDatabase();
   const user = await getCurrentUser();
   if (!user) return { success: false, error: "Not authenticated" };
 
   const { ChangeRequestModel: CRM } = await import("@/models/support/schemas/change-request.schema");
+  const request = await CRM.findById(id);
+  if (!request) return { success: false, error: "Change request not found" };
+  if (request.status !== "pending") return { success: false, error: "Change request is not pending" };
+
+  const { userId, fieldName, requestedValue } = request;
+  const dotIdx = fieldName.indexOf(".");
+  const section = dotIdx === -1 ? "" : fieldName.slice(0, dotIdx);
+  const key = dotIdx === -1 ? fieldName : fieldName.slice(dotIdx + 1);
+
+  async function findUser() {
+    const dbUser = await UserRepository.findById(userId.toString());
+    if (!dbUser) return null;
+    return dbUser;
+  }
+
+  if (section === "account") {
+    const dbUser = await findUser();
+    if (!dbUser) return { success: false, error: "User not found" };
+    if (key === "institutionName") {
+      const inst = await InstitutionModel.findOne({ institutionId: dbUser.institutionId });
+      if (!inst) return { success: false, error: "Institution not found" };
+      inst.set({ name: encryptValue(requestedValue) });
+      await inst.save();
+    } else {
+      const dbKey = ACCOUNT_FIELD_MAP[key] || key;
+      const value = PLAIN_USER_FIELDS.has(key)
+        ? (BOOLEAN_USER_FIELDS.has(key) ? requestedValue === "true" : requestedValue)
+        : encryptValue(requestedValue);
+      dbUser.set({ [dbKey]: value });
+      await UserRepository.save(dbUser);
+    }
+  } else if (section === "studentProfile") {
+    if (STUDENT_PROFILE_USER_FIELDS.has(key)) {
+      const dbUser = await findUser();
+      if (!dbUser) return { success: false, error: "User not found" };
+      dbUser.set({ [key]: requestedValue });
+      await UserRepository.save(dbUser);
+    } else {
+      await AcademicProfileModel.findOneAndUpdate(
+        { userId: userId.toString() },
+        { $set: { [key]: encryptValue(requestedValue) } },
+        { upsert: true },
+      );
+    }
+  } else if (section === "institution") {
+    const dbUser = await findUser();
+    if (!dbUser) return { success: false, error: "User not found" };
+    const inst = await InstitutionModel.findOne({ institutionId: dbUser.institutionId });
+    if (!inst) return { success: false, error: "Institution not found" };
+    inst.set({ [key]: encryptValue(requestedValue) });
+    await inst.save();
+  } else if (section === "personalDetails") {
+    const dbUser = await findUser();
+    if (!dbUser) return { success: false, error: "User not found" };
+    const encrypted = encryptValue(requestedValue);
+    dbUser.set({ [key]: encrypted });
+    await UserRepository.save(dbUser);
+    await AcademicProfileModel.findOneAndUpdate(
+      { userId: userId.toString() },
+      { $set: { [key]: encrypted } },
+      { upsert: true },
+    );
+  } else if (!section) {
+    const dbUser = await findUser();
+    if (!dbUser) return { success: false, error: "User not found" };
+    dbUser.set({ [key]: encryptValue(requestedValue) });
+    await UserRepository.save(dbUser);
+  } else {
+    return { success: false, error: `Unknown section: ${section}` };
+  }
+
   await CRM.updateOne({ _id: id }, { $set: { status: "approved", adminNote } });
   return { success: true };
 }
