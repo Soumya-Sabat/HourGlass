@@ -68,10 +68,10 @@ export default function InviteUserPage() {
           {PERMISSION_GROUPS.map((perm) => (
             <label
               key={perm.id}
-              className={`flex items-center gap-2 p-3 border-2 border-black cursor-pointer transition-all ${
+              className={`flex items-center gap-2 p-3 border-2 border-[var(--border-primary)] cursor-pointer transition-all ${
                 selectedPermissions.includes(perm.id)
-                  ? "bg-[#e28774] text-white shadow-[2px_2px_0px_0px_#1a1a14]"
-                  : "bg-white hover:bg-[#eae3cb]"
+                  ? "bg-[var(--accent)] text-white shadow-[2px_2px_0px_0px_var(--border-primary)]"
+                  : "bg-[var(--surface-white)] hover:bg-[var(--bg-secondary)]"
               }`}
             >
               <input
