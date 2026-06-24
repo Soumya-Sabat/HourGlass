@@ -16,13 +16,13 @@ export default function MarksheetPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-4 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading marksheet...</div>;
-  if (error) return <div className="border-2 border-black bg-[#e28774] p-4 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">{error}</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-4 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading marksheet...</div>;
+  if (error) return <div className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-4 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">{error}</div>;
   if (!data) return null;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4 flex items-center justify-between">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4 flex items-center justify-between">
         <div>
           <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
             <Award className="h-5 w-5" /> MARKSHEET
@@ -30,23 +30,23 @@ export default function MarksheetPage() {
           <p className="text-[10px] font-bold text-gray-600 mt-1">Academic performance across all examinations</p>
         </div>
         <button onClick={() => window.print()}
-          className="flex items-center gap-2 border-2 border-black bg-[#1a1a14] text-[#f4ebd0] px-4 py-2 text-xs font-black uppercase hover:bg-[#2a2a24]">
+          className="flex items-center gap-2 border-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)] px-4 py-2 text-xs font-black uppercase hover:bg-[var(--bg-primary)]">
           <Download className="h-4 w-4" /> Print
         </button>
       </div>
 
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] overflow-x-auto">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] overflow-x-auto">
         <table className="w-full border-collapse text-xs font-black">
           <thead>
-            <tr className="border-b-2 border-black bg-[#1a1a14] text-[#f4ebd0]">
-              <th className="p-3 text-left uppercase tracking-wider border-r border-[#f4ebd0]/20">
+            <tr className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)]">
+              <th className="p-3 text-left uppercase tracking-wider border-r border-[var(--light-text)]/20">
                 <div className="flex items-center gap-2">
-                  <BookOpen className="h-4 w-4 text-[#e28774]" />
+                  <BookOpen className="h-4 w-4 text-[var(--accent)]" />
                   Subject
                 </div>
               </th>
               {data.examNames.map((exam) => (
-                <th key={exam} className="p-3 text-center uppercase tracking-wider border-r border-[#f4ebd0]/20">
+                <th key={exam} className="p-3 text-center uppercase tracking-wider border-r border-[var(--light-text)]/20">
                   {exam}
                 </th>
               ))}
@@ -60,10 +60,10 @@ export default function MarksheetPage() {
               const pct = totalPossible > 0 ? Math.round((totalObtained / totalPossible) * 100) : 0;
 
               return (
-                <tr key={row.subjectName} className={`border-b border-black ${idx % 2 === 0 ? "bg-white" : "bg-[#f4ebd0]/30"}`}>
-                  <td className="p-3 font-black border-r border-black">{row.subjectName}</td>
+                <tr key={row.subjectName} className={`border-b border-[var(--border-primary)] ${idx % 2 === 0 ? "bg-[var(--surface-white)]" : "bg-[var(--bg-primary)]/30"}`}>
+                  <td className="p-3 font-black border-r border-[var(--border-primary)]">{row.subjectName}</td>
                   {row.marks.map((m, mi) => (
-                    <td key={mi} className="p-3 text-center border-r border-black">
+                    <td key={mi} className="p-3 text-center border-r border-[var(--border-primary)]">
                       <span className={m.obtained === 0 ? "text-gray-400" : ""}>
                         {m.obtained}/{m.total}
                       </span>
@@ -80,13 +80,13 @@ export default function MarksheetPage() {
           </tbody>
           {data.rows.length > 0 && (
             <tfoot>
-              <tr className="border-t-2 border-black bg-[#eae3cb]">
+              <tr className="border-t-2 border-[var(--border-primary)] bg-[var(--bg-secondary)]">
                 <td className="p-3 font-black uppercase">Grand Total</td>
                 {data.examNames.map((exam, ei) => {
                   const colTotal = data.rows.reduce((s, r) => s + (r.marks[ei]?.obtained || 0), 0);
                   const colMax = data.rows.reduce((s, r) => s + (r.marks[ei]?.total || 0), 0);
                   return (
-                    <td key={exam} className="p-3 text-center border-r border-black font-black">
+                    <td key={exam} className="p-3 text-center border-r border-[var(--border-primary)] font-black">
                       {colTotal}/{colMax}
                     </td>
                   );
