@@ -28,13 +28,13 @@ export default function ComplaintsPage() {
     t.userName.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]"><Loader className="h-4 w-4 animate-spin" /> Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]"><Loader className="h-4 w-4 animate-spin" /> Loading...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <AlertTriangle className="h-5 w-5 text-[#e28774]" /> Complaints & Support
+          <AlertTriangle className="h-5 w-5 text-[var(--accent)]" /> Complaints & Support
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Manage support tickets and complaints</p>
       </div>
@@ -42,13 +42,13 @@ export default function ComplaintsPage() {
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
         <input type="text" placeholder="Search tickets..." value={search} onChange={(e) => setSearch(e.target.value)}
-          className="w-full border-2 border-black bg-[#f4ebd0] p-2 pl-9 text-xs font-bold" />
+          className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 pl-9 text-xs font-bold" />
       </div>
 
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] overflow-x-auto">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] overflow-x-auto">
         <table className="w-full border-collapse text-xs font-bold">
           <thead>
-            <tr className="border-b-2 border-black bg-[#1a1a14] text-[#f4ebd0] text-[10px] uppercase">
+            <tr className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)] text-[10px] uppercase">
               <th className="p-3 text-left">User</th>
               <th className="p-3 text-left">Subject</th>
               <th className="p-3 text-left">Priority</th>
@@ -61,7 +61,7 @@ export default function ComplaintsPage() {
             {filtered.length === 0 ? (
               <tr><td colSpan={6} className="p-6 text-center font-black">No tickets found.</td></tr>
             ) : filtered.map((t) => (
-              <tr key={t.id} className="border-b border-black">
+              <tr key={t.id} className="border-b border-[var(--border-primary)]">
                 <td className="p-3 font-black">{t.userName}</td>
                 <td className="p-3">{t.subject}</td>
                 <td className="p-3">
@@ -80,7 +80,7 @@ export default function ComplaintsPage() {
                 <td className="p-3">
                   {t.status !== "Resolved" && (
                     <button onClick={() => handleResolve(t.id)}
-                      className="p-1.5 border border-black bg-green-200 hover:bg-green-300" title="Resolve">
+                      className="p-1.5 border border-[var(--border-primary)] bg-green-200 hover:bg-green-300" title="Resolve">
                       <CheckCircle className="h-3 w-3" />
                     </button>
                   )}
