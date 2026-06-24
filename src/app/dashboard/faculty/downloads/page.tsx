@@ -12,13 +12,13 @@ export default function FacultyDownloadsPage() {
     getFacultyDownloads().then(setDownloads).catch(() => {}).finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <Download className="h-5 w-5 text-[#e28774]" /> Downloads
+          <Download className="h-5 w-5 text-[var(--accent)]" /> Downloads
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Templates and resources</p>
       </div>
@@ -26,8 +26,8 @@ export default function FacultyDownloadsPage() {
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {downloads.map((d) => (
           <a key={d.id} href={d.url} download
-            className="block border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4 hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all">
-            <Download className="h-5 w-5 mb-2 text-[#e28774]" />
+            className="block border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4 hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all">
+            <Download className="h-5 w-5 mb-2 text-[var(--accent)]" />
             <p className="text-xs font-black">{d.name}</p>
           </a>
         ))}
