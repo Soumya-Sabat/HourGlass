@@ -3,8 +3,14 @@ import { model, models, Schema, type HydratedDocument, type InferSchemaType } fr
 const ExamBlueprintSchema = new Schema(
   {
     institutionId: { type: String, required: true, index: true },
-    subjectId: { type: Schema.Types.ObjectId, ref: "Subject", required: true },
-    subjectName: { type: String, required: true },
+    subjectId: { type: Schema.Types.ObjectId, ref: "Subject" },
+    subjectName: { type: String, default: "" },
+    title: { type: String, default: "" },
+    subject: { type: String, default: "" },
+    examDate: { type: Date },
+    startTime: { type: String, default: "" },
+    endTime: { type: String, default: "" },
+    maxMarks: { type: Number, default: 100 },
     semester: { type: Number, default: 1 },
     department: { type: String, default: "" },
     academicYear: { type: String, default: "" },
@@ -22,7 +28,7 @@ const ExamBlueprintSchema = new Schema(
   { timestamps: true },
 );
 
-ExamBlueprintSchema.index({ institutionId: 1, subjectId: 1, semester: 1 }, { unique: true });
+ExamBlueprintSchema.index({ institutionId: 1, department: 1 });
 
 export type ExamBlueprintDocument = HydratedDocument<InferSchemaType<typeof ExamBlueprintSchema>>;
 export const ExamBlueprintModel = models.ExamBlueprint || model("ExamBlueprint", ExamBlueprintSchema);
