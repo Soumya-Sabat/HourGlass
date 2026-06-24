@@ -26,40 +26,40 @@ export default function TimetableReviewPage() {
     setTimeout(() => setMsg(""), 3000);
   };
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading timetable...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading timetable...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-[#e28774]" /> Timetable Review
+          <Calendar className="h-5 w-5 text-[var(--accent)]" /> Timetable Review
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Review scheduled classes and suggest changes</p>
       </div>
 
       <div className="flex flex-wrap gap-2">
         <button onClick={() => setSelectedDay(null)}
-          className={`text-[10px] font-black uppercase border-2 border-black px-3 py-1.5 transition-all ${selectedDay === null ? "bg-[#1a1a14] text-[#f4ebd0] shadow-[2px_2px_0px_0px_#e28774]" : "bg-[#f4ebd0] hover:bg-[#e28774]"}`}>
+          className={`text-[10px] font-black uppercase border-2 border-[var(--border-primary)] px-3 py-1.5 transition-all ${selectedDay === null ? "bg-[var(--dark-bg)] text-[var(--light-text)] shadow-[2px_2px_0px_0px_var(--accent)]" : "bg-[var(--bg-primary)] hover:bg-[var(--accent)]"}`}>
           All Days
         </button>
         {DAYS.map((day, idx) => (
           <button key={day} onClick={() => setSelectedDay(idx)}
-            className={`text-[10px] font-black uppercase border-2 border-black px-3 py-1.5 transition-all ${selectedDay === idx ? "bg-[#1a1a14] text-[#f4ebd0] shadow-[2px_2px_0px_0px_#e28774]" : "bg-[#f4ebd0] hover:bg-[#e28774]"}`}>
+            className={`text-[10px] font-black uppercase border-2 border-[var(--border-primary)] px-3 py-1.5 transition-all ${selectedDay === idx ? "bg-[var(--dark-bg)] text-[var(--light-text)] shadow-[2px_2px_0px_0px_var(--accent)]" : "bg-[var(--bg-primary)] hover:bg-[var(--accent)]"}`}>
             {day.slice(0, 3)}
           </button>
         ))}
       </div>
 
       {filtered.length === 0 && (
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-6 text-center text-sm font-bold text-gray-500">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-6 text-center text-sm font-bold text-gray-500">
           No classes scheduled for this period.
         </div>
       )}
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((e) => (
-          <div key={e.id} className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14]">
-            <div className="border-b-2 border-black bg-[#1a1a14] p-2 text-[#f4ebd0] text-xs font-black uppercase">
+          <div key={e.id} className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)]">
+            <div className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] p-2 text-[var(--light-text)] text-xs font-black uppercase">
               {DAYS[e.dayOfWeek]} — {e.startTime}-{e.endTime}
             </div>
             <div className="p-3 space-y-1 text-[10px] font-bold">
@@ -71,15 +71,15 @@ export default function TimetableReviewPage() {
         ))}
       </div>
 
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
         <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-          <Search className="h-4 w-4 text-[#e28774]" /> Suggest a Change
+          <Search className="h-4 w-4 text-[var(--accent)]" /> Suggest a Change
         </h2>
         <textarea value={suggestion} onChange={(e) => setSuggestion(e.target.value)} rows={3}
           placeholder="Describe the suggested timetable change (e.g., 'Move Monday 10:00 Math to Wednesday 14:00')..."
-          className="w-full border-2 border-black bg-[#f4ebd0] p-2 text-xs font-bold resize-none" />
+          className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 text-xs font-bold resize-none" />
         <button onClick={handleSubmitSuggestion} disabled={!suggestion}
-          className="mt-2 border-2 border-black bg-[#e28774] text-[#1a1a14] px-4 py-2 text-xs font-black uppercase shadow-[2px_2px_0px_0px_#1a1a14] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all disabled:opacity-50">
+          className="mt-2 border-2 border-[var(--border-primary)] bg-[var(--accent)] text-[var(--text-primary)] px-4 py-2 text-xs font-black uppercase shadow-[2px_2px_0px_0px_var(--border-primary)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all disabled:opacity-50">
           Submit Suggestion
         </button>
         {msg && <p className="mt-2 text-xs font-bold text-green-700">{msg}</p>}
