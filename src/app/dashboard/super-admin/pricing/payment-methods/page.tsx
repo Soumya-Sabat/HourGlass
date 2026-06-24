@@ -24,7 +24,7 @@ export default function PaymentMethodsPage() {
     } catch {} finally { setLoading(false); }
   }
 
-  if (loading) return <div className="border-2 border-black bg-white p-8 text-center text-[12px] font-bold">Loading...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-8 text-center text-[12px] font-bold">Loading...</div>;
 
   return (
     <div className="space-y-6">
@@ -35,7 +35,7 @@ export default function PaymentMethodsPage() {
 
       {data.length === 0 && (
         <Card>
-          <div className="text-center py-8 text-[12px] font-bold text-[#1a1a14]/40">
+          <div className="text-center py-8 text-[12px] font-bold text-[var(--text-primary)]/40">
             No payment gateways configured yet.
           </div>
         </Card>
@@ -45,10 +45,10 @@ export default function PaymentMethodsPage() {
         {data.map((method: any) => {
           const Icon = GATEWAY_ICONS[method.gateway] || CreditCard;
           return (
-            <div key={method._id?.toString()} className="border-2 border-black bg-white shadow-[4px_4px_0px_0px_#1a1a14]">
-              <div className="border-b-2 border-black bg-[#1a1a14] px-4 py-3 text-[#f4ebd0] text-xs font-black uppercase flex items-center justify-between">
+            <div key={method._id?.toString()} className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] shadow-[4px_4px_0px_0px_var(--border-primary)]">
+              <div className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] px-4 py-3 text-[var(--light-text)] text-xs font-black uppercase flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Icon className="h-4 w-4 text-[#e28774]" />
+                  <Icon className="h-4 w-4 text-[var(--accent)]" />
                   <span>{method.gateway}</span>
                 </div>
                 <StatusBadge status={method.isEnabled ? "Enabled" : "Disabled"} />
