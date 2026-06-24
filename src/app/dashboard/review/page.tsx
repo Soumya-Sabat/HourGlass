@@ -16,7 +16,7 @@ export default function ReviewerDashboardPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading reviewer command center...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading reviewer command center...</div>;
 
   const cards = [
     { label: "Faculty", value: stats?.totalFaculty ?? 0, icon: Users, color: "bg-green-200", href: "/dashboard/faculty/messages" },
@@ -26,10 +26,10 @@ export default function ReviewerDashboardPage() {
   ];
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <ShieldCheck className="h-5 w-5 text-[#e28774]" /> Reviewer Command Center
+          <ShieldCheck className="h-5 w-5 text-[var(--accent)]" /> Reviewer Command Center
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">Faculty oversight, cluster management &amp; timetable review</p>
       </div>
@@ -38,8 +38,8 @@ export default function ReviewerDashboardPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {cards.map((c) => (
           <Link key={c.label} href={c.href}
-            className={`${c.color} border-2 border-black shadow-[3px_3px_0px_0px_#1a1a14] p-4 hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all`}>
-            <c.icon className="h-5 w-5 mb-2 text-[#1a1a14]" />
+            className={`${c.color} border-2 border-[var(--border-primary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4 hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] transition-all`}>
+            <c.icon className="h-5 w-5 mb-2 text-[var(--text-primary)]" />
             <p className="text-2xl font-black">{c.value}</p>
             <p className="text-[10px] font-bold uppercase">{c.label}</p>
           </Link>
@@ -48,53 +48,53 @@ export default function ReviewerDashboardPage() {
 
       {/* Quick Actions */}
       <div className="grid gap-4 lg:grid-cols-2">
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
           <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-            <Plus className="h-4 w-4 text-[#e28774]" /> Quick Actions
+            <Plus className="h-4 w-4 text-[var(--accent)]" /> Quick Actions
           </h2>
           <div className="space-y-2">
             <Link href="/dashboard/review/clusters"
-              className="flex items-center gap-2 border border-black bg-white p-2 text-xs font-bold hover:bg-[#e28774] transition-colors">
+              className="flex items-center gap-2 border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold hover:bg-[var(--accent)] transition-colors">
               <Layers className="h-4 w-4" /> Create / Manage Clusters
             </Link>
             <Link href="/dashboard/review/timetable-review"
-              className="flex items-center gap-2 border border-black bg-white p-2 text-xs font-bold hover:bg-[#e28774] transition-colors">
+              className="flex items-center gap-2 border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold hover:bg-[var(--accent)] transition-colors">
               <Calendar className="h-4 w-4" /> Review &amp; Suggest Timetable Changes
             </Link>
             <Link href="/dashboard/faculty/attendance"
-              className="flex items-center gap-2 border border-black bg-white p-2 text-xs font-bold hover:bg-[#e28774] transition-colors">
+              className="flex items-center gap-2 border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold hover:bg-[var(--accent)] transition-colors">
               <Users className="h-4 w-4" /> Mark Attendance
             </Link>
             <Link href="/dashboard/faculty/notices"
-              className="flex items-center gap-2 border border-black bg-white p-2 text-xs font-bold hover:bg-[#e28774] transition-colors">
+              className="flex items-center gap-2 border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold hover:bg-[var(--accent)] transition-colors">
               <Bell className="h-4 w-4" /> View Notices
             </Link>
             <Link href="/dashboard/faculty/exchange-desk"
-              className="flex items-center gap-2 border border-black bg-white p-2 text-xs font-bold hover:bg-[#e28774] transition-colors">
+              className="flex items-center gap-2 border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold hover:bg-[var(--accent)] transition-colors">
               <ArrowUpDown className="h-4 w-4" /> Exchange Desk
             </Link>
             <Link href="/dashboard/faculty/downloads"
-              className="flex items-center gap-2 border border-black bg-white p-2 text-xs font-bold hover:bg-[#e28774] transition-colors">
+              className="flex items-center gap-2 border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold hover:bg-[var(--accent)] transition-colors">
               <Download className="h-4 w-4" /> Downloads
             </Link>
             <Link href="/dashboard/faculty/messages"
-              className="flex items-center gap-2 border border-black bg-white p-2 text-xs font-bold hover:bg-[#e28774] transition-colors">
+              className="flex items-center gap-2 border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold hover:bg-[var(--accent)] transition-colors">
               <MessageSquare className="h-4 w-4" /> Messages
             </Link>
           </div>
         </div>
 
         {/* Recent Clusters */}
-        <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
           <h2 className="text-sm font-black uppercase flex items-center gap-2 mb-3">
-            <Layers className="h-4 w-4 text-[#e28774]" /> Recent Clusters
+            <Layers className="h-4 w-4 text-[var(--accent)]" /> Recent Clusters
           </h2>
           {(stats?.recentClusters ?? []).length === 0 ? (
             <p className="text-xs font-bold text-gray-500">No clusters yet. Create your first one.</p>
           ) : (
             <div className="space-y-2">
               {stats?.recentClusters.map((c) => (
-                <div key={c.id} className="border border-black bg-white p-2 text-[10px] font-bold">
+                <div key={c.id} className="border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-[10px] font-bold">
                   <span className="font-black">{c.name}</span>
                   <br />{c.subject} &mdash; {c.memberCount} member{c.memberCount !== 1 ? "s" : ""}
                 </div>
@@ -102,14 +102,14 @@ export default function ReviewerDashboardPage() {
             </div>
           )}
           <Link href="/dashboard/review/clusters"
-            className="inline-block mt-3 text-[9px] font-black uppercase border-2 border-black px-3 py-1.5 bg-white hover:bg-[#e28774] transition-colors shadow-[2px_2px_0px_0px_#1a1a14] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
+            className="inline-block mt-3 text-[9px] font-black uppercase border-2 border-[var(--border-primary)] px-3 py-1.5 bg-[var(--surface-white)] hover:bg-[var(--accent)] transition-colors shadow-[2px_2px_0px_0px_var(--border-primary)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
             Manage All Clusters &rarr;
           </Link>
         </div>
       </div>
 
       {/* Navigation Grid */}
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-4">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-4">
         <h2 className="text-sm font-black uppercase mb-3">All Sections</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
           {[
@@ -124,7 +124,7 @@ export default function ReviewerDashboardPage() {
             { name: "Timetable Review", href: "/dashboard/review/timetable-review", icon: Calendar },
           ].map((s) => (
             <Link key={s.name} href={s.href}
-              className="flex items-center gap-2 border border-black bg-white p-2 text-[10px] font-bold hover:bg-[#e28774] transition-colors">
+              className="flex items-center gap-2 border border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-[10px] font-bold hover:bg-[var(--accent)] transition-colors">
               <s.icon className="h-3.5 w-3.5 shrink-0" />
               {s.name}
             </Link>
