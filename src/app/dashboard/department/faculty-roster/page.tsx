@@ -25,8 +25,8 @@ export default function FacultyRosterPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading faculty roster...</div>;
-  if (error) return <div className="border-2 border-black bg-[#e28774] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">{error}</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading faculty roster...</div>;
+  if (error) return <div className="border-2 border-[var(--border-primary)] bg-[var(--accent)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">{error}</div>;
 
   const filtered = users.filter((u) =>
     u.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -35,10 +35,10 @@ export default function FacultyRosterPage() {
   );
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4">
         <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-          <Users className="h-5 w-5 text-[#e28774]" /> Faculty Roster
+          <Users className="h-5 w-5 text-[var(--accent)]" /> Faculty Roster
         </h1>
         <p className="text-[10px] font-bold text-gray-600 mt-1">View all faculty, and staffs in your department</p>
       </div>
@@ -46,13 +46,13 @@ export default function FacultyRosterPage() {
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
         <input type="text" placeholder="Search by name, email, or role..." value={search} onChange={(e) => setSearch(e.target.value)}
-          className="w-full border-2 border-black bg-[#f4ebd0] p-2 pl-9 text-xs font-bold" />
+          className="w-full border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-2 pl-9 text-xs font-bold" />
       </div>
 
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] overflow-x-auto">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] overflow-x-auto">
         <table className="w-full border-collapse text-xs font-bold">
           <thead>
-            <tr className="border-b-2 border-black bg-[#1a1a14] text-[#f4ebd0] text-[10px] uppercase">
+            <tr className="border-b-2 border-[var(--border-primary)] bg-[var(--dark-bg)] text-[var(--light-text)] text-[10px] uppercase">
               <th className="p-3 text-left">Name</th>
               <th className="p-3 text-left">Email</th>
               <th className="p-3 text-left">Role</th>
@@ -67,7 +67,7 @@ export default function FacultyRosterPage() {
             {filtered.length === 0 ? (
               <tr><td colSpan={8} className="p-6 text-center font-black">No users found.</td></tr>
             ) : filtered.map((u) => (
-              <tr key={u.id} className="border-b border-black">
+              <tr key={u.id} className="border-b border-[var(--border-primary)]">
                 <td className="p-3 font-black">{u.name}</td>
                 <td className="p-3">{u.email}</td>
                 <td className="p-3 uppercase text-[10px]">{roleLabels[u.role] || u.role.replace("_", " ")}</td>
