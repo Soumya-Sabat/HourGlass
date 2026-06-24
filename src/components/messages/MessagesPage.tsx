@@ -92,16 +92,16 @@ export default function MessagesPage() {
 
   const unreadCount = messages.filter((m) => !m.read).length;
 
-  if (loading) return <div className="border-2 border-black bg-[#eae3cb] p-6 font-mono shadow-[4px_4px_0px_0px_#1a1a14]">Loading messages...</div>;
+  if (loading) return <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] p-6 font-mono shadow-[4px_4px_0px_0px_var(--border-primary)]">Loading messages...</div>;
 
   return (
-    <div className="space-y-6 font-mono text-[#1a1a14]">
-      <div className="border-2 border-black bg-[#eae3cb] shadow-[4px_4px_0px_0px_#1a1a14] p-4 flex items-center justify-between">
+    <div className="space-y-6 font-mono text-[var(--text-primary)]">
+      <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[4px_4px_0px_0px_var(--border-primary)] p-4 flex items-center justify-between">
         <div>
           <h1 className="text-lg sm:text-xl font-black uppercase tracking-tight flex items-center gap-2">
-            <MessageSquare className="h-5 w-5 text-[#e28774]" /> Messages
+            <MessageSquare className="h-5 w-5 text-[var(--accent)]" /> Messages
             {unreadCount > 0 && (
-              <span className="ml-1 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#e28774] px-1.5 text-[10px] font-black text-white">
+              <span className="ml-1 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[var(--accent)] px-1.5 text-[10px] font-black text-white">
                 {unreadCount}
               </span>
             )}
@@ -109,19 +109,19 @@ export default function MessagesPage() {
           <p className="text-[10px] font-bold text-gray-600 mt-1">Institution-wide messaging</p>
         </div>
         <button onClick={() => setShowCompose(true)}
-          className="flex items-center gap-1.5 border-2 border-black bg-[#e28774] px-4 py-2 text-xs font-black text-white hover:bg-[#d97766]">
+          className="flex items-center gap-1.5 border-2 border-[var(--border-primary)] bg-[var(--accent)] px-4 py-2 text-xs font-black text-white hover:bg-[var(--accent)]">
           <Mail className="h-3.5 w-3.5" /> Compose
         </button>
       </div>
 
       {error && (
-        <div className="border-2 border-black bg-[#e28774]/20 p-3 text-xs font-bold text-red-700">{error}</div>
+        <div className="border-2 border-[var(--border-primary)] bg-[var(--accent)]/20 p-3 text-xs font-bold text-red-700">{error}</div>
       )}
 
       {/* Compose */}
       {showCompose && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={() => !sending && setShowCompose(false)}>
-          <div className="w-full max-w-lg border-2 border-black bg-[#f4ebd0] p-6 shadow-[6px_6px_0px_0px_#1a1a14]" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full max-w-lg border-2 border-[var(--border-primary)] bg-[var(--bg-primary)] p-6 shadow-[6px_6px_0px_0px_var(--border-primary)]" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-black uppercase">{replyTarget ? `Reply to ${replyTarget.name}` : "New Message"}</h3>
               {sendSuccess ? (
@@ -144,20 +144,20 @@ export default function MessagesPage() {
                         onChange={(e) => { setSearchQuery(e.target.value); setSelectedUser(null); setShowDropdown(true); }}
                         onFocus={() => setShowDropdown(true)}
                         placeholder="Search by name or email..."
-                        className="w-full border-2 border-black bg-white p-2 pl-8 text-xs font-bold"
+                        className="w-full border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-2 pl-8 text-xs font-bold"
                         required={!selectedUser}
                       />
                     </div>
                     <button
                       type="button"
                       onClick={() => { setSelectedUser("@all"); setSearchQuery(""); setShowDropdown(false); }}
-                      className={`flex items-center gap-1 border-2 border-black px-3 py-2 text-[10px] font-black uppercase whitespace-nowrap ${selectedUser === "@all" ? "bg-[#e28774] text-white" : "bg-white hover:bg-[#eae3cb]"}`}
+                      className={`flex items-center gap-1 border-2 border-[var(--border-primary)] px-3 py-2 text-[10px] font-black uppercase whitespace-nowrap ${selectedUser === "@all" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-white)] hover:bg-[var(--bg-secondary)]"}`}
                     >
                       <Users className="h-3 w-3" /> @all
                     </button>
                   </div>
                   {showDropdown && selectedUser !== "@all" && (
-                    <div className="absolute z-50 top-full mt-1 left-0 right-14 border-2 border-black bg-white shadow-[3px_3px_0px_0px_#1a1a14] max-h-48 overflow-y-auto">
+                    <div className="absolute z-50 top-full mt-1 left-0 right-14 border-2 border-[var(--border-primary)] bg-[var(--surface-white)] shadow-[3px_3px_0px_0px_var(--border-primary)] max-h-48 overflow-y-auto">
                       {filtered.length === 0 ? (
                         <div className="p-3 text-[10px] font-bold text-gray-500">No users found.</div>
                       ) : filtered.map((u) => (
@@ -165,7 +165,7 @@ export default function MessagesPage() {
                           key={u.id}
                           type="button"
                           onClick={() => { setSelectedUser(u); setSearchQuery(u.name); setShowDropdown(false); }}
-                          className="w-full text-left px-3 py-2 hover:bg-[#eae3cb] border-b border-black/10 last:border-b-0"
+                          className="w-full text-left px-3 py-2 hover:bg-[var(--bg-secondary)] border-b border-[var(--border-primary)]/10 last:border-b-0"
                         >
                           <span className="block text-xs font-black">{u.name}</span>
                           <span className="block text-[10px] font-bold text-gray-600">{u.email}</span>
@@ -178,18 +178,18 @@ export default function MessagesPage() {
                 <div>
                   <label className="block text-[10px] font-black uppercase mb-1">Subject</label>
                   <input type="text" value={subject} onChange={(e) => setSubject(e.target.value)}
-                    className="w-full border-2 border-black bg-white p-2 text-xs font-bold" placeholder="General" />
+                    className="w-full border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold" placeholder="General" />
                 </div>
                 <div>
                   <label className="block text-[10px] font-black uppercase mb-1">Message</label>
                   <textarea rows={4} required value={content} onChange={(e) => setContent(e.target.value)}
-                    className="w-full border-2 border-black bg-white p-2 text-xs font-bold resize-none" placeholder="Type your message..." />
+                    className="w-full border-2 border-[var(--border-primary)] bg-[var(--surface-white)] p-2 text-xs font-bold resize-none" placeholder="Type your message..." />
                 </div>
                 <div className="flex gap-2 justify-end pt-2">
                   <button type="button" onClick={() => setShowCompose(false)} disabled={sending}
-                    className="border-2 border-black bg-white px-4 py-1.5 text-xs font-black hover:bg-[#eae3cb] disabled:opacity-40">Cancel</button>
+                    className="border-2 border-[var(--border-primary)] bg-[var(--surface-white)] px-4 py-1.5 text-xs font-black hover:bg-[var(--bg-secondary)] disabled:opacity-40">Cancel</button>
                   <button type="submit" disabled={sending || !selectedUser}
-                    className="flex items-center gap-1 border-2 border-black bg-[#e28774] px-4 py-1.5 text-xs font-black text-white hover:bg-[#d97766] disabled:opacity-40">
+                    className="flex items-center gap-1 border-2 border-[var(--border-primary)] bg-[var(--accent)] px-4 py-1.5 text-xs font-black text-white hover:bg-[var(--accent)] disabled:opacity-40">
                     {sending ? "Sending..." : <><Send className="h-3 w-3" /> Send</>}
                   </button>
                 </div>
@@ -202,7 +202,7 @@ export default function MessagesPage() {
       {/* Inbox */}
       <div className="space-y-2">
         {messages.length === 0 && (
-          <div className="border-2 border-black bg-[#eae3cb] shadow-[3px_3px_0px_0px_#1a1a14] p-6 text-center text-sm font-bold text-gray-500">
+          <div className="border-2 border-[var(--border-primary)] bg-[var(--bg-secondary)] shadow-[3px_3px_0px_0px_var(--border-primary)] p-6 text-center text-sm font-bold text-gray-500">
             No messages yet.
           </div>
         )}
@@ -210,7 +210,7 @@ export default function MessagesPage() {
           <div
             key={m.id}
             onClick={() => m.direction === "incoming" && !m.read && handleMarkRead(m.id)}
-            className={`border-2 border-black shadow-[2px_2px_0px_0px_#1a1a14] p-3 cursor-pointer transition-all ${m.read ? "bg-[#eae3cb]/60 opacity-70" : "bg-[#eae3cb]"}`}
+            className={`border-2 border-[var(--border-primary)] shadow-[2px_2px_0px_0px_var(--border-primary)] p-3 cursor-pointer transition-all ${m.read ? "bg-[var(--bg-secondary)]/60 opacity-70" : "bg-[var(--bg-secondary)]"}`}
           >
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0 flex-1">
@@ -218,10 +218,10 @@ export default function MessagesPage() {
                   {m.direction === "outgoing" ? (
                     <Send className="h-3 w-3 shrink-0 text-gray-500" />
                   ) : !m.read ? (
-                    <span className="h-2 w-2 shrink-0 rounded-full bg-[#e28774]" />
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--accent)]" />
                   ) : null}
                   <span className="text-xs font-black">{m.direction === "outgoing" ? `To: ${m.receiverName || "All"}` : m.senderName}</span>
-                  {m.direction === "incoming" && <span className="text-[9px] font-bold uppercase px-1 py-0.5 bg-white/60 border border-black">{m.senderRole}</span>}
+                  {m.direction === "incoming" && <span className="text-[9px] font-bold uppercase px-1 py-0.5 bg-white/60 border border-[var(--border-primary)]">{m.senderRole}</span>}
                   <span className="text-[9px] font-bold text-gray-500">{m.createdAt}</span>
                 </div>
                 {m.subject && <p className="text-[10px] font-black text-gray-700 mt-0.5">{m.subject}</p>}
@@ -230,13 +230,13 @@ export default function MessagesPage() {
               <div className="flex gap-1 shrink-0">
                 {m.direction === "incoming" && (
                   <button onClick={(e) => { e.stopPropagation(); handleReply(m); }}
-                    className="p-1 border border-black bg-blue-200 hover:bg-blue-300 shrink-0" title="Reply">
+                    className="p-1 border border-[var(--border-primary)] bg-blue-200 hover:bg-blue-300 shrink-0" title="Reply">
                     <Reply className="h-3 w-3" />
                   </button>
                 )}
                 {m.direction === "incoming" && !m.read && (
                   <button onClick={(e) => { e.stopPropagation(); handleMarkRead(m.id); }}
-                    className="p-1 border border-black bg-green-200 hover:bg-green-300 shrink-0" title="Mark read">
+                    className="p-1 border border-[var(--border-primary)] bg-green-200 hover:bg-green-300 shrink-0" title="Mark read">
                     <CheckCircle className="h-3 w-3" />
                   </button>
                 )}
