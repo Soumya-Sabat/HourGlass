@@ -13,7 +13,7 @@ export function FilterActions({ actionTypes, currentAction }: { actionTypes: str
           const v = e.target.value;
           router.push(v ? `?action=${v}` : ".");
         }}
-        className="h-9 px-3 text-[11px] font-bold border-2 border-black bg-white focus:outline-none"
+        className="h-9 px-3 text-[11px] font-bold border-2 border-[var(--border-primary)] bg-[var(--surface-white)] focus:outline-none"
       >
         <option value="">All Actions</option>
         {actionTypes.map((a) => (
