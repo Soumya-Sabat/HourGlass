@@ -130,7 +130,7 @@ function OtpBoxInput({
           onPaste={(event) => handlePaste(index, event)}
           onFocus={(event) => event.target.select()}
           aria-label={`${ariaLabel} character ${index + 1}`}
-          className={`${compactMobile ? "h-10 text-sm sm:h-14 sm:text-lg" : "h-12 text-base sm:h-14 sm:text-lg"} min-w-0 rounded-lg border border-slate-200 bg-white text-center font-black text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:opacity-70`}
+          className={`${compactMobile ? "h-10 text-sm sm:h-14 sm:text-lg" : "h-12 text-base sm:h-14 sm:text-lg"} min-w-0 rounded-lg border-2 border-[#f4ebd0]/30 bg-[#1a1a14] text-center font-black text-[#f4ebd0] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20 disabled:cursor-not-allowed disabled:opacity-40`}
         />
       ))}
     </div>
@@ -246,14 +246,14 @@ export function LoginForm() {
         <div className="space-y-2">
           <FieldLabel>Email</FieldLabel>
           <div className="relative">
-            <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+            <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#f4ebd0]/40" />
             <input
               type="email"
               required
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="you@institution.ac.in"
-              className="h-11 w-full rounded-lg border border-slate-200 bg-white pl-12 pr-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10 sm:h-12"
+              className="h-11 w-full rounded-lg border-2 border-[#f4ebd0]/30 bg-[#1a1a14] pl-12 pr-4 text-sm font-semibold text-[#f4ebd0] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20 sm:h-12"
             />
           </div>
         </div>
@@ -261,7 +261,7 @@ export function LoginForm() {
         <button
           type="submit"
           disabled={loading || !email || (otpSent && cooldownSeconds > 0)}
-          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-orange-400 px-5 text-sm font-black text-black shadow-lg shadow-blue-900/10 transition hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-60 sm:h-12"
+          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#e28774] px-5 text-xl font-black text-[#1a1a14] shadow-[4px_4px_0px_0px_#f4ebd0] transition hover:bg-[#d97766] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#f4ebd0] disabled:cursor-not-allowed disabled:opacity-60 sm:h-12"
         >
           {loading ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -279,13 +279,13 @@ export function LoginForm() {
       </form>
 
       {institutionId && (
-        <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-black text-blue-800">
+        <div className="rounded-lg border-2 border-[#f4ebd0]/20 bg-[#1a1a14] px-4 py-3 text-xl font-black text-[#f4ebd0]">
           Institution ID: <span className="tracking-[0.2em]">{institutionId}</span>
         </div>
       )}
 
       {otpSent && (
-        <form onSubmit={handleVerifyOtp} className="space-y-4 border-t border-slate-200 pt-4 sm:space-y-5 sm:pt-5">
+        <form onSubmit={handleVerifyOtp} className="space-y-4 border-t-2 border-[#f4ebd0]/20 pt-4 sm:space-y-5 sm:pt-5">
           <div className="space-y-2">
             <FieldLabel>Verification Code</FieldLabel>
             <OtpBoxInput
@@ -300,7 +300,7 @@ export function LoginForm() {
           <button
             type="submit"
             disabled={loading || otp.length !== OTP_LENGTH}
-            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-orange-500 px-5 text-sm font-black text-white shadow-lg shadow-orange-700/10 transition hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-60 sm:h-12"
+            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#e28774] px-5 text-xl font-black text-[#1a1a14] shadow-[4px_4px_0px_0px_#f4ebd0] transition hover:bg-[#d97766] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#f4ebd0] disabled:cursor-not-allowed disabled:opacity-60 sm:h-12"
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
             Verify and Login
@@ -311,12 +311,12 @@ export function LoginForm() {
       <Message state={state} />
 
       {unverifiedEmail && (
-        <div className="space-y-3 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm font-semibold text-amber-800">
+        <div className="space-y-3 rounded-lg border-2 border-[#e28774]/40 bg-[#1a1a14] p-3 text-xl font-semibold text-[#f4ebd0]">
           <p>This account is created but not verified yet.</p>
           <div className="flex flex-col gap-2 sm:flex-row">
             <Link
               href={`/verify-email?email=${encodeURIComponent(unverifiedEmail)}`}
-              className="inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-amber-500 px-4 text-xs font-black uppercase text-white transition hover:bg-amber-600"
+              className="inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-[#e28774] px-4 text-xs font-black uppercase text-[#1a1a14] transition hover:bg-[#d97766]"
             >
               Continue verification
             </Link>
@@ -342,7 +342,7 @@ export function LoginForm() {
                   setLoading(false);
                 }
               }}
-              className="inline-flex h-10 flex-1 items-center justify-center rounded-lg border border-amber-200 bg-white px-4 text-xs font-black uppercase text-amber-800 transition hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex h-10 flex-1 items-center justify-center rounded-lg border-2 border-[#e28774]/40 bg-transparent px-4 text-xs font-black uppercase text-[#e28774] transition hover:bg-[#e28774]/10 disabled:cursor-not-allowed disabled:opacity-60"
             >
               Resend OTP
             </button>
@@ -350,8 +350,8 @@ export function LoginForm() {
         </div>
       )}
 
-      <div className="flex items-center justify-center text-sm font-bold text-slate-500">
-        <Link href="/register" className="text-brand-blue hover:text-brand-dark">
+      <div className="flex items-center justify-center text-xl font-bold text-[#f4ebd0]/60">
+        <Link href="/register" className="text-[#e28774] hover:text-[#f4ebd0]">
           Create account
         </Link>
       </div>
@@ -578,16 +578,16 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
   }
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} noValidate className="relative z-10 flex min-w-0 flex-col overflow-visible rounded-lg border border-slate-200 bg-white shadow-xl shadow-slate-200/70 lg:max-h-[calc(100dvh-11rem)] lg:min-h-0 lg:overflow-hidden">
+    <form ref={formRef} onSubmit={handleSubmit} noValidate className="relative z-10 flex min-w-0 flex-col overflow-visible rounded-lg border-2 border-[#f4ebd0] bg-[#1a1a14] lg:max-h-[calc(100dvh-11rem)] lg:min-h-0 lg:overflow-hidden">
       <div className="flex min-h-0 min-w-0 flex-1 flex-col p-4 sm:p-6 lg:p-7">
         <div className="mb-5 flex shrink-0 flex-col gap-5 pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-2 min-w-0">
-            <h3 className="text-xl sm:text-2xl font-black text-slate-950 break-words">Join with Us</h3>
+            <h3 className="text-xl sm:text-2xl font-black text-[#f4ebd0] break-words">Join with Us</h3>
             {/* <p className="max-w-2xl text-sm font-medium leading-6 text-slate-500 break-words">{currentSection.description}</p> */}
           </div>
         </div>
 
-        <div ref={sectionScrollerRef} className="min-w-0 touch-pan-y overflow-visible pr-1 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-contain [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full">
+        <div ref={sectionScrollerRef} className="min-w-0 touch-pan-y overflow-visible pr-1 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:overscroll-contain [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#f4ebd0]/30 [&::-webkit-scrollbar-thumb]:rounded-full">
           <div
             className="flex min-w-0 transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${currentStep * 100}%)` }}
@@ -623,11 +623,11 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
           <Message state={state} />
         </div>
 
-        <div className="mt-5 flex shrink-0 flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-5 flex shrink-0 flex-col-reverse gap-3 border-t-2 border-[#f4ebd0]/20 pt-5 sm:flex-row sm:items-center sm:justify-between">
           <button
             type="button"
             onClick={currentStep === 0 ? undefined : handleBack}
-            className={`inline-flex h-9 w-full touch-manipulation items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-5 text-sm font-black text-slate-700 transition hover:bg-slate-50 sm:w-auto ${currentStep === 0 ? "cursor-not-allowed opacity-30" : ""}`}
+            className={`inline-flex h-10 w-full touch-manipulation items-center justify-center gap-2 rounded-lg border-2 border-[#f4ebd0] bg-transparent px-5 text-xl font-black text-[#f4ebd0] transition hover:bg-[#f4ebd0]/10 sm:w-auto ${currentStep === 0 ? "cursor-not-allowed opacity-30" : ""}`}
           >
             <ArrowLeft className="h-4 w-4" />
             Back
@@ -637,7 +637,7 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-brand-orange px-5 text-sm font-black text-slate-600 shadow-lg shadow-orange-700/10 transition hover:bg-brand-orange/90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+              className="inline-flex h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-[#e28774] px-5 text-xl font-black text-[#1a1a14] shadow-[4px_4px_0px_0px_#f4ebd0] transition hover:bg-[#d97766] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#f4ebd0] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
               Create Your Account
@@ -647,7 +647,7 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
               type="button"
               disabled={loading}
             onClick={handleNext}
-              className="inline-flex h-9 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-orange-500 px-5 text-sm font-black text-white shadow-lg shadow-orange-700/10 transition hover:bg-brand-orange disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+              className="inline-flex h-10 w-full touch-manipulation items-center justify-center gap-2 rounded-lg bg-[#e28774] px-5 text-xl font-black text-[#1a1a14] shadow-[4px_4px_0px_0px_#f4ebd0] transition hover:bg-[#d97766] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#f4ebd0] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
               Next
               <ArrowRight className="h-4 w-4" />
@@ -656,9 +656,9 @@ export function RegisterForm({ currentStep, onStepChange }: RegisterFormProps) {
         </div>
       </div>
 
-      <p className="border border-slate-100 px-5 py-4 text-center text-sm font-bold text-slate-500">
+      <p className="border-t-2 border-[#f4ebd0]/20 px-5 py-4 text-center text-xl font-bold text-[#f4ebd0]/60">
         Already registered?{" "}
-        <Link href="/login" className="text-brand-blue hover:text-brand-dark">
+        <Link href="/login" className="text-[#e28774] hover:text-[#f4ebd0]">
           Sign In
         </Link>
       </p>
@@ -732,7 +732,7 @@ function VerifyEmailFormContent() {
       <div className="space-y-2">
         <FieldLabel>Email</FieldLabel>
         <div className="relative">
-          <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+          <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#f4ebd0]/40" />
           <input
             type="email"
             required
@@ -740,7 +740,7 @@ function VerifyEmailFormContent() {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="Your Email ID"
-            className="h-12 w-full rounded-lg border border-slate-200 bg-white pl-12 pr-4 text-sm font-semibold text-slate-900 outline-none transition focus:border-brand-sky focus:ring-4 focus:ring-brand-sky/10"
+            className="h-12 w-full rounded-lg border-2 border-[#f4ebd0]/30 bg-[#1a1a14] pl-12 pr-4 text-sm font-semibold text-[#f4ebd0] outline-none transition focus:border-[#e28774] focus:ring-4 focus:ring-[#e28774]/20 disabled:cursor-not-allowed disabled:opacity-40"
           />
         </div>
       </div>
@@ -760,21 +760,21 @@ function VerifyEmailFormContent() {
       <Message state={state} />
 
       {verifiedInstitutionId && (
-        <div className="space-y-3 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-center">
-          <p className="text-xs font-black uppercase text-emerald-700">Institution ID</p>
-          <p className="text-3xl font-black tracking-[0.24em] text-emerald-900">{verifiedInstitutionId}</p>
+        <div className="space-y-3 rounded-lg border-2 border-[#f4ebd0]/20 bg-[#1a1a14] p-4 text-center">
+          <p className="text-xl font-black uppercase text-[#f4ebd0]">Institution ID</p>
+          <p className="text-3xl font-black tracking-[0.24em] text-[#f4ebd0]">{verifiedInstitutionId}</p>
           <a
             href={`https://wa.me/?text=${encodeURIComponent(`HourGlass institution ID: ${verifiedInstitutionId}`)}`}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 px-5 text-sm font-black text-white transition hover:bg-emerald-700"
+            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#e28774] px-5 text-xl font-black text-[#1a1a14] transition hover:bg-[#d97766]"
           >
             <MessageCircle className="h-4 w-4" />
             Share on WhatsApp
           </a>
           <Link
             href={`/login?email=${encodeURIComponent(email)}`}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-emerald-200 bg-white px-5 text-sm font-black text-emerald-800 transition hover:bg-emerald-100"
+            className="inline-flex h-11 w-full items-center justify-center rounded-lg border-2 border-[#f4ebd0]/30 bg-transparent px-5 text-xl font-black text-[#f4ebd0] transition hover:bg-[#f4ebd0]/10"
           >
             Continue to login
           </Link>
@@ -784,7 +784,7 @@ function VerifyEmailFormContent() {
       <button
         type="submit"
         disabled={loading || !email || otp.length !== 6}
-        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-orange-500 px-5 text-sm font-black text-white shadow-lg shadow-orange-700/10 transition hover:bg-brand-orange/90 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#e28774] px-5 text-xl font-black text-[#1a1a14] shadow-[4px_4px_0px_0px_#f4ebd0] transition hover:bg-[#d97766] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_#f4ebd0] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
         Verify Email
@@ -794,15 +794,15 @@ function VerifyEmailFormContent() {
         type="button"
         disabled={resending || !email}
         onClick={handleResend}
-        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-5 text-sm font-black text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg border-2 border-[#f4ebd0]/30 bg-transparent px-5 text-xl font-black text-[#f4ebd0] transition hover:bg-[#f4ebd0]/10 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {resending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
         Resend Verification Email
       </button>
 
-      <p className="text-center text-sm font-bold text-slate-500">
+      <p className="text-center text-xl font-bold text-[#f4ebd0]/60">
         Already verified?{" "}
-        <Link href="/login" className="text-brand-blue hover:text-brand-dark">
+        <Link href="/login" className="text-[#e28774] hover:text-[#f4ebd0]">
           Login with OTP
         </Link>
       </p>
