@@ -40,7 +40,7 @@ async function authGuard() {
   if (user.role !== UserRole.Student) throw new Error("Not authorized.");
   const dbUser = await UserRepository.findById(user.sub);
   if (!dbUser) throw new Error("User not found.");
-  return { user, dbUser, institutionId: dbUser.institutionId || "" };
+  return { user, dbUser, institutionId: dbUser.institutionId || "", department: dbUser.department || "" };
 }
 
 // ─── Timetable ───────────────────────────────────────────────
@@ -60,12 +60,12 @@ export type TimetableDay = {
 };
 
 export async function getStudentTimetable(): Promise<TimetableDay[]> {
-  const { institutionId, dbUser } = await authGuard();
+  const { institutionId, dbUser, department } = await authGuard();
+  const dept = department ? { department } : {};
 
-  const profile = await AcademicProfileModel.findOne({ userId: dbUser._id });
-  const batch = profile?.batchOrSection || (profile?.toObject() as Record<string, unknown>)?.batchOrSection as string || "default";
+  const batch = (dbUser as unknown as Record<string, unknown>).batch as string || "default";
 
-  const entries = await TimetableEntryModel.find({ institutionId, batch }).sort({ dayOfWeek: 1, startTime: 1 }).lean();
+  const entries = await TimetableEntryModel.find({ institutionId, ...dept, batch }).sort({ dayOfWeek: 1, startTime: 1 }).lean();
 
   const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const days: TimetableDay[] = DAYS.map((label, idx) => ({
@@ -100,8 +100,9 @@ export type SubjectInfo = {
 };
 
 export async function getStudentSubjects(): Promise<SubjectInfo[]> {
-  const { institutionId } = await authGuard();
-  const subjects = await SubjectModel.find({ institutionId }).sort({ semester: 1, name: 1 }).lean();
+  const { institutionId, department } = await authGuard();
+  const dept = department ? { department } : {};
+  const subjects = await SubjectModel.find({ institutionId, ...dept }).sort({ semester: 1, name: 1 }).lean();
   return subjects.map((s) => ({
     id: String(s._id),
     name: s.name,
@@ -124,16 +125,18 @@ export type FacultyInfo = {
 };
 
 export async function getStudentFaculties(): Promise<FacultyInfo[]> {
-  const { institutionId } = await authGuard();
+  const { institutionId, department } = await authGuard();
+  const dept = department ? { department } : {};
 
-  const entries = await TimetableEntryModel.find({ institutionId }).lean();
-  const facultyMap = new Map<string, { subjects: Set<string>; times: Set<string> }>();
+  // Load timetable entries for subject/time data
+  const entries = await TimetableEntryModel.find({ institutionId, ...dept }).lean();
+  const timetableFaculty = new Map<string, { subjects: Set<string>; times: Set<string> }>();
 
   for (const e of entries) {
     if (!e.facultyName) continue;
     const key = `${e.facultyName}|${e.facultyId || ""}`;
-    if (!facultyMap.has(key)) facultyMap.set(key, { subjects: new Set(), times: new Set() });
-    const entry = facultyMap.get(key)!;
+    if (!timetableFaculty.has(key)) timetableFaculty.set(key, { subjects: new Set(), times: new Set() });
+    const entry = timetableFaculty.get(key)!;
     if (e.subjectName) entry.subjects.add(e.subjectName);
     if (e.startTime && e.dayOfWeek !== undefined) {
       const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -141,26 +144,55 @@ export async function getStudentFaculties(): Promise<FacultyInfo[]> {
     }
   }
 
-  // Get faculty user emails (users with role faculty in same institution)
+  // Get faculty users from DB (includes faculty without timetable entries)
   const { UserModel } = await import("@/models/user/schemas/user.schema");
-  const facultyUsers = await UserModel.find({ institutionId, role: "faculty" }).lean();
-  const emailMap = new Map<string, string>();
+  const facultyUsers = await UserModel.find({ institutionId, ...dept, role: "faculty" }).lean();
+
+  const result: FacultyInfo[] = [];
+  const seen = new Set<string>();
+
   for (const f of facultyUsers) {
     const name = displayVal(f.fullName);
-    const email = displayVal(f.email);
-    if (name) emailMap.set(name.toLowerCase(), email);
+    if (!name) continue;
+    const lowerName = name.toLowerCase();
+    const fid = String((f as Record<string, unknown>)._id);
+
+    // Merge with timetable data if available
+    let subjects: string[] = [];
+    let times: string[] = [];
+    for (const [ttKey, ttData] of timetableFaculty) {
+      if (ttKey.split("|")[0].toLowerCase() === lowerName) {
+        subjects = Array.from(ttData.subjects);
+        times = Array.from(ttData.times);
+        break;
+      }
+    }
+
+    result.push({
+      id: fid,
+      name,
+      email: displayVal(f.email),
+      subjects,
+      classTimes: times,
+    });
+    seen.add(lowerName);
   }
 
-  return Array.from(facultyMap.entries()).map(([key, data]) => {
-    const name = key.split("|")[0];
-    return {
-      id: key.split("|")[1] || "",
-      name,
-      email: emailMap.get(name.toLowerCase()) || "",
-      subjects: Array.from(data.subjects),
-      classTimes: Array.from(data.times),
-    };
-  });
+  // Also include faculty found only in timetable (no user doc edge case)
+  for (const [ttKey, ttData] of timetableFaculty) {
+    const name = ttKey.split("|")[0];
+    if (!seen.has(name.toLowerCase())) {
+      result.push({
+        id: ttKey.split("|")[1] || "",
+        name,
+        email: "",
+        subjects: Array.from(ttData.subjects),
+        classTimes: Array.from(ttData.times),
+      });
+    }
+  }
+
+  return result;
 }
 
 // ─── Messages ────────────────────────────────────────────────
@@ -240,10 +272,12 @@ export type NoticeInfo = {
 };
 
 export async function getStudentNotices(): Promise<NoticeInfo[]> {
-  const { institutionId } = await authGuard();
+  const { institutionId, department } = await authGuard();
+  const dept = department ? { department } : {};
   const now = new Date();
   const notices = await NoticeModel.find({
     institutionId,
+    ...dept,
     $or: [{ expiresAt: null }, { expiresAt: { $gt: now } }],
   })
     .sort({ createdAt: -1 })
@@ -329,7 +363,7 @@ export async function getStudentMarksheet(): Promise<MarksheetData> {
   }).lean();
 
   const examOrder = entries
-    .map((e) => ({ name: e.examName, type: e.examName }))
+    .map((e) => ({ name: e.examName, type: e.examType || e.examName }))
     .filter((v, i, a) => a.findIndex((t) => t.name === v.name) === i);
 
   const subjectMap = new Map<string, Map<string, { obtained: number; total: number }>>();
