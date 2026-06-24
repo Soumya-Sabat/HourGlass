@@ -63,6 +63,8 @@ const UserSchema = new Schema(
     classGroup: { type: String, default: "" },
     section: { type: String, default: "" },
     batch: { type: String, default: "" },
+    lastLogin: { type: Date },
+    isActive: { type: Boolean, default: true },
   },
   { timestamps: true },
 );
